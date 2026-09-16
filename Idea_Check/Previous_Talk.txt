@@ -1,0 +1,596 @@
+다음 내용을 보고, 내 아이디어가 시간과 에너지를 들여 연구할만한지 판단하기 위해 봐야하는 논문 4편만 추천해줘.
+
+
+
+# Role & Objective
+당신은 Agentic AI 및 Multi-Agent Systems(MAS) 분야의 전문 연구원입니다.
+아래에 제시된 [연구 아이디어]와 직접적으로 관련되거나, 유사한 메커니즘을 제안한 **최신 학술 논문(arXiv, Top-tier AI 컨퍼런스), 기존 아키텍처, 오픈소스 프레임워크**를 심층 조사해 주세요.
+
+---
+
+### [연구 아이디어 요약]
+- **구조**: Centralized Multi-Agent System (Orchestrator가 Task를 Sub-task로 분해하고 Workflow를 수립하여 Sub-agent에 할당).
+- **문제 인식**: Orchestrator의 초기 Workflow 수립 품질이 전체 Task의 성공/실패와 LLM API 비용/자원 소모를 결정함.
+- **핵심 메커니즘**: 
+  1. Orchestrator가 Workflow를 생성한 직후(또는 실행과 병렬로), 해당 계획의 **성패 가능성 및 병목을 사전 예측하는 전용 검증 Sub-Agent(Predictive Verifier / Plan Evaluator)**를 둔다.
+  2. 예측된 성공 확률이 기준치 미만이거나 치명적 실패 요인이 감지되면, 하위 에이전트들의 고비용 실행을 중단하고 즉시 **Re-orchestration(계획 재생성 및 수정)**을 트리거한다.
+  3. 이를 통해 불필요한 추론 비용을 절감하고 최종 작업 성공률을 높인다.
+
+---
+
+### [조사 요구사항]
+
+1. **유사 선행 연구 및 논문 (최대 4~5편 추천)**
+   - 위 아이디어와 가장 밀접한 논문명, 저자/기관, 발표 연도(2023~현재 중심)
+   - 각 논문에서 제안한 핵심 검증/평가 방식 (예: LLM-as-a-Judge, Value Model, Verifier-guided Search 등)
+   - 본 아이디어와의 공통점 및 차별점
+
+2. **관련 핵심 학술 키워드 및 개념 매핑**
+   - 연구계에서 이 메커니즘을 지칭하는 표준 용어 정리 (예: Pre-execution Verification, Self-Correction, Plan Verification, Early Pruning, Speculative Execution, Cost-aware Agent Orchestration 등)
+
+3. **기존 MAS 프레임워크 적용 현황**
+   - LangGraph, AutoGen, CrewAI, DSPy 등 주요 에이전트 프레임워크에서 유사한 '사전 평가/조건부 롤백(Replanning)' 패턴을 어떻게 지원하거나 구현하고 있는지 간단한 사례
+
+4. **신뢰성 있는 검색을 위한 최적 키워드 세트**
+   - Semantic Scholar, Google Scholar, arXiv 등에서 직접 검색할 때 활용하기 좋은 영어 검색 쿼리(Boolean 연산자 포함) 5개 제시
+
+---
+
+
+Claude의 응답:
+1.
+관련 연구를 찾아보고, 논문별 세부 정보와 프레임워크 문서를 하나씩 확인하겠습니다.결론부터 말씀드리면, 아이디어의 구성요소마다 선행 연구가 이미 있습니다. 실행 없이 성공을 예측하는 연구, 검증 결과로 재계획하는 연구, 비용을 줄이려고 조기에 개입하는 연구가 각각 존재합니다. 그러나 **오케스트레이터가 만든 워크플로우를 실행 직전에 쿼리 단위로 채점하고, 그 확률을 비용 게이트로 써서 재오케스트레이션을 트리거하는 조합**은 제가 찾은 범위에서는 아직 비어 있습니다. 다만 2025–2026년 연구들이 공통으로 "기성 LLM을 그대로 판정자로 쓰면 예측력이 약하고 오경보가 많다"는 결과를 내고 있습니다. 따라서 검증기를 어떻게 만들고 보정하느냐가 이 연구의 핵심 쟁점이 될 것입니다.
+
+## 1. 가장 밀접한 선행 연구 (5개 계열)
+
+**① LLM-Modulo Frameworks** (Kambhampati 외, Arizona State Univ., ICML 2024 position paper)
+- **주장**: 자기회귀 LLM은 단독으로는 계획이나 자기검증을 할 수 없으며, 외부의 모델 기반 검증기와 양방향으로 긴밀히 결합하는 LLM-Modulo 구조가 필요하다고 봅니다.
+- **검증 방식**: LLM이 후보 계획을 만들면 여러 critic이 hard/soft 제약으로 평가합니다. 메타 컨트롤러가 비평을 모아 다음 프롬프트로 되먹이는 generate-test-critique 루프입니다.
+- **공통점**: 생성과 검증을 분리해, 실행 전에 계획을 거르고 재생성시키는 뼈대가 같습니다.
+- **차별점**: 검증기가 시뮬레이터 같은 건전한(sound) 외부 도구이고, 목적이 비용이 아니라 정확성입니다. Predictive Verifier를 LLM으로 만들 경우 이 논문이 비판하는 "자기검증의 함정"을 방어해야 하므로 반드시 인용할 문헌입니다.
+
+**② 워크플로우 성능 예측기: FLORA (2025) → Agentic Predictor (ICLR 2026)**
+- **FLORA** (Yuanshuo Zhang 외, arXiv 2503.11301): 워크플로우를 계산 그래프로 보고 GNN 변형으로 성능을 예측해, 평가를 위한 반복 LLM 호출을 피합니다. 최대 125배 속도 향상을 보고했습니다. 학습 데이터 FLORA-Bench는 코딩·수학·추론 도메인의 약 60만 개 워크플로우-태스크 쌍입니다.
+- **Agentic Predictor**: Trirat·Jeong·Hwang(DeepAuto.ai, KAIST)의 ICLR 2026 논문입니다. 코드 구조, 프롬프트 텍스트, 상호작용 그래프를 다중 뷰로 인코딩하고, 교차 도메인 비지도 사전학습으로 필요한 평가 횟수를 줄입니다. v1 제목은 "Agentic Predictor: Performance Prediction for Agentic Workflows via Multi-View Encoding"입니다.
+- **검증 방식**: 학습된 대리 평가기(surrogate/value model)입니다.
+- **공통점**: "실행 없이 성공 확률을 예측한다"는 점에서 아이디어의 1번 메커니즘과 가장 직접적으로 겹칩니다.
+- **차별점**: 둘 다 최적 워크플로우 구성을 고르는 탐색용 평가기이며, FLORA는 AFlow 프레임워크에 통합되어 있습니다. 쿼리별 런타임 게이트로 쓰인 것은 아닙니다. 또한 한 도메인에서 학습한 GNN은 다른 도메인에서 성능이 떨어졌습니다.
+- **가장 중요한 시사점**: Claude 4 Sonnet, Gemini 2.5 Flash 등 프롬프트 기반 LLM 분류기가 단순 MLP 예측기보다도 못했고, 이는 FLORA-Bench의 선행 결과와도 일치합니다.
+
+**③ VeriMAP: Verification-Aware Planning for Multi-Agent Systems** (Xu(Purdue)·Zhang·Mitra·Hruschka(Megagon Labs), EACL 2026)
+- **문제의식**: 실패가 추론 결함보다 과제 해석, 출력 형식, 에이전트 간 핸드오프의 미세한 불일치에서 자주 생긴다고 봅니다.
+- **검증 방식**: 플래너가 과제를 분해하고 의존성을 모델링하면서, 하위 과제별 통과 기준을 Python과 자연어 검증 함수로 함께 생성합니다. 실행기의 JSON 출력을 이 함수로 검증하고, 재시도와 재계획은 코디네이터가 관리합니다.
+- **공통점**: 중앙집중 플래너, DAG 분해, 검증 실패 시 재계획이라는 구조가 거의 같습니다.
+- **차별점**: 검증 *기준*은 계획 시점에 만들지만 판정은 각 하위 과제 실행 *후*에 합니다. 계획 자체의 성공 가능성은 예측하지 않습니다. 본 아이디어와 결합하면 "계획 수준 사전 게이트 + 서브태스크 수준 사후 게이트"의 2단 구조가 됩니다.
+
+**④ VMAO: Verified Multi-Agent Orchestration** (X. Zhang, Y. Cui 외, 2026, arXiv 2603.11445)
+- **검증 방식**: 질의를 하위 질문 DAG로 분해해 병렬 실행하고, LLM 검증기가 결과의 완결성을 평가해 부족하면 적응적으로 재계획합니다. 품질과 자원 사용의 균형을 맞추는 종료 조건도 설정할 수 있습니다.
+- **결과**: 시장조사 질의 25개에서 단일 에이전트 대비 완결성이 3.1→4.2, 출처 품질이 2.6→4.1(5점 척도)로 올랐습니다.
+- **공통점**: 오케스트레이션 수준의 검증 신호로 재계획을 트리거하고, 비용 대비 품질을 다룬다는 점이 구조적으로 가장 가깝습니다.
+- **차별점**: 검증이 실행 후 결과에 대해 이뤄집니다. 또한 저자들이 평가 셋이 25개로 작고 신뢰구간이 없으며, 판정 모델(Opus 4.5)이 실행 모델(Sonnet 4.5)과 같은 계열이고, 검증과 재계획을 분리한 ablation이 없다고 인정합니다. GAIA 규모의 평가와 구성요소 ablation으로 차별화할 여지가 큽니다.
+
+**⑤ 런타임 조기 개입: SupervisorAgent (ICLR 2026) + AgentForesight (2026)**
+- **SupervisorAgent** (LINs-lab, ICLR 2026): 기존 연구가 사후 실패 귀인에 머문다고 보고, LLM을 쓰지 않는 적응형 필터가 위험 지점을 골라 그때만 개입합니다. GAIA에서 Smolagent의 토큰 소비를 평균 29.68% 줄이면서 성공률을 유지했습니다. 감독 자체의 토큰 오버헤드는 기준선 총 토큰의 약 15.45%, 지연은 평균 37.27% 증가로, 비용 회계의 좋은 참고 사례입니다.
+- **AgentForesight** (Zhang 외, Rutgers·UT Austin·Purdue, arXiv 2605.08715): 감사자가 진행 중인 궤적의 앞부분만 보고 매 스텝 continue/alarm을 판정하는 "온라인 감사"로 문제를 재정의합니다. RL로 학습한 7B 감사 모델이 GPT-4.1과 DeepSeek-V4-Pro를 능가했습니다.
+- **공통점**: 고비용 실행을 조기에 끊어 낭비를 줄인다는 목적이 같습니다.
+- **차별점**: 개입 시점이 실행 중 스텝 단위입니다. 본 아이디어는 실행 0스텝에서 판단하므로 절감 여지는 가장 크지만, 관측할 수 있는 정보는 가장 적습니다.
+
+**함께 볼 보조 문헌**
+- **PlanGEN** (Parmar 외, EMNLP 2025): 제약·검증·선택 에이전트로 구성되며, 제약 기반 반복 검증으로 Best-of-N, ToT, REBASE를 강화합니다. 검증 에이전트가 자연어 피드백과 수치 점수를 함께 내므로 계획 채점 프롬프트 설계에 참고할 만합니다.
+- **AgentMonitor** (2024): MAS 성능을 실행 전에 예측할 수 있는지 묻고, 에이전트 입출력 통계로 학습한 XGBoost가 도메인 내 Spearman 0.89, 어려운 설정에서 0.58을 기록했습니다.
+- **WebDreamer** (TMLR 2025): 되돌릴 수 없는 행동이 많은 웹 환경에서, 월드모델로 각 후보 행동의 결과를 시뮬레이션해 숙고한 뒤 실행합니다. 행동 수준의 simulate-before-act 사례입니다.
+- **Interactive Speculative Planning** (Hua 외, ICLR 2025): 빠른 근사 에이전트가 단계를 먼저 만들고, 강한 타깃 에이전트가 이를 검증·수정합니다. 아이디어의 "실행과 병렬" 변형에 해당하지만 목적은 지연 단축입니다.
+- **Doomed from the Start** (arXiv 2607.06503): 내부 활성값에 대한 경량 probe로 첫 상호작용 라운드부터 최종 실패를 예측하고, 보정된 실패 탐지기로 recall을 통제하는 조기 중단 캐스케이드를 제안합니다.
+- **Magentic-One**: 프로젝트 노트대로 stall 누적 기반의 *반응형* 재계획이므로, 본 아이디어의 가장 자연스러운 baseline입니다.
+
+### 비교 요약: 어디가 비어 있는가
+
+| 연구 | 판단 시점 | 판단 주체 | 판단 대상 | 결과 행동 |
+|---|---|---|---|---|
+| LLM-Modulo | 실행 전 | 외부 sound critic | 계획 | 백프롬프트 재생성 |
+| FLORA / Agentic Predictor | 실행 전 | 학습된 예측기 | 워크플로우 구조 | 후보 선택 (탐색용) |
+| VeriMAP | 서브태스크 실행 후 | 플래너가 만든 검증 함수 | 서브태스크 출력 | 재시도/재계획 |
+| VMAO | 실행 후 | LLM verifier | 집계 결과 | 재계획/종료 |
+| SupervisorAgent / AgentForesight | 실행 중 (스텝) | 필터+LLM / 학습된 7B | 진행 중 궤적 | 교정/알람 |
+| Magentic-One | 실행 중 (stall 누적) | 오케스트레이터 | progress ledger | outer loop 재진입 |
+| **본 아이디어** | **실행 직전** | **전용 Predictive Verifier** | **워크플로우 전체** | **실행 차단 + 재오케스트레이션** |
+
+논문용 포지셔닝 문장은 이렇게 쓸 수 있습니다. "기존 연구는 워크플로우 성능 예측을 탐색 단계에, 검증 기반 재계획을 실행 후에, 조기 개입을 실행 중에 적용했다. 본 연구는 실행 직전 쿼리 단위의 보정된 성공확률을 오케스트레이션 게이트로 사용하고, 그 순비용 효과를 반응형 재계획 대비로 측정한다."
+
+### 선행 연구가 주는 경고 (설계 쟁점)
+
+**첫째, 기성 LLM 판정자는 오경보가 많습니다.** AgentForesight 실험에서 정상 궤적에 대한 오경보율은 자체 7B 모델이 2.37%였지만, DeepSeek-V4-Pro는 43.2%, GPT-4.1은 85.8%였습니다. 이 수치는 매 스텝을 순회하며 한 번이라도 알람이 울리면 세는 방식이라 계획 단위 오탐률과 직접 같지는 않습니다. 그래도 ②의 결과와 합치면 "LLM에게 이 계획이 성공할지 묻는" 순진한 검증기는 약한 baseline일 가능성이 높습니다.
+
+**둘째, 검증기가 이득인지는 대략 다음 부등식으로 판단합니다.**
+
+순이익 ≈ p·TPR·C_waste − C_verify − (1−p)·FPR·C_replan
+
+- p: 초기 계획의 실패 확률
+- TPR / FPR: 검증기가 실패 계획을 잡는 비율 / 정상 계획을 잘못 막는 비율
+- C_waste: 기준선의 반응형 재계획이 실패를 알아채기 전까지 태우는 실행 비용
+- C_verify, C_replan: 검증 비용, 재계획 비용
+
+기준선도 결국 재계획하므로 실패를 맞게 잡은 경우의 재계획 비용은 상쇄된다고 가정했습니다. 대부분의 계획이 정상이면(1−p가 크면) FPR 항이 지배적이 되고, 정상 계획을 더 나쁜 계획으로 바꾸는 품질 위험도 추가됩니다.
+
+절감 여지의 상한을 가늠할 근거도 있습니다. 경고가 발생한 실패 실행에서 난이도 레벨 1–3 기준 평균 54.5%, 63.8%, 46.8%의 토큰이 첫 경고 이후에 소비되었고, 이는 경고가 예산 개입에 충분히 일찍 오는 경우가 많다는 뜻입니다.
+
+**셋째, 임계값은 보정해야 하고, 검증기 장애는 판정과 구분해야 합니다.**
+- 프런티어 에이전트는 실패할 과제에 체계적으로 과낙관적이며, 프롬프트 기반 조기 종료는 손실 통제 없이 성공률과 비용을 맞바꿀 뿐이라는 지적이 있습니다. 따라서 conformal/risk-control 방식으로 오중단률을 통제하는 설계가 필요합니다.
+- CrewAI의 최근 PR에서 공급자 장애나 rate limit 같은 인프라 오류가 검증 실패 판정으로 보고되어 재시도를 소모하던 문제가 지적되었고, 이를 별도 예외(GuardrailExecutionError)로 분리하는 수정이 이뤄졌습니다. Predictive Verifier에서도 검증기 호출 실패가 곧바로 재오케스트레이션으로 이어지지 않게 해야 합니다.
+
+## 2. 핵심 학술 키워드 및 개념 매핑
+
+| 아이디어 요소 | 연구계 표준 용어 | 메모 |
+|---|---|---|
+| 실행 전 계획 검증 | plan verification/validation, pre-execution verification, verification-aware planning, plan critique, generate-test-critique | 외부 검증기임을 강조해 self-verification과 구분 |
+| 성공확률·병목 예측 | agentic workflow performance prediction, success/outcome prediction, MAS predictability, surrogate model, value model, outcome reward model (ORM) | FLORA·Agentic Predictor 계열 |
+| 고비용 실행 중단 | early termination, early abort/exit, online auditing, runtime monitoring/supervision, circuit breaker | 스텝 단위 개입 문헌과 시점 차이를 명시 |
+| 재오케스트레이션 | dynamic/adaptive replanning, plan repair, plan refinement, closed-loop planning, backprompting | Magentic-One의 outer-loop 재진입도 해당 |
+| 비용 절감 | cost-aware / budget-aware agents, token efficiency, LLM cascade, routing | 정확도–비용 파레토로 보고 |
+| 실행과 병렬 검증 | speculative planning, speculative actions/execution, parallel guardrails | 목적이 지연 단축인지 실패 차단인지 구분 |
+| 사전 시뮬레이션 | world model, model-based planning, lookahead, simulate-before-act | WebDreamer 계열 |
+| 임계값 설계 | calibration, conformal prediction, risk control, selective prediction, abstention | 오중단률(false termination) 통제 |
+| "치명적 실패 요인" 정의 | failure attribution, decisive error, failure taxonomy (MAST), Who&When | 조작적 정의에 사용 |
+| 판정자 | verifier, critic, LLM-as-a-judge, Agent-as-a-judge, process reward model (PRM), generator–verifier gap | PRM은 스텝 단위, ORM은 결과 단위 |
+
+Self-Correction, Self-Refine, Reflexion은 대부분 사후적·내재적 교정이므로, 관련 연구 절에서 "본 연구와 다른 축"으로 분리해 두는 것이 좋습니다.
+
+## 3. 주요 프레임워크의 지원 현황
+
+**AutoGen (AgentChat 0.4)**
+- **내장 재계획**: MagenticOneGroupChat은 재계획 전 허용 stall 횟수(max_stalls, 기본 3)와 최대 턴 수(기본 20)를 파라미터로 노출합니다. 즉 진척 없음이 누적된 뒤 발동하는 반응형 구조입니다.
+- **사전 검증 삽입**: 공개 파라미터에는 실행 전 계획 검토 훅이 없습니다. 검증기를 넣으려면 오케스트레이터를 상속해, task ledger 생성 직후와 inner loop 진입 사이에 검증 호출을 끼워야 합니다.
+- **GraphFlow 대안**: DiGraphBuilder는 병렬 fan-out, 조건 분기, 안전 종료 조건이 있는 루프를 지원하고 엣지 조건으로 callable을 받습니다. 다만 실험적 기능으로 API 변경이 예고되어 있습니다. planner → verifier → (planner로 복귀 | 실행) 구성이 가능합니다.
+- **상태**: AutoGen은 유지보수 모드이며, 신규 사용자에게는 Microsoft Agent Framework를 권장합니다.
+
+**Microsoft Agent Framework**
+- **삽입점**: 아이디어에 가장 가까운 지점을 이미 제공합니다. Magentic 매니저가 계획 생성, 에이전트 선택, 진척 모니터링, 재계획 여부 결정을 맡고, 실행 전에 계획을 검토·승인·수정하는 RequirePlanSignoff를 제공합니다. Python 문서에서는 매니저의 계획을 실행 전에 사람이 검토·승인하는 plan review로 설명합니다.
+- **설계 제안**: 이 요청-응답 지점에 사람 대신 검증 에이전트가 응답하게 하면 사전 게이트가 거의 그대로 구현됩니다. 공식 기능이 아니라 제 설계 제안입니다.
+- **주의**: 문서 스스로 원 Magentic-One 구성 밖에서의 성능은 검증되지 않았다고 밝힙니다.
+
+**LangGraph**
+- **구현 방식**: verifier 노드를 두고 조건부 엣지로 "replanner로 복귀 / 실행 노드로 진행"을 분기하는 것이 정석입니다. 튜토리얼의 plan-and-execute 예제(planner → executor → replan)가 출발점으로 적합합니다.
+- **롤백 지원**: 매 스텝 상태를 자동 저장해 임의 지점에서 중단·재개·time travel이 가능하고, 에이전트가 계획한 다음 행동을 사람이 승인·수정하도록 실행을 interrupt할 수 있습니다. 조건부 롤백에 가장 잘 맞습니다.
+- **참고 문헌**: P-t-E 구현 가이드 논문도 LangGraph의 상태 그래프를 재계획의 강점으로 꼽고, 동적 재계획 루프와 DAG 병렬 실행을 고급 패턴으로 다룹니다.
+
+**CrewAI**
+- **계획 기능**: planning=True를 켜면 매 crew 반복 전에 AgentPlanner가 태스크를 단계별로 계획하고, 그 계획을 각 태스크 설명에 덧붙입니다.
+- **한계**: 이슈 #4983에서 이 계획이 실행 결과와 무관하게 갱신되지 않는 정적 계획이라는 점이 제기되었습니다. 각 태스크 후 LLM 평가기가 편차를 판단해 남은 단계만 재계획하는 replan_on_failure / max_replans 플래그가 제안되었습니다. 머지 여부는 사용하는 버전에서 확인이 필요합니다.
+- **검증 수단**: Task Guardrail이 출력이 다음 태스크로 넘어가기 전에 검증·자동교정하며, 함수형과 자연어 기반 LLM 검증을 지원합니다. 이는 출력 수준 사후 검증이므로, 계획 수준 사전 검증은 manager agent나 Flow로 직접 구성해야 합니다.
+
+**DSPy**
+- **해당 모듈**: 오케스트레이션 런타임은 아니지만 "채점 → 임계값 → 재생성"을 가장 짧게 표현합니다. DSPy 2.6에서 Assert/Suggest를 대체한 Refine과 BestOfN은 N회 시도에 도달하거나 reward_fn이 임계값을 넘으면 멈춥니다. Refine은 실패한 시도마다 자동 피드백을 생성해 다음 시도의 힌트로 넣습니다.
+- **매핑**: 플래너 모듈을 Refine으로 감싸고 reward_fn에 검증기의 성공확률을, threshold에 게이트 기준을 넣으면 아이디어의 1–2번이 구현됩니다. 자동 피드백은 LLM-Modulo의 backprompt에 대응합니다.
+
+**(참고) OpenAI Agents SDK**: 입력 guardrail이 에이전트 실행과 병렬로 돌다가 tripwire가 걸리면 실행을 중단시키는 구조입니다. "실행과 병렬 검증" 변형의 레퍼런스로 인용할 만합니다.
+
+## 4. 검색용 Boolean 쿼리 5개
+
+```
+Q1 [실행 전 계획 검증 + 재계획]
+("multi-agent" OR "LLM agent") AND ("plan verification" OR "plan verifier" OR "plan critic" OR "verification-aware planning") AND (replanning OR "re-planning" OR "plan refinement")
+
+Q2 [실행 없는 성공 예측]
+("agentic workflow" OR "multi-agent system") AND ("performance prediction" OR "success prediction" OR "outcome prediction" OR predictability) AND ("large language model" OR LLM)
+
+Q3 [조기 실패 예측·중단과 비용]
+("LLM agent" OR "multi-agent") AND ("early failure prediction" OR "early termination" OR "early abort" OR "online auditing" OR "runtime supervision") AND (token OR cost OR budget)
+
+Q4 [오케스트레이터 수준의 비용 인식 재계획]
+(orchestrator OR "manager agent" OR "centralized planner") AND ("task decomposition" OR workflow) AND ("adaptive replanning" OR "dynamic replanning" OR "plan repair") AND ("cost-aware" OR "budget-aware" OR efficiency)
+
+Q5 [판정자 신뢰도·보정]
+("LLM-as-a-judge" OR verifier OR "process reward model" OR "value model") AND (planning OR "plan evaluation") AND agent AND (calibration OR "false positive" OR "self-verification" OR conformal)
+```
+
+엔진별 사용 팁입니다.
+- **Google Scholar**: AND가 암묵적이므로 생략하고 OR만 대문자로 씁니다. 괄호 해석이 불안정하면 그룹을 줄이고 `intitle:`로 좁히세요.
+- **arXiv 고급 검색**: `abs:`나 `ti:` 필드를 지정하고 cs.MA / cs.AI / cs.CL 분류로 거르세요.
+- **Semantic Scholar**: 웹 검색창은 relevance 기반이라 Boolean이 잘 먹지 않습니다. API의 bulk search 문법(`+`, `|`, `-`, `"..."`)으로 옮기는 편이 정확합니다.
+- **인용 추적**: 이 분야는 키워드보다 인용 추적이 더 효율적입니다. 다음 논문들의 "Cited by"를 2026년순으로 훑어보시길 권합니다.
+  - Magentic-One (2411.04468)
+  - LLM-Modulo (2402.01817)
+  - FLORA (2503.11301)
+  - Who&When (2505.00212)
+  - VeriMAP (2510.17109)
+
+## 프로젝트와의 연결
+
+**baseline 설정**: `autogen-selection-notes.md`의 설계와 이어서 보면, 이 검증기는 MagenticOneOrchestrator의 outer loop 확장으로 넣는 것이 자연스럽습니다. 비교 기준은 "검증기 없음"이 아니라 max_stalls 기반 반응형 재계획이어야 합니다. 그러면 핵심 지표는 두 가지로 정리됩니다.
+- stall 카운터보다 몇 턴·몇 토큰 먼저 실패를 잡았는지(lead time)
+- 오경보로 인한 손실
+
+**학습·평가 데이터**: Who&When이 유용합니다. CaptainAgent 기반 시스템과 수작업 Magentic-One 풀의 궤적이 포함되어 있지만, 실패 궤적만 공개되어 있습니다. 따라서 성공 궤적은 직접 수집해야 합니다.
+
+**실험 설계**: 기존 no-framework baseline 설계에 검증기 on/off 축을 더하면, 검증기 효과가 프레임워크 harness와 독립적인지도 함께 보일 수 있습니다.
+
+더 깊은 조사를 하면 2025–2026년의 워크플로우 성능 예측, 검증 기반 재계획, 조기 중단 논문을 체계적으로 모을 수 있습니다. 그 결과로 각 논문의 벤치마크, 비용 절감률, 오탐률을 한 표로 교차 비교할 수 있습니다.
+
+
+2.
+다른 각도의 검색어로 다시 찾아보겠습니다. 이번에는 이전 답변에서 다루지 않은 "실행 전 예측·게이팅" 계열을 중심으로 보겠습니다.다른 검색어로 다시 찾아보니, 지난 답변에서 "비어 있다"고 한 영역이 생각보다 좁았습니다. 새로 잡힌 연구는 세 갈래입니다.
+- 실행 전에 예측해서 신뢰도 높은 후보만 실제로 실행하는 연구
+- 실행 전에 질의 난이도를 예측해 워크플로우를 구성하는 연구
+- 실패가 예측되면 더 강한 모델로 넘기는 연구
+
+다만 "범용 중앙집중 MAS에서 오케스트레이터가 이미 만든 워크플로우 전체를 실행 직전에 채점하고, 거부되면 재오케스트레이션하는" 형태의 직접적인 선례는 이번에도 찾지 못했습니다.
+
+## 1. 새로 찾은 핵심 문헌
+
+**① ForeAgent: "Can We Predict Before Executing Machine Learning Agents?"** (arXiv 2601.05930, ACL 2026, 코드: zjunlp/predict-before-execute)
+- **검증 방식**: 후보 10개를 한 번에 만들고, 신뢰도 0.7을 기준으로 쌍대 비교해 걸러낸 뒤, 최상위 1개만 실제로 실행해 검증합니다. LLM을 실행 결과를 짐작하는 "암묵적 월드모델"로 쓰는 Predict-then-Verify 루프입니다.
+- **결과**: 18,438개 쌍대 비교에서 DeepSeek-V3.2-Thinking이 61.5%, GPT-5.1이 58.8%를 기록해, 무작위(50.0%)와 "복잡할수록 좋다" 휴리스틱(50.8%)을 넘었습니다. 에이전트에 통합하자 실행 시간 1/6 만에 최고 성능에 도달했고(약 6배 가속), 같은 시간에 3.2배 많은 노드를 탐색했으며, 기준선 대비 평균 6% 개선됐습니다.
+- **공통점**: 비싼 실행 전에 예측하고, 신뢰도 게이트를 통과한 것만 실행한다는 구조가 아이디어의 1–2번과 거의 같습니다.
+- **차별점**: ML 엔지니어링 도메인에서 후보 코드끼리 우열을 가리는 *선택기*이며, 단일 계획을 거부하고 재계획하는 구조는 아닙니다.
+- **시사점**: 쌍대 정확도가 60% 안팎인데도 큰 가속이 나왔습니다. 예측기가 약해도 거부권(veto)이 아니라 "후보 순위화 + 상위 1개만 실행"으로 쓰면 경제성이 생길 수 있다는 뜻입니다.
+
+**② DAAO: Difficulty-Aware Agentic Orchestration** (Su 외, ACM Web Conference 2026, arXiv 2509.11079)
+- **검증 방식**: VAE 기반 난이도 추정기, 모듈형 연산자 할당기, 비용·성능을 함께 따지는 LLM 라우터로 구성됩니다. 워크플로우 성공 여부에 따라 난이도 추정을 스스로 조정합니다. 추정기는 질의마다 0~1 사이의 보정된 난이도를 내고, 이 값이 연산자 선택, 워크플로우 깊이, 백본 모델 배정을 결정합니다.
+- **결과**: GAIA를 포함한 6개 벤치마크에서 평가했습니다. 정확도는 최대 11.21% 높이고 추론 비용은 최대 36% 줄였다고 보고합니다.
+- **공통점**: 실행 전, 쿼리 단위, 비용 인식이라는 세 조건을 모두 만족합니다.
+- **차별점**: 예측 대상이 "완성된 계획의 성공 가능성"이 아니라 "질의 난이도"이고, 워크플로우를 *만들기 전에* 씁니다(predict-then-construct). 본 아이디어는 construct-then-verify이므로, DAAO식 난이도 추정을 앞단에 두고 검증기를 뒤에 붙이는 결합도 가능합니다.
+
+**③ Atropos** (Naryeong Kim 외, arXiv 2604.15075, 2026-04)
+- **검증 방식**: 여러 추론 경로를 하나의 그래프로 합친 뒤, GCN으로 진행 중인 추론이 결국 성공할지 예측합니다. 실패가 예상되면 LLM 질의가 상태를 갖지 않는다는 점을 이용해, 진행 중인 문맥을 더 강한 원격 LLM으로 옮겨 이어 실행(hotswap)합니다.
+- **결과**: 추론 중간 지점에서 0.85 정확도로 실패를 예측했습니다. 실패할 추론의 최대 27.57%를 성공으로 바꿨고, 상용 LLM 성능의 74.35%를 비용 23.9%로 달성했습니다.
+- **공통점**: 실패 예측 → 고비용 경로 중단 → 교정이라는 흐름이 같습니다.
+- **차별점**: 교정 행동이 재계획이 아니라 모델 교체이고, 예측 시점이 실행 중간입니다. 교정 행동의 종류(재오케스트레이션 / 모델 교체 / 중단)를 ablation 축으로 둘 때 좋은 비교 대상입니다.
+
+**④ Plan-then-Execute 구현 가이드의 Verifier 구성요소** (Del Rosario·Krawiecka·Schroeder de Witt, arXiv 2509.08646)
+- **내용**: 고급 구현에서는 선택적으로 Verifier를 둡니다. Executor가 시작하기 전에 Planner의 출력이 논리적으로 타당한지, 보안 규정과 목표·제약에 맞는지 점검합니다. 검증자는 사람, 다른 LLM, 규칙 기반 소형 모델, 정적 분석 엔진 중 하나일 수 있다고 설명합니다.
+- **공통점**: "실행 전 전용 검증 에이전트"가 아키텍처 구성요소로 이미 이름 붙어 있습니다.
+- **차별점**: 보안·논리 점검 중심의 설계 가이드일 뿐, 성공확률 예측이나 비용 절감을 실험으로 보이지 않습니다. 관련 연구 절에서 "패턴은 제시됐지만 예측·비용 측면의 평가는 없다"는 근거로 쓰기 좋습니다.
+
+**⑤ Magentic-UI** (Microsoft Research, arXiv 2507.22358). AutoGen 기반이라 프로젝트와 직접 연결됩니다.
+- **내용**: 사용자는 어떤 행동이든 실행되기 전에 계획 편집기나 텍스트 피드백으로 계획을 수정할 수 있습니다. 시스템은 AutoGen의 Magentic-One을 변형한 에이전트 팀이고, Orchestrator가 사용자와 함께 계획을 세웁니다(co-planning). 행동 단위로는 개발자가 정한 비가역성 휴리스틱과 LLM 판정자를 결합한 2단계 ActionGuard를 둡니다.
+- **공통점**: Magentic-One 계열 오케스트레이터에 "실행 전 계획 검토 게이트"를 실제로 구현한 사례입니다.
+- **차별점**: 계획 검토자가 사람이며, 다른 연구도 Magentic-UI가 검증을 사람 피드백에 크게 의존한다고 지적합니다. 특히 자동 평가 때는 co-planning을 꺼서 계획을 승인 없이 채택하고, action guard도 전부 자동 승인합니다. 자율 모드에서는 사전 게이트가 사라지므로, 그 자리를 Predictive Verifier로 채우는 것이 곧 본 연구의 기여가 됩니다.
+
+**⑥ Agent Planning Benchmark (APB)** (arXiv 2606.04874)
+- **내용**: ToolSandbox와 τ²-bench 각 200개 과제에서 세 방식을 비교했습니다: 바로 실행, 계획 후 실행, APB 진단 기반 계획 수정. 수정된 계획이 일관되게 실행 성과를 높였습니다. 계획 전체 수준에서는 추론 시 수정이 효과적이었지만, 짧은 스텝 단위 결정은 이득이 적고 과교정 위험이 있었습니다.
+- **시사점**: "실행 전 계획 진단 → 수정 → 성과 향상"의 연결을 실증한 근거입니다. 검증기를 스텝 단위가 아니라 워크플로우 전체 수준에 두는 설계도 뒷받침합니다.
+
+## 2. 설계 판단에 쓸 보조 근거
+
+**LLM은 자기 성공·비용을 잘 예측하지 못한다**
+- **BAGEN** (Lin 외, arXiv 2606.00198): 프런티어 모델은 일관되게 과낙관적이어서, 성공 가능성이 낮은 과제에도 비용을 계속 씁니다. 에이전트 성능과 예산 인식의 상관은 r=0.35에 그쳤습니다.
+  - 실패한 궤적에서도 예산의 60%를 쓴 뒤까지 "가능하다"는 예측이 70%를 넘었고, 마지막 20% 구간에서야 급락했습니다.
+  - 반면 이진 실현가능성 판단은 SFT만으로 25.5%에서 약 90%로 올랐습니다. 남은 비용의 구간 추정은 SFT+RL 후에도 커버리지 47%에 머물렀습니다.
+  - 즉 "될까/안 될까"는 학습으로 풀리지만, "얼마나 들까"는 어렵습니다.
+- **토큰 소비 예측 연구** (Bai 외, arXiv 2604.22750): 같은 과제도 실행마다 총 토큰이 최대 30배 차이 났고, 토큰을 더 써도 정확도가 오르지 않았습니다. 프런티어 모델은 자기 토큰 사용량을 약한 상관(최대 0.39)으로만 예측했고, 체계적으로 과소추정했습니다. 검증기의 병목·비용 예측을 LLM 자기보고에 맡기면 안 되는 근거입니다.
+- **Plan-RewardBench** (arXiv 2604.08178): 강한 모델도 좋은 실행과 그럴듯한 "근소한 실패"를 잘 구분하지 못했습니다. 저자들은 비교 맥락 없이 절대 점수를 매기는 판정자가 노이즈와 편향(장황함 선호 등)에 취약할 가능성이 크다고 봅니다. 단일 계획에 절대 확률을 매기기보다 후보 간 비교가 안정적일 수 있습니다.
+- **ALAS** (arXiv 2511.03094): 제안자가 자기 계획을 스스로 승인하는 순환 검증을 LLM 계획의 구조적 한계로 꼽고, 계획과 검증을 분리합니다.
+
+**임계값을 통계적 보증과 함께 설계하기**
+- **Pro2Guard** (Wang·Poskitt·Sun·Wei, arXiv 2508.00500, 현재는 ProbGuard로 이름 변경): 에이전트 행동을 기호 상태로 추상화하고, 실행 궤적에서 이산시간 마르코프 체인(DTMC)을 학습합니다. 런타임에 위험 확률이 사용자 임계값을 넘으면 위반 전에 개입하며, PAC 정확성 보증을 목표로 설계됐습니다. 개입 방식은 실행 중단, 사용자 확인, LLM 자기평가 중에서 고르고, 판단당 오버헤드는 5–30ms입니다. LLM 없이 싼 확률 모델로 게이트를 만드는 참고 사례입니다.
+- **조기 중단 계열**: Doomed from the Start의 recall 통제 캐스케이드는 지정한 성공 recall을 유지하면서 생성 토큰을 최대 60% 줄였습니다. EarlyEval은 과거 궤적으로 학습한 성공/실패 분류기로 평가 실행의 스텝을 최대 26%, 입력 토큰을 최대 44% 절감했습니다.
+- **Calibrate-Then-Act** (Ding·Tomlin·Durrett, arXiv 2602.16699): LLM이 비용과 불확실성의 균형을 명시적으로 따지게 하는 프레임워크입니다. 예를 들어 코드 정답을 확신하지 못하면, 테스트 비용이 실수 비용보다 싸므로 테스트해야 한다는 식입니다. 보정된 사전분포를 제공하자 더 나은 탐색 전략을 찾았습니다. "언제 검증기를 부를 가치가 있는가"를 의사결정 문제로 정식화할 때 참고할 만합니다.
+
+**값싼 정적·형식 검증 층**
+- **MermaidFlow** (Zheng 외, A*STAR, ICML 2025): 워크플로우를 Mermaid 그래프 언어라는 검증 가능한 중간 표현으로 나타냅니다. 역할 일관성이나 타입 안전성 같은 그래프 수준 제약을 실행 전에 강제합니다.
+- **형식 계획 검증** (Ramani 외, J.P. Morgan AI Research, ASE 2025 AgenticSE 워크숍): LLM으로 자연어 계획을 Kripke 구조와 LTL로 바꾼 뒤 모델 체킹하며, GPT-5가 F1 96.3%를 기록했습니다. 다만 단순화한 PlanBench에서의 결과이고, 의미적으로 완벽한 형식 모델을 만드는 것은 과제로 남았습니다.
+
+**문제의식 근거: 병목은 오케스트레이터**
+- **Recognize Your Orchestrator** (Zhu 외, 난징대, ICML 2026): 시스템 실패가 개별 실행 에이전트보다 오케스트레이터에서 비롯되는 경우가 많다는 결과를 냈습니다. 또 추론 특화 모델이 단독 과제에는 강해도, 문맥 압박 때문에 오케스트레이터로서는 자주 실패하는 "Reasoning Trap"을 보고했습니다. 서론의 동기 문단에 바로 쓸 수 있습니다.
+
+**비용 회계 주의점**
+- **ELHPlan** (arXiv 2509.24230): 선제적 재계획은 실패를 미리 대비하려고 토큰을 더 쓰는 대신 시뮬레이션 스텝을 크게 줄였습니다. 이 기능을 끄면 스텝은 44.4% 늘고 토큰 비용(TC)은 52.0% 줄었습니다. 선제적 검증·재계획은 LLM 토큰을 늘리고 도구·환경 실행을 줄일 수 있으므로, 두 비용을 분리해 보고해야 순이익이 드러납니다.
+
+**서베이 (강력 추천)**: *From Static Templates to Dynamic Runtime Graphs* (Yue 외, RPI·IBM Research, arXiv 2603.22386)
+- 문헌을 두 축으로 분류합니다: 워크플로우 구조가 언제 결정되는지(offline / pre-execution / in-execution), 추론 중 얼마나 바뀔 수 있는지(none / select / generate / edit).
+- 검증기는 싸면서 의미 있는 신호를 줄 때 이득이 가장 크다고 봅니다. 핵심 설계 질문은 검증기를 쓸지 말지가 아니라 어디에, 얼마나 자주 두느냐라고 정리합니다.
+- 재계획 능력이 통제 불능의 비용 증가로 번질 수 있으므로, 동적 방법은 엄격한 예산 상한 아래에서도 평가해야 한다고 권고합니다.
+- 이 서베이의 어휘로는 본 아이디어를 "pre-execution 단계에서 생성된 realized graph에 verifier 게이트를 두고, 실패 시 재생성하는 방법"으로 위치시킬 수 있습니다.
+- 저자들이 정리한 논문 목록(IBM/awesome-agentic-workflow-optimization)도 공개되어 있습니다.
+
+## 3. 갱신된 포지셔닝과 설계 제안
+
+| 계열 | 대표 연구 | 판단 시점 | 판단 대상 | 부정 판정 시 행동 |
+|---|---|---|---|---|
+| 사전 난이도 추정 | DAAO | 워크플로우 생성 전 | 질의 난이도 | 구성·모델 배정 조정 |
+| 사전 후보 순위화 | ForeAgent | 실행 전 | 후보 간 우열 | 상위 1개만 실행 |
+| 사전 구조 검증 | MermaidFlow, 형식 검증 | 실행 전 | 구조·형식 제약 | 후보 폐기 |
+| 사람 사전 검토 | Magentic-UI, MS AF plan review | 실행 전 | 계획 전체 | 사람이 수정 |
+| 실행 중 실패 예측 | Atropos, AgentForesight, ProbGuard | 실행 중 | 최종 성패·위험 | 모델 교체 / 알람 / 중단 |
+| 사후 검증-재계획 | VeriMAP, VMAO | 실행 후 | 출력·완결성 | 재시도·재계획 |
+| **본 아이디어** | — | **생성 후·실행 전** | **완성된 워크플로우의 성공확률·병목** | **실행 차단 + 재오케스트레이션** |
+
+**갱신된 포지셔닝 문장**: "Magentic-UI와 Plan-then-Execute 가이드는 실행 전 계획 게이트를 사람 검토나 개념적 구성요소로만 두었다. 본 연구는 이 게이트를 학습·보정된 예측기로 자동화하고, 그 순비용 효과를 반응형 재계획(Magentic-One) 및 다른 교정 행동(모델 교체, 난이도 기반 구성)과 비교해 측정한다."
+
+**설계 제안: 3단 캐스케이드** (이번 문헌들을 종합한 제 제안입니다)
+1. **정적 구조 검증**: MermaidFlow식 타입·역할 일관성 검사로, 비용이 거의 들지 않습니다.
+2. **학습된 경량 예측기**: FLORA·Agentic Predictor식 그래프 인코딩으로 성공 여부를 이진 판정합니다. BAGEN 결과상 이진 판단은 학습으로 크게 개선됩니다.
+3. **LLM 판정자**: 2단계 판단이 불확실할 때만 부릅니다. 가능하면 단일 계획 채점보다 K개 후보의 쌍대 비교를 씁니다(ForeAgent, Plan-RewardBench 근거).
+
+임계값은 오중단률을 통제하는 방식(Doomed의 recall 통제, ProbGuard의 PAC 보증)으로 정하는 것이 좋습니다. 교정 행동은 재오케스트레이션 / 모델 교체(Atropos) / 후보 재선택(ForeAgent)을 ablation으로 비교하면 기여가 선명해집니다.
+
+참고로 Magentic-UI 관련 보도에서는 사람의 간단한 개입만으로 과제 완료율이 30.3%에서 51.9%로 올랐다고 합니다. 다만 이 개입에는 실행 중 도움도 포함되므로, "완벽한 사전 검토자"의 대략적 상한 참고치로만 보는 것이 안전합니다.
+
+## 4. 프레임워크 적용 현황 보강
+
+- **AutoGen 생태계**: 지난 답변대로 MagenticOneGroupChat 자체에는 계획 검토 파라미터가 없습니다. 하지만 Magentic-UI가 같은 Magentic-One 계열 위에 실행 전 co-planning 게이트를 구현해 두었으므로, 사람 승인 지점을 검증기 호출로 바꾸는 참조 구현으로 쓰기 좋습니다. 연구 프로토타입이라 코드 구조는 저장소에서 직접 확인해야 합니다.
+- **LangChain/LangGraph**: ProbGuard는 런타임 모니터링과 개입 메커니즘을 LangChain 위에 구현한 코드를 재현용으로 공개했습니다. 확률 임계값 게이트를 LangGraph 노드로 옮기는 출발점이 될 수 있습니다.
+- **코드가 공개된 예측기**: ForeAgent(zjunlp/predict-before-execute)와 지난번의 FLORA-Bench가 있어, 캐스케이드 2단계의 baseline으로 바로 쓸 수 있습니다.
+
+## 5. 키워드·검색 쿼리 보강
+
+이번에 새로 확인한 표준 용어입니다.
+
+| 개념 | 용어 |
+|---|---|
+| 실행 전 예측 후 선별 실행 | predict-then-verify, predict before executing, implicit world model, confidence-gated selection |
+| 실행 전 워크플로우 구성 | pre-execution workflow generation, construct-then-execute, query-level / query-specific workflow, graph determination time |
+| 난이도 기반 오케스트레이션 | difficulty-aware orchestration, cost-aware LLM routing |
+| 예산 인식 | budget-awareness, progressive interval estimation, token consumption prediction |
+| 실패 예측 후 교정 | early termination, model hotswap / escalation, early outcome prediction |
+| 보증 있는 임계값 | probabilistic model checking, DTMC, PAC guarantee, recall-controlled abort |
+| 판정 방식 | trajectory-level reward modeling, pairwise preference judgment, circular verification |
+
+추가 쿼리 3개입니다.
+
+```
+Q6 [예측 후 실행]
+("predict-then-verify" OR "predict before executing" OR "implicit world model") AND (agent OR "multi-agent") AND (execution OR cost OR efficiency)
+
+Q7 [실행 전 워크플로우 구성·난이도 예측]
+("query-level" OR "query-specific" OR "difficulty-aware") AND ("agentic workflow" OR "multi-agent") AND (orchestration OR "pre-execution") AND (cost OR routing)
+
+Q8 [자기예측의 한계와 예산 인식]
+("budget-aware" OR "budget awareness" OR "token consumption") AND ("LLM agent" OR "AI agent") AND (predict OR estimation OR "over-optimistic" OR feasibility)
+```
+
+## 지난 답변 정정
+
+- **CrewAI 가드레일 오류 분리**: "수정이 이뤄졌다"고 썼지만, 제가 확인한 것은 PR(#7156) 단계입니다. 머지 여부는 사용하는 버전에서 확인해야 합니다.
+- **프런티어 에이전트의 과낙관**: 지난번에는 Doomed from the Start 논문의 관련 연구 절을 통해 2차 인용했습니다. 1차 문헌은 위의 BAGEN이므로, 논문에는 BAGEN을 인용하시는 것이 맞습니다.
+
+## 프로젝트 관점의 우선순위
+
+- **구현**: AutoGen 스택에서는 Magentic-UI의 co-planning 지점이 가장 가까운 삽입점입니다.
+- **서론 근거**: Recognize Your Orchestrator와 BAGEN이 연구 동기와 "왜 LLM 자기판정이 아닌 별도 검증기인가"를 받쳐 줍니다.
+- **반드시 차별점을 적을 연구**: ForeAgent와 DAAO입니다. "왜 거부 후 재계획인가"를 방어하려면 이 두 연구와의 차이를 명확히 써야 합니다.
+
+
+
+ChatGPT의 응답:
+1. 
+## 1. Key Terms & Definitions
+
+**가장 직접적인 선행연구는 AOP(ICLR 2025)입니다.** 이미 “Orchestrator가 작업을 분해·할당 → 실제 하위 에이전트 호출 없이 해결 가능성 평가 → 낮은 평가에서 재할당·재계획”을 제안했습니다. 따라서 **검증 에이전트를 추가한다는 구조만으로 차별화하기는 어렵고, 무엇을 예측하고 어떤 비용 기준으로 실행을 중단하는지가 중요합니다.** 
+
+*조사 기준: 2026년 9월 16일. 아래에서는 학회 게재 논문과 arXiv 공개 논문을 구분했습니다.*
+
+| 연구계 용어 | 의미와 제안 아이디어의 대응 |
+|---|---|
+| **Agent-oriented planning / Orchestrator-workers** | 중앙 계획자가 작업을 분해하고, 각 하위 작업을 적절한 에이전트에 할당하는 구조입니다. AOP와 LangGraph의 해당 패턴이 직접 대응합니다.  |
+| **Plan verification** | 생성된 계획의 도구 선택·의존관계·누락 등을 검사합니다. “실행 전 검사”를 찾을 때 가장 직접적인 검색어입니다.  |
+| **Reward model / Predictive value model** | 고비용 실행 결과를 직접 얻는 대신, 작업·에이전트·구조 등의 입력으로 품질을 예측합니다. AOP와 AgentSwift가 해당합니다.  |
+| **Online auditing / Early failure prediction** | 실행 중 현재까지의 기록만 보고, 이후 실패로 이어질 결정적 오류를 조기에 탐지합니다. AgentForesight가 직접 대응합니다.  |
+| **Verification-aware planning / Replanning** | 계획에 검증 조건을 포함하고, 검증 실패를 재시도·재계획으로 연결합니다. 단, 검증 조건을 미리 만든다고 실제 판정까지 실행 전인 것은 아닙니다.  |
+| **Evaluator-optimizer** | 생성 결과를 별도 평가자가 검토하고 피드백으로 수정하는 일반적 구조입니다. 평가 대상이 답변인지, 실행 전 계획인지 구분해야 합니다.  |
+
+## 2. Motivation & Problem Statement
+
+제안한 아이디어는 다음 세 질문으로 나누어야 선행연구와 정확히 비교할 수 있습니다.
+
+**무엇을 예측하는가?** 하위 작업의 해결 가능성, 계획의 구조적 타당성, 전체 작업의 최종 성공 확률은 서로 다른 목표입니다. AOP는 첫 번째, GNNVerifier는 두 번째에 가깝습니다. 두 논문의 점수를 곧바로 **전체 MAS의 보정된 성공 확률**로 해석해서는 안 됩니다. 
+
+**언제 개입하는가?** 실행 전 계획 검사, 실행 중 오류 탐지, 하위 작업 실행 후 결과 검증을 구분해야 합니다. 특히 병렬 검증에서는 경고가 도착하기 전에 이미 사용한 비용이 발생하므로, “일찍 발견했다”와 “실제로 비용을 절감했다”는 별도의 주장입니다.
+
+**재계획이 정말 유리한가?** 연구 가설은 단순히 “성공 확률이 낮으면 중단”이 아니라, **계속 실행하는 것보다 재계획이 성공률과 남은 비용 측면에서 유리한 상황을 식별할 수 있는가**로 설정하는 편이 명확합니다.
+
+## 3. Compare with Previous Works
+
+### ① AOP — 구조와 개입 방식이 가장 가까운 선행연구
+
+**[Agent-Oriented Planning in Multi-Agent Systems, Ao Li 외, ICLR/2025]**  
+기관: HKUST·HKUST(Guangzhou), Alibaba Group, Southeast University. 최초 arXiv 공개는 2024년입니다. 
+
+**방식:** Meta-agent가 작업을 분해·할당한 뒤, 학습된 **reward model**이 `(하위 작업, 에이전트 설명)`으로 예상 응답 품질을 평가합니다. 실행 시 실제 에이전트를 호출할 필요가 없습니다. 점수가 낮으면 다른 에이전트로 재할당하고, 모든 후보의 점수가 매우 낮으면 해당 하위 작업을 재계획합니다. 별도 LLM detector는 전체 계획의 누락·중복·의존관계를 검사합니다. 
+
+**공통점과 차이:** 제안의 **사전 예측 → 조건부 재계획**이 이미 핵심 메커니즘입니다. 다만 학습된 평가의 중심은 하위 작업–에이전트 적합성이며, 전체 workflow의 성공 확률과 남은 실행 비용을 함께 사용하는 중단 정책과는 구분됩니다.
+
+### ② GNNVerifier — 전체 계획의 구조적 위험 평가와 부분 수정
+
+**[GNNVerifier: Graph-based Verifier for LLM Task Planning, Yu Hao 외, arXiv/2026.03]**  
+기관: Beijing University of Posts and Telecommunications, Ant Group. 
+
+**방식:** 계획을 방향 그래프로 표현하고, **GNN**으로 전체 계획의 *plausibility score*와 노드·간선별 위험 점수를 출력합니다. 잘못된 도구 선택, 중간 단계 누락, 끊어진 의존관계를 탐지하며, 전체 점수가 부족하면 LLM이 문제 구간의 도구를 교체하거나 단계를 삽입합니다. 학습 데이터는 정답 계획에 통제된 오류를 주입해 구성합니다. 
+
+**공통점과 차이:** **실행 전 계획 평가 → 실패 위치 식별 → 조건부 수정**이라는 점에서 매우 가깝습니다. 따라서 “전체 workflow를 평가한다”는 주장만으로도 차별화가 충분하지 않습니다. 다만 논문은 도구 계획의 구조적 품질을 평가하며, 위험 점수는 실제 MAS 최종 성공 확률이나 실행시간 병목 예측과 동일하지 않습니다.
+
+### ③ AgentForesight — 실행 중 독립 평가자에 의한 조기 경고
+
+**[AgentForesight: Online Auditing for Early Failure Prediction in Multi-Agent Systems, Boxuan Zhang 외, arXiv/2026.05]**  
+기관: Rutgers University, UT Austin, Purdue University. 
+
+**방식:** 별도의 **7B auditor**가 현재까지의 실행 기록만 읽고 `CONTINUE` 또는 `ALARM`을 판단합니다. 여러 LLM judge의 합의로 결정적 오류 위치를 표시한 데이터를 만들고, 두 단계 강화학습으로 오류 경계와 발생 위치·책임 에이전트 식별을 학습합니다. 
+
+**공통점과 차이:** 제안한 **실행 중 검증**의 직접 비교 대상입니다. 그러나 초기 계획만으로 미래 성공 여부를 평가하는 방식은 아닙니다. 주요 실험은 조기 오류 탐지와 위치 식별을 평가하므로, **경고 후 재계획까지 연결했을 때의 최종 성공률·순비용 절감은 별도 입증이 필요합니다.** 
+
+### ④ VeriMAP — 검증 실패에서 재계획까지 연결한 중앙집중형 MAS
+
+**[Verification-Aware Planning for Multi-Agent Systems, Tianyang Xu 외, EACL/2026]**  
+기관: Megagon Labs, Purdue University. 최초 arXiv 공개는 2025년 10월입니다. 
+
+**방식:** Planner·Executor·Verifier·Coordinator로 구성됩니다. Planner가 DAG 형태의 계획과 하위 작업별 **Verification Functions**를 함께 생성합니다. 검증은 Python 검사 또는 LLM의 자연어 평가로 수행하며, 실패하면 재시도하고, 재시도 한도를 넘으면 Coordinator가 재계획합니다. 
+
+**공통점과 차이:** 중앙 계획자, 별도 검증자, 실패 피드백, 재계획이라는 시스템 구성이 가깝습니다. **검증 기준은 계획 단계에서 만들지만, 실제 검증은 하위 작업 실행 후 수행합니다.** 따라서 최초 worker 실행 비용을 사전에 피하는 연구는 아닙니다.
+
+### ⑤ AgentSwift — 실행을 대체하는 성능 예측과 비용 절감
+
+**[AgentSwift: Efficient LLM Agent Design via Value-Guided Hierarchical Search, Yu Li 외, AAAI/2026]**  
+기관: Tsinghua University, Shandong University, Huawei Noah’s Ark Lab. 
+
+**방식:** 에이전트 구조와 작업 설명을 입력받는 **predictive value model**을 학습해, 비싼 실제 성능 평가를 일부 대체합니다. 예측 성능과 불확실성을 이용한 계층적 **Monte Carlo Tree Search**로 workflow와 memory·planning·tool 구성을 탐색합니다. 
+
+**공통점과 차이:** **비싼 실행 전에 저렴한 모델로 성능을 추정한다**는 비용 절감 원리가 같습니다. 그러나 주된 대상은 요청별 실행 제어가 아니라 **에이전트 구조를 설계·탐색하는 과정의 평가 비용**입니다.
+
+공개 구현의 출발점으로는 `lalaliat/Agent-Oriented-Planning`과 `BUPT-GAMMA/GNNVerifier`가 있습니다. 저장소 README를 확인했으며, 코드를 직접 실행해 재현성을 검증하지는 않았습니다.  
+
+## 4. Key Observation & Method
+
+**핵심 관찰은 “평가 기능의 존재”와 “예측에 근거한 실행 제어 정책”을 분리해야 한다는 것입니다.** 아래 기능으로 구조는 구현할 수 있지만, 평가 모델과 개입 기준은 직접 설계해야 합니다.
+
+| 프레임워크 | 실제 지원과 제안 아이디어에 적용하는 예 |
+|---|---|
+| **LangGraph** | 공식적으로 orchestrator-worker와 evaluator-optimizer 패턴을 제공합니다. 적용 예는 `Planner → Evaluator → 조건부 분기`이며, 통과하면 `Send`로 worker에 할당하고 실패하면 `add_conditional_edges`로 Planner에 피드백을 돌려주는 구성입니다.  |
+| **AutoGen** | **Magentic-One**의 Orchestrator는 Task Ledger와 Progress Ledger로 계획·진행을 관리하며, 진행이 정체되면 계획을 수정합니다. 이는 실행 중 피드백 기반 재계획입니다. 제안처럼 최초 실행 전에 예측하려면 별도 evaluator와 실행 승인 분기를 추가해야 합니다.  |
+| **CrewAI** | **Flows의 `@router()`**로 평가 결과에 따라 실행·재계획을 분기할 수 있습니다. `guardrail`은 task의 **출력**을 검사하므로, 이를 계획 생성 task에 붙이면 worker 실행 전 계획 검사가 됩니다. worker task에 붙이면 실행 후 검사입니다.  |
+| **DSPy** | **`dspy.Refine`**으로 Planner 모듈을 감싸고 `reward_fn`·`threshold`로 평가·수정을 반복할 수 있습니다. 단, 시도 한도까지 기준을 충족하지 못해도 최선의 후보가 반환될 수 있으므로, **반환된 계획을 실행할지 판단하는 최종 조건은 별도로 필요합니다.**  |
+
+여기서 **재계획과 외부 작업의 rollback은 다릅니다.** 예컨대 LangGraph도 중단 후 재실행되는 구간의 외부 효과에 대해 멱등성을 요구합니다. 병렬형 구현에서는 이미 전송한 이메일·수정한 데이터의 복구와 진행 중 worker의 취소를 별도로 설계해야 합니다. 
+
+## 5. Conclusion & Impact
+
+**선행연구 대비 유망한 방향은 “계획 검증자 추가”가 아니라, 검증 결과를 실제 비용 절감으로 연결하는 정책입니다.** AOP는 사전 해결 가능성 평가, GNNVerifier는 계획 전체의 구조적 진단, AgentForesight는 실행 중 조기 경고를 이미 다룹니다. 이를 고려하면 다음 연구 질문이 더 명확합니다. 
+
+> **전체 작업의 성공 가능성과 남은 실행 비용을 함께 추정해, 계속 실행·부분 수정·재할당·재계획 중 유리한 선택을 할 수 있는가?**
+
+또한 “병목”을 **논리적 실패 지점**과 **실행시간·비용이 집중되는 지점**으로 분리하는 것이 좋습니다. 전자는 GNNVerifier와 비교해야 하고, 후자까지 예측하려면 별도의 실행 비용·시간 자료와 검증이 필요합니다.
+
+**직접 검색할 영어 쿼리 5개**
+
+| 목적 | Boolean 검색식 |
+|---|---|
+| 가장 가까운 중앙 계획 연구 | `("multi-agent" OR "multiagent") AND ("agent-oriented planning" OR "task decomposition") AND ("reward model" OR "plan verification")` |
+| 실행 전 검증과 계획 수정 | `("LLM agent" OR "language model agent") AND ("pre-execution verification" OR "plan verification") AND (replanning OR "plan repair")` |
+| 실행 중 조기 실패 탐지 | `("multi-agent" OR "agentic workflow") AND ("early failure prediction" OR "online auditing") AND (intervention OR "early stopping")` |
+| 실행을 대체하는 예측 모델 | `("agent design" OR "agent workflow") AND ("predictive value model" OR "surrogate model") AND ("evaluation cost" OR "value-guided search")` |
+| 비용을 고려한 검증·중단 | `("multi-agent" OR "agentic workflow") AND ("cost-aware" OR "budget-aware") AND (verification OR pruning OR replanning)` |
+
+이 검색식은 검색 조건의 논리적 조합입니다. **Semantic Scholar는 Boolean 연산자를 지원하지 않으므로**, 연산자를 제거하고 OR의 각 대안을 나누어 검색해야 합니다. 따옴표를 이용한 구문 검색은 지원합니다. 
+
+## 6. Result & Falsifiability
+
+**현재 증거가 지지하는 범위를 과장하면 안 됩니다.** AOP는 비교 MAS들과 비슷한 비용 수준에서 정확도를 개선했다고 보고합니다. AgentForesight의 **Exact-F1 66.44**는 오류 탐지·위치 식별 성능이지, 재계획 후 작업 성공률이 아닙니다. 즉, 기존 결과만으로 제안한 시스템의 “성공률 증가와 총비용 감소”가 동시에 입증되었다고 볼 수 없습니다. 
+
+제안 연구의 실험에서는 동일한 Planner·worker·도구 환경을 유지하고, **검증 없음, LLM 기반 계획 평가, AOP/GNNVerifier 방식의 사전 평가, 실행 후 검증**을 비교군으로 두는 것이 적절합니다. 핵심 측정치는 전체 요청의 성공률, 검증·재계획을 포함한 총비용, 지연시간, 정상 계획을 잘못 중단한 비율입니다. 성공 확률을 출력한다면 예측 확률과 실제 성공 빈도의 일치도도 확인해야 합니다.
+
+**반증 기준:** 동일한 총예산에서 성공률이 개선되지 않거나, 동일한 성공률에서 검증·재계획 비용을 포함한 총비용이 줄지 않는다면 효율성 주장은 지지되지 않습니다. 특히 **성공할 계획을 잘못 중단하는 손실까지 포함해도 이득이 남는지**가 이 아이디어의 핵심 검증 지점입니다.
+
+
+2:
+## 1. Key Terms & Definitions
+
+**재검색 결과, 앞선 답변에서 빠졌던 PreFlect와 EPC-AW가 중요한 선행연구입니다. 특히 PreFlect는 “별도 검증 에이전트가 생성된 계획을 실행 전에 검사하고, 치명적 오류가 있으면 수정한다”는 메커니즘을 명시적으로 제안합니다.** 실행과 병렬로 검증한다는 조건에는 COCO도 직접 관련됩니다. 
+
+이번에는 **AOP를 유지하고, 나머지를 새로 찾은 네 논문으로 교체**했습니다. 조사 기준은 **2026년 9월 16일까지 공개된 자료**입니다.
+
+| 핵심 용어 | 연구 아이디어와의 대응 |
+|---|---|
+| **Prospective Reflection** | 실행 결과를 반성하는 대신, **아직 실행하지 않은 계획의 오류를 예상하고 수정**합니다. PreFlect의 핵심 용어입니다.  |
+| **Solvability / Plan Evaluation** | 하위 작업을 배정받은 에이전트가 해결할 수 있는지, 계획이 현재 정보로 정당화되는지 평가합니다. AOP와 EPC-AW가 대응합니다.  |
+| **Asynchronous Monitoring / Contextual Rollback** | 실행과 분리된 검증 과정에서 오류를 탐지하고, 과거 상태와 진단 정보를 이용해 복구합니다. COCO가 대응합니다.  |
+| **Route Validation and Editing** | 중간 결과를 반영해 **미실행 구간을 유지·수정·교체**합니다. 전체 계획을 처음부터 다시 만드는 것과 구분됩니다. TROVE가 대응합니다.  |
+
+## 2. Motivation & Problem Statement
+
+이번 조사에서는 다음 차이를 기준으로 관련성을 판단했습니다.
+
+**첫째, 계획 자체를 실행 전에 평가하는가, 이미 실행한 결과에서 오류를 찾는가?** PreFlect·AOP·EPC-AW는 전자에 가깝고, COCO·TROVE는 실행 중 얻은 결과에 근거해 이후 진행을 수정합니다. 따라서 “최종 실패 이전에 개입한다”는 공통점만으로 모두 사전 성공 예측 연구로 분류해서는 안 됩니다. 
+
+**둘째, 평가 점수가 실제 성공 확률인가?** 계획의 PASS/FAIL, 해결 가능성 점수, 에이전트 간 평가 일치도는 서로 다릅니다. 아래의 사전 평가 논문들을 곧바로 **“전체 workflow의 보정된 성공 확률을 예측하는 시스템”**으로 해석할 수는 없습니다. 
+
+## 3. Compare with Previous Works
+
+### ① PreFlect — 별도 검증자의 실행 전 계획 검사에 가장 직접적으로 대응
+
+**[PreFlect: From Retrospective to Prospective Reflection in Large Language Model Agents, Hanyu Wang 외, arXiv/2026.02]**  
+Pennsylvania State University. arXiv: **2602.07187**. 
+
+**방법:** 별도 **reflector agent**가 작업, 생성된 계획, 사용 가능한 도구, 과거 행동 요약을 입력받습니다. 과거 성공·실패 기록에서 추출한 **Planning Errors**를 참고해 치명적 오류를 판단하고, 오류가 발견되면 계획을 수정합니다. 실행 중 재계획이 필요해졌을 때도 새 계획에 같은 검사를 적용합니다. 원문의 **§3.2, Appendix A.3**이 직접 비교할 부분입니다. 
+
+**공통점:** 계획 생성 직후 별도 검증자를 호출하고, 위험한 계획을 그대로 실행하지 않는다는 점이 제안과 매우 가깝습니다.
+
+**차이점:** 기본 구현은 여러 worker를 배정하는 중앙집중형 MAS가 아니라 **단일 실행 에이전트와 별도 reflector**입니다. 다만 OWL로의 적용 실험도 있어, “MAS에 적용한다”는 것만으로 차별화하기는 충분하지 않습니다. 판정은 정량적 성공 확률이 아닌 오류 진단이며, **기본 시스템 대비 총비용 감소도 입증하지 않았습니다.** 
+
+### ② AOP — 중앙집중형 작업 분해·할당과 사전 평가 구조에 가장 가까움
+
+**[Agent-Oriented Planning in Multi-Agent Systems, Ao Li 외, ICLR/2025]**  
+arXiv: **2410.02189**, 최초 공개 2024년. 
+
+**방법:** Meta-agent가 작업을 분해·할당한 뒤, 학습된 **reward model**이 하위 작업과 에이전트 설명을 바탕으로 예상 응답 품질을 평가합니다. 이 평가에는 실제 worker 실행이 필요하지 않습니다. 낮은 평가에서는 **재할당, 추가 분해, 재계획**을 수행하고, 별도 detector로 누락·중복도 검사합니다. 
+
+**공통점:** **Orchestrator → 작업 분해·할당 → 실행 없는 평가 → 계획 수정**이라는 구조가 직접 겹칩니다.
+
+**차이점:** 핵심 예측 단위는 **하위 작업–에이전트 조합**입니다. 전체 workflow의 최종 성공 확률과 남은 실행 비용을 함께 계산해, 이미 시작한 worker를 취소하는 정책과는 구분됩니다. **중앙집중형 MAS라는 조건 때문에 반드시 포함해야 할 비교 대상**입니다. 
+
+### ③ EPC-AW — “실행은 정상인데 계획 때문에 실패”하는 문제를 직접 다룸
+
+**[When Planning Fails Despite Correct Execution: On Epistemic Calibration for LLM-Based Multi-Agent Systems, Zehao Wang 외, arXiv/2026.05]**  
+Tianjin University·Renmin University of China. arXiv: **2605.23414**. 저자 공개본과 공식 저장소는 **ICML 2026**으로 표기합니다. 
+
+**방법:** Planner·Executor·Diagnoser로 구성됩니다. Planner가 후보 계획들을 만들면, 서로 다른 정보를 가진 에이전트들이 이를 평가합니다. **Information-consistency-based Plan Selection**으로 계획을 선택하고, Planner의 선택과 집단 평가의 선택이 달랐던 사례에서 제약을 추출해 이후 계획에 반영합니다. 
+
+**공통점:** 도구 실행 오류가 나타나기 전, **계획 단계의 잘못된 판단을 교정**한다는 문제 설정이 매우 가깝습니다.
+
+**차이점:** 주된 대상은 최초의 전체 workflow가 아니라 **각 라운드의 다음 단계 계획**입니다. 전체 성공 확률을 직접 예측하지 않고, 정보 조건에 따른 평가의 일관성을 사용합니다. 후보 생성과 복수 평가 호출도 필요하므로, **사전 평가가 곧 비용 절감을 의미하지는 않습니다.** 
+
+### ④ COCO — 실행과 병렬인 검증·복구 구조에 직접 대응
+
+**[COCO: Cognitive Operating System with Continuous Oversight for Multi-Agent Workflow Reliability, Churong Liang 외, arXiv/2025, 개정 2026.03]**  
+Beijing University of Posts and Telecommunications. arXiv: **2508.13815**. 
+
+**방법:** **Monitoring Engine**을 주 실행 경로에서 분리해 비동기로 실행 결과를 검사합니다. 오류가 검출되면 **Contextual Rollback Mechanism**이 체크포인트와 오류 진단을 이용해 재실행을 유도합니다. 서로 다른 모델의 교차 검증도 사용합니다. 
+
+**공통점:** 제안의 **“실행과 병렬 검증 → 오류 전파 차단 → 수정된 실행”**에 가깝습니다.
+
+**중요한 차이:** 초기 계획의 미래 실패를 예측하는 것이 아니라 **실행된 노드의 출력을 검사**합니다. 특히 **§5.1**은 오류 노드에서 복구 실행을 시작해도 원래 workflow가 계속 진행해 **자원 낭비가 생기는 한계**를 명시합니다. 따라서 “검증 결과에 따라 실제로 불필요한 작업을 취소한다”는 부분을 비교하기에 유용합니다. 
+
+### ⑤ TROVE — 전체 재계획 대신 필요한 미실행 구간만 수정
+
+**[TROVE: Adaptive Agent Skill Orchestration via Trace-Grounded Route Validation and Editing, Tianxing Wang 외, arXiv/2026.09]**  
+arXiv: **2609.05019**, **2026년 9월 4일 공개**. 
+
+**방법:** 계획된 경로를 확정된 실행 순서가 아닌 잠정 계획으로 취급합니다. 하나의 skill을 실행한 뒤 결과를 관찰하고, 남은 구간을 **Retain**, 필요한 수정 단계를 **Insert**, 유효하지 않은 나머지 구간을 **Replace**합니다. 이미 수행한 작업과 중간 산출물은 보존합니다. 
+
+**공통점:** 유효하지 않은 계획을 끝까지 실행하지 않고, 이후 불필요한 계산을 피하면서 재계획합니다.
+
+**차이점:** 개입 근거는 사전 성공 확률이 아니라 **실제 중간 결과**입니다. 또한 조기 종료에는 실패 회피뿐 아니라 **이미 성공했으므로 남은 검증·실행을 생략하는 경우**도 포함됩니다. 제안의 재계획 범위를 “전체 재생성”과 “부분 수정”으로 비교할 때 적합합니다. 
+
+## 4. Key Observation & Method
+
+**프레임워크는 평가 결과에 따른 분기를 지원하지만, 성공 예측 모델과 중단 정책까지 자동으로 제공하는 것은 아닙니다.** 아래는 공식 기능을 조합한 적용 방식입니다.
+
+| 프레임워크 | 지원 기능과 적용 예 |
+|---|---|
+| **LangGraph** | `evaluator-optimizer`, `add_conditional_edges`, worker 생성용 `Send`를 조합합니다. **Planner → Evaluator → 통과 시 worker 할당 / 실패 시 Planner 복귀**로 구성할 수 있습니다.  |
+| **AutoGen / Magentic-One** | Orchestrator가 **Task Ledger·Progress Ledger**를 관리하고, 진행이 정체되면 계획을 바꿉니다. 이는 실행 피드백 기반이므로, 최초 worker 호출 전 검증자는 추가해야 합니다.  |
+| **CrewAI** | Flows의 **`@router()`**로 평가 결과에 따라 실행 또는 재계획으로 분기할 수 있습니다. 계획 생성과 평가를 별도 단계로 두는 구현입니다.  |
+| **DSPy** | Planner를 **`dspy.Refine`**으로 감싸고 `reward_fn`·`threshold`로 수정할 수 있습니다. 시도 한도에서 기준 미달 후보가 반환되는 경우까지 고려해, 최종 실행 승인 조건은 별도로 둬야 합니다.  |
+
+**공개 코드도 구분해야 합니다.** EPC-AW 저장소에는 추론 코드와 실험 진입점이 있지만, 열람한 PreFlect 저장소는 **비어 있었습니다**. 논문에 저장소 주소가 있다는 사실만으로 구현 공개를 확정하면 안 됩니다. 코드를 실행해 재현성을 검증한 것은 아닙니다. 
+
+## 5. Conclusion & Impact
+
+**가장 먼저 비교할 대상은 PreFlect와 AOP입니다.** 전자는 별도 검증자의 실행 전 계획 수정, 후자는 중앙집중형 작업 분해·할당의 사전 평가를 이미 구현합니다. 병렬 검증까지 포함한다면 COCO를 추가해야 합니다. 
+
+이번 문헌을 기준으로 연구 질문을 더 구체화하면 다음과 같습니다.
+
+> **전체 workflow의 성공 가능성과 남은 실행 비용을 고려해, 계속 실행·부분 수정·재계획 중 어떤 개입이 유리한지 판단하고, 그 결정이 실제 worker 취소와 순비용 절감으로 이어지는가?**
+
+이는 검토한 논문들과 구별해 평가할 수 있는 방향이지, 해당 조합의 신규성이 이미 입증되었다는 뜻은 아닙니다.
+
+**추가 검색용 Boolean 쿼리 5개**
+
+| 목적 | 검색식 |
+|---|---|
+| 중앙 계획자의 사전 평가 | `("multi-agent" OR multiagent) AND "agent-oriented planning" AND ("reward model" OR solvability)` |
+| 실행 전 오류 예방 | `("LLM agent" OR "multi-agent") AND ("prospective reflection" OR "pre-execution verification") AND (replanning OR "plan revision")` |
+| 계획의 잘못된 자신감 | `"multi-agent" AND ("epistemic calibration" OR "plan evaluation") AND ("plan selection" OR feasibility)` |
+| 병렬 검증과 복구 | `"multi-agent" AND ("asynchronous monitoring" OR "continuous oversight") AND (rollback OR correction)` |
+| 부분 재계획과 비용 | `("agent orchestration" OR "agent workflow") AND ("route validation" OR "plan repair") AND (cost OR "early termination")` |
+
+**Semantic Scholar 웹 검색은 Boolean 연산자를 지원하지 않습니다.** 그곳에서는 위 검색식의 핵심 구문을 따옴표로 묶고, OR 대안을 나누어 검색해야 합니다. 
+
+## 6. Result & Falsifiability
+
+**가장 중요한 실험적 구분은 성공률 개선과 총비용 감소입니다.** PreFlect의 GPT-4.1 기반 GAIA 실험에서는 성공률이 **46.06% → 58.18%**로 높아졌지만, 총비용도 **$46.31 → $54.48**, 즉 **17.64% 증가**했습니다. 따라서 이 결과는 사전 검증의 효과를 뒷받침하지만, 기본 시스템 대비 비용 절감을 입증하지는 않습니다. 
+
+제안한 연구에서는 동일한 Planner·worker·도구를 유지하고 **검증 없음, 사전 검증, 실행 중 검증, 두 방식의 결합**을 비교하는 것이 적절합니다. 최종 성공률뿐 아니라 검증·재계획·취소 전 소모까지 포함한 총비용, 지연시간, 성공할 계획을 잘못 중단한 비율을 함께 측정해야 합니다.
+
+**반증 기준은 명확합니다. 동일 성공률에서 총비용이 줄지 않거나, 동일 예산에서 성공률이 개선되지 않으면 비용 효율성 주장은 지지되지 않습니다.** 특히 COCO가 명시한 것처럼 원래 작업이 계속 실행된다면, 조기 오류 탐지와 실제 자원 절감 사이에 간극이 남습니다. 
+
+
+

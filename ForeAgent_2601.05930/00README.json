@@ -1,0 +1,49 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "acl_latex.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "acl_latex.bbl"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "acl_natbib.bst"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "anthology.bib.txt"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "custom.bib"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "figures/appendix_log.txt"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "figures/main-v1.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "figures/main-v2.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "figures/main-v3.pdf"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "figures/main-v4.pdf"
+      }
+   ],
+   "spec_version" : 1,
+   "texlive_version" : "2025",
+   "process" : {
+      "compiler" : "pdflatex"
+   }
+}

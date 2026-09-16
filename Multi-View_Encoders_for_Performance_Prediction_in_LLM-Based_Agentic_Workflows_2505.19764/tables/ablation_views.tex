@@ -1,0 +1,40 @@
+% \begin{table}[t]
+% \caption{Results of ablation study on different input view variations.}
+% \label{table:ablation_views}
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{@{}ccc|cc|cc|cc|cc@{}}
+% \toprule
+% \multicolumn{3}{c}{\textbf{View Variations}}        & \multicolumn{2}{|c}{\textbf{Code Generation}}    & \multicolumn{2}{|c}{\textbf{Math Problem}}      & \multicolumn{2}{|c}{\textbf{Reasoning Task}}    & \multicolumn{2}{|c}{\textbf{Average}}      \\ \midrule
+% \textbf{Code} & \textbf{Graph} & \textbf{Text} & \textbf{Accuracy}   & \textbf{Utility}    & \textbf{Accuracy}   & \textbf{Utility}    & \textbf{Accuracy}   & \textbf{Utility}    & \textbf{Accuracy}   & \textbf{Utility}    \\ \midrule
+% $\checkmark$             &                &               & 82.04±0.51          & 75.66±0.66          & 75.70±0.14          & 68.52±0.91          & 83.19±0.56          & \textbf{91.51±0.61} & 80.31±0.40          & 78.56±0.73          \\
+%               & $\checkmark$              &               & 84.44±0.31          & 77.22±3.46          & 79.14±0.28          & 67.99±3.36          & 87.00±0.21          & 91.03±1.23          & 83.53±0.27          & 78.75±2.68          \\
+%               &                & $\checkmark$             & 79.87±0.28          & 70.34±0.43          & 76.60±0.65          & 68.45±1.80          & 68.06±0.00          & 71.04±0.00          & 74.84±0.31          & 69.94±0.74          \\
+% $\checkmark$             & $\checkmark$              &               & 83.72±0.83          & 73.97±0.81          & 75.86±0.85          & 70.18±1.64          & 86.88±0.14          & 86.14±4.62          & 82.15±0.61          & 76.76±2.36          \\
+% $\checkmark$             &                & $\checkmark$             & 82.27±0.63          & 77.28±1.12          & 76.03±0.14          & 66.66±4.18          & 54.17±0.00          & 53.21±0.00          & 70.82±0.26          & 65.72±1.77          \\
+%               & $\checkmark$              & $\checkmark$             & 82.45±1.36          & 74.64±1.57          & 75.70±1.26          & 67.83±3.71          & 69.47±0.00          & 70.55±0.00          & 75.87±0.87          & 71.01±1.76          \\ 
+% $\checkmark$             & $\checkmark$              & $\checkmark$             & \textbf{85.62±0.47} & \textbf{80.08±0.46} & \textbf{79.56±0.25} & \textbf{74.08±0.47} & \textbf{87.96±0.02} & 91.47±0.44          & \textbf{84.38±0.25} & \textbf{81.88±0.46} \\ \bottomrule
+% \end{tabular}%
+% }
+% \vspace*{-0.3cm}
+% \end{table}
+
+
+\begin{table}[t]
+\centering
+\caption{Results of ablation study on different input view variations.} \label{table:ablation_views}
+\resizebox{0.8\textwidth}{!}{%
+\begin{tabular}{@{}ccc|cc|cc|cc|cc@{}}
+\toprule
+\multicolumn{3}{c}{\textbf{Variations}} & \multicolumn{2}{|c}{\textbf{Code Generation}} & \multicolumn{2}{|c}{\textbf{Math Problem}} & \multicolumn{2}{|c}{\textbf{Common Reasoning}} & \multicolumn{2}{|c}{\textbf{Average}} \\ \midrule
+\textbf{Code} & \textbf{Graph} & \textbf{Text} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} \\ \midrule \midrule
+$\checkmark$ &  &  & 82.04 & 75.66 & 75.70 & 68.52 & 83.19 & \textbf{91.51} & 80.31 & 78.56 \\
+ & $\checkmark$  &  & 84.44 & 77.22 & 79.14 & 67.99 & 87.00 & 91.03 & 83.53 & 78.75 \\
+ &  & $\checkmark$  & 79.87 & 70.34 & 76.60 & 68.45 & 68.06 & 71.04 & 74.84 & 69.94 \\
+$\checkmark$  & $\checkmark$  &  & 83.72 & 73.97 & 75.86 & 70.18 & 86.88 & 86.14 & 82.15 & 76.76 \\
+$\checkmark$  &  & $\checkmark$  & 82.27 & 77.28 & 76.03 & 66.66 & 54.17 & 53.21 & 70.82 & 65.72 \\
+ & $\checkmark$  & $\checkmark$  & 82.45 & 74.64 & 75.70 & 67.83 & 69.47 & 70.55 & 75.87 & 71.01 \\
+$\checkmark$  & $\checkmark$  & $\checkmark$  & \textbf{85.62} & \textbf{80.08} & \textbf{79.56} & \textbf{74.08} & \textbf{87.96} & 91.47 & \textbf{84.38} & \textbf{81.88} \\ \bottomrule
+\end{tabular}%
+}
+\vspace*{-0.5cm}
+\end{table}

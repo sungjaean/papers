@@ -1,0 +1,125 @@
+% \begin{table*}[t]
+%     \centering
+%     \small
+%     \renewcommand{\arraystretch}{1.15}
+%     % 调整列宽：稍微压缩中间列，留空间给两列数字
+%     \begin{tabular}{p{0.06\linewidth} p{0.17\linewidth} p{0.50\linewidth} r r}
+%         \toprule
+%         \textbf{Domain} & \textbf{Task Paradigm} & \textbf{Included Benchmarks} & \textbf{\# Sols} & \textbf{\# Pairs} \\
+%         \midrule
+        
+%         % --- Computer Vision ---
+%         \multirow{3}{*}{\textbf{CV}} 
+%         & Image Classification & APTOS 2019, Dog Breed, Leaf Class., MLSP Birds, Plant Pathology, Statoil Iceberg, ICML Whale & 200 & 4,098 \\
+%         & Image Segmentation & TGS Salt Identification Challenge & 44 & 880 \\
+%         & Image Gen. / Restore & Denoising Dirty Documents & 45 & 974 \\
+%         \cmidrule{2-5}
+%         & \textit{Domain Total} & \textit{3 Paradigms} & \textit{289} & \textit{5,952} \\
+%         \midrule
+        
+%         % --- NLP ---
+%         \multirow{4}{*}{\textbf{NLP}} 
+%         & Text Classification & Detecting Insults, Jigsaw Toxic Comment, Spooky Author, Random Acts of Pizza & 132 & 2,805 \\
+%         & Text Matching / QA & US Patent Phrase-to-Phrase Matching, Google QUEST (Multi-output) & 100 & 2,447 \\
+%         & Sequence Labeling & Tweet Sentiment Extraction & 21 & 210 \\
+%         & Ranking / Preference & LMSYS Chatbot Arena & 50 & 1,220 \\
+%         \cmidrule{2-5}
+%         & \textit{Domain Total} & \textit{4 Paradigms} & \textit{303} & \textit{6,682} \\
+%         \midrule
+        
+%         % --- Data Science ---
+%         \multirow{5}{*}{\begin{tabular}[t]{@{}l@{}}
+%         \textbf{Data} \\[0.6em]
+%         \textbf{Science}
+%         \end{tabular}}
+%         & Regression & NYC Taxi Fare, PetFinder Pawpularity, NOMAD Transparent Conductors, Stanford Vaccine & 113 & 1,893 \\
+%         & Time-Series & Predict Volcanic Eruptions, Ventilator Pressure Prediction & 100 & 2,435 \\
+%         & Audio Classification & TensorFlow Speech Recognition Challenge & 46 & 1,011 \\
+%         & Tabular Learning & Tabular Playground Series – Dec 2021 & 24 & 275 \\
+%         & Scoring / Grading & Learning Agency Lab – Automated Essay Scoring & 20 & 190 \\
+%         \cmidrule{2-5}
+%         & \textit{Domain Total} & \textit{5 Paradigms} & \textit{303} & \textit{5,804} \\
+%         \midrule
+        
+%         % --- Total ---
+%         \multicolumn{3}{l}{\textbf{Total Corpus Size}} & \textbf{895} & \textbf{18,438} \\
+        
+%         \bottomrule
+%     \end{tabular}
+%     \caption{Hierarchical statistics of the Prediction Corpus. The dataset is balanced across three major domains, containing approximately 300 unique solutions and 6,000 pairwise comparisons per domain. ``\# Sols'' denotes the number of unique executable code solutions, while ``\# Pairs'' denotes the number of ground-truth pairwise comparisons constructed for evaluation.}
+%     \label{tab:task_distribution}
+% \end{table*}
+
+
+
+% \begin{table}[t]
+%     \centering
+%     \footnotesize
+%     \setlength{\tabcolsep}{3.5pt}
+%     \renewcommand{\arraystretch}{1.1}
+%     \begin{tabular}{l l c r r}
+%         \toprule
+%         \textbf{Domain} & \textbf{Task Paradigm} & \textbf{\# Tsk} & \textbf{\# Sols} & \textbf{\# Pairs} \\
+%         \midrule
+        
+%         % --- CV ---
+%         \multirow{3}{*}{\textbf{CV}} 
+%         & Image Classification & 7 & 200 & 4,098 \\
+%         & Image Segmentation & 1 & 44 & 880 \\
+%         & Image Gen./Restore & 1 & 45 & 974 \\
+%         \cmidrule{2-5}
+%         & \textit{Domain Total} & \textbf{9} & \textit{289} & \textit{5,952} \\
+%         \midrule
+        
+%         % --- NLP ---
+%         \multirow{4}{*}{\textbf{NLP}} 
+%         & Text Classification & 4 & 132 & 2,805 \\
+%         & Text Match / QA & 2 & 100 & 2,447 \\
+%         & Sequence Labeling & 1 & 21 & 210 \\
+%         & Ranking / Pref. & 1 & 50 & 1,220 \\
+%         \cmidrule{2-5}
+%         & \textit{Domain Total} & \textbf{8} & \textit{303} & \textit{6,682} \\
+%         \midrule
+        
+%         % --- Data Science (Modified Here) ---
+%         % 使用 \shortstack[l]{... \\ ...} 来强制换行并左对齐
+%         \multirow{5}{*}{\shortstack[l]{\textbf{Data} \\ \textbf{Science}}} 
+%         & Regression & 4 & 113 & 1,893 \\
+%         & Time-Series & 2 & 100 & 2,435 \\
+%         & Audio Class. & 1 & 46 & 1,011 \\
+%         & Tabular Learning & 1 & 24 & 275 \\
+%         & Scoring / Grading & 1 & 20 & 190 \\
+%         \cmidrule{2-5}
+%         & \textit{Domain Total} & \textbf{9} & \textit{303} & \textit{5,804} \\
+%         \midrule
+        
+%         % --- Total ---
+%         \multicolumn{2}{l}{\textbf{Total Corpus Size}} & \textbf{26} & \textbf{895} & \textbf{18,438} \\
+%         \bottomrule
+%     \end{tabular}
+%     \caption{Statistics of the Prediction Corpus. The dataset is balanced across three domains, with $\sim$300 solutions and $\sim$6,000 pairs each. ``\# Tsk'' denotes the number of distinct tasks (see Appendix Table~\ref{tab:appendix_task_details} for full list).}
+%     \label{tab:task_distribution}
+% \end{table}
+
+
+
+\begin{table}[t]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{3pt} % 稍微减小列间距以容纳更长的文字
+    \renewcommand{\arraystretch}{1.2}
+    % 将中间列宽增加到 4.2cm 以适应全称
+    \begin{tabular}{l p{3cm} r r r}
+        \toprule
+        \textbf{Domain} & \textbf{Paradigms} & \textbf{\# Tsk} & \textbf{\# Sols} & \textbf{\# Pairs} \\
+        \midrule
+        \textbf{CV} & Classification, Segmentation, Generation, Restoration & 9 & 289 & 5,952 \\
+        \textbf{NLP} & Classification, Matching, QA, Sequence Labeling, Ranking & 8 & 303 & 6,682 \\
+        \multirow{2}{*}{\textbf{\makecell[l]{Data\\Science}}} & Regression, Time-Series, Audio, Tabular, Grading & 9 & 303 & 5,804 \\
+        \midrule
+        \textbf{Total} & \textit{26 Distinct Tasks across 3 Domains} & \textbf{26} & \textbf{895} & \textbf{18,438} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Statistics of the Preference Corpus. We aggregate 26 tasks into three primary domains, ensuring a balanced distribution of $\sim$6,000 pairs each. (See Appendix~\ref{sec:appendix_task_detail} for granular breakdown).}
+    \label{tab:task_distribution}
+\end{table}

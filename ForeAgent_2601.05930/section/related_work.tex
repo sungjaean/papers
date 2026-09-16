@@ -1,0 +1,30 @@
+\section{Related Work}
+\label{sec:related-work}
+% 两部分
+% 1. LLM-based Agents for Machine Learning & Scientific Discovery
+% 现有mlagent，主流。新的包含部分跳过执行模块的mlagent。部分包含通过预测结果剪枝、评估创新性的ai4research agent
+
+% 2. World Models for Skip-Execution & Innovation Evaluation
+% 经典的world model，dreamer。regresion language model。代码预测方法 + bench。Openai level4
+
+
+% \paragraph{LLM-based Agents for Scientific Discovery.}
+% LLMs with strong reasoning capabilities~\cite{qiao-etal-2023-reasoning} are increasingly serving as core controllers for autonomous agents in scientific discovery~\cite{gu2024largelanguagemodelsconstructing, chen2025ai4researchsurveyartificialintelligence, toledo2025airesearchagentsmachine, Wen-lin2025}.
+% In data science domain, these agents are extensively applied to automate the lifecycle, ranging from end-to-end data science pipelines~\cite{zhang2025deepanalyzeagenticlargelanguage, nam2025mlestarmachinelearningengineering, yang2025rdagentllmagentframeworkautonomous, Ze-xi2025, Fang2025} to competitive problem-solving frameworks~\cite{luo2025executableknowledgegraphsreplicating, ou2025automindadaptiveknowledgeableagent, liu2025mlmasteraiforaiintegrationexploration, du2025automlgennavigatingfinegrainedoptimization, guo2024dsagentautomateddatascience} aimed at benchmarks~\cite{huang2024mlagentbenchevaluatinglanguageagents, chan2025mlebenchevaluatingmachinelearning, zhang2025mlrcbenchlanguageagentssolve, jing2024dsbench, zhang2024benchmarking, Nathani2025} and other general optimizations~\cite{wang2025openhandsopenplatformai, jiang2025aideaidrivenexplorationspace, hong2024datainterpreterllmagent, qiang2025mledojointeractiveenvironmentsempowering, wang2025configurablemultiagentframeworkscalable}.
+% Beyond data science, agents are transforming laboratory research~\cite{liu2025alphagomomentmodelarchitecture, li2025mlrcopilotautonomousmachinelearning, schmidgall2025agentlaboratoryusingllm, Yuxuan2025} by autonomously proposing hypotheses and conducting experiments~\cite{chai2025scimastergeneralpurposescientificai, yu2025alpharesearchacceleratingnewalgorithm, internagentteam2025internagentagentscientist, novikov2025alphaevolvecodingagentscientific, gottweis2025aicoscientist, lange2025shinkaevolveopenendedsampleefficientprogram}.
+% To mitigate the significant computational overhead of the dominant generation-execution-feedback loop, recent approaches explore utilizing internal priors to estimate feasibility and prune redundant steps, thereby accelerating optimization~\cite{kulibaba2025kompeteaiacceleratedautonomousmultiagent, trirat2025automlagentmultiagentllmframework, Zhang2024, Astorga2024}.
+
+
+% \paragraph{World Models for Skip-Execution.}
+% World models allow LLMs to build an internal representation of the environment to simulate actions and outcomes without real-world interaction~\cite{Ding2025, hafner2024masteringdiversedomainsworld, feng2025webworldmodels, wong2023wordmodelsworldmodels}. In the code domain, recent research focuses on execution-free evaluation, enabling models to predict test outcomes~\cite{Hora2024predictingtestresultswithoutexecution, faircodegenteam2025cwmopenweightsllmresearch} or assess logic consistency directly~\cite{li2025codeiocondensingreasoningpatterns}. This capability is strictly evaluated in reasoning-centric benchmarks~\cite{wei2025equibenchbenchmarkinglargelanguage, gu2024cruxevalbenchmarkcodereasoning, jain2024livecodebenchholisticcontaminationfree}, requiring models to transcend statistical pattern matching and develop a deep semantic understanding of algorithmic states and control flows~\cite{chen2025scalingagentlearningexperience, sun2025zerosearchincentivizesearchcapability, akhauri2025regressionlanguagemodelscode, Chen2025reval, Changshu2024codemind}. Aligning with OpenAI's Level 4 "Innovators"~\cite{metz2024openai, zhang2025innogymbenchmarkinginnovationpotential}, this empowers agents to drive innovation by leveraging internal world models to proactively prune vast hypothesis spaces, shifting the paradigm from ensuring syntactic correctness to optimizing for semantic success.
+
+\paragraph{LLM Agents in Machine Learning (ML).}
+LLM agents are extensively deployed in ML for tasks ranging from pipeline automation~\cite{jiang2025aideaidrivenexplorationspace, qiao2025scalinggeneralistdataanalyticagents, gu2024largelanguagemodelsconstructing} to competitive problem-solving~\cite{luo2025executableknowledgegraphsreplicating, ou2025automindadaptiveknowledgeableagent, chan2025mlebenchevaluatingmachinelearning, liu2025mlmasteraiforaiintegrationexploration}.
+However, the computational cost of their generation-execution loops~\cite{yao2023reactsynergizingreasoningacting} remains a bottleneck.
+To mitigate this, recent works utilize internal priors to prune redundant steps~\cite{kulibaba2025kompeteaiacceleratedautonomousmultiagent, trirat2025automlagentmultiagentllmframework}, transitioning from brute-force search to reasoned planning.
+
+\paragraph{World Models for Skip-Execution.}
+Adapting World Models~\cite{Ding2025, li2025wordworldlargelanguage} to code, recent research predicts execution outcomes to bypass physical runs~\cite{Hora2024predictingtestresultswithoutexecution, faircodegenteam2025cwmopenweightsllmresearch, li2025codeiocondensingreasoningpatterns}.
+While prior works focus on logic consistency in reasoning benchmarks~\cite{wei2025equibenchbenchmarkinglargelanguage, gu2024cruxevalbenchmarkcodereasoning, jain2024livecodebenchholisticcontaminationfree}, our approach integrates this predictive capability with Data-Centric Solution Preference~\cite{Shen2024towardsdatacentricrlhf, Just2024datacentrichuman}.
+By anchoring evaluations in explicit dataset rationales rather than heuristics, we ensure reliability in stochastic data domains.
+Extended discussion in Appendix~\ref{app:extended_related_work}.

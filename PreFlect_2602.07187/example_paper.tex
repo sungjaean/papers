@@ -1,0 +1,290 @@
+%%%%%%%% ICML 2026 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs} % for professional tables
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2026} with \usepackage[nohyperref]{icml2026} above.
+\usepackage{hyperref}
+
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Use the following line for the initial blind version submitted for review:
+\usepackage[preprint]{icml2026}
+
+% For preprint, use
+% \usepackage[preprint]{icml2026}
+
+% If accepted, instead use the following line for the camera-ready submission:
+% \usepackage[accepted]{icml2026}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+
+% if you use cleveref..
+\usepackage[capitalize,noabbrev]{cleveref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Todonotes is useful during development; simply uncomment the next line
+%    and comment out the line below the next line to turn off comments
+%\usepackage[disable,textsize=tiny]{todonotes}
+\usepackage[textsize=tiny]{todonotes}
+
+\usepackage{xspace}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\newcommand{\method}{PreFlect\xspace}
+\newcommand{\why}[1]{{\color{blue} [why: #1]}}
+
+\usepackage{booktabs}
+\usepackage{multirow} 
+\usepackage{array} 
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+
+\usepackage{wasysym}
+\usepackage{hyperref}
+\usepackage{url}
+
+\usepackage{tcolorbox}
+\usepackage{fontawesome}
+% \usepackage{fontawesome5}
+\tcbuselibrary{skins, breakable}
+\usepackage{listings}
+\usepackage[inline]{enumitem}
+\usepackage{makecell}
+% \usepackage{multicol}
+% \usepackage{enumitem}
+\newcommand{\resultitem}[2]{%
+    \item[\small\bfseries\itshape #1] {\small #2}%
+}
+
+\newcommand{\ifcomments}{\iftrue}
+\newcommand{\jc}[1]{{\ifcomments\color{red} [{JC:}  #1]}\fi}
+% \newcommand{\todo}[1]{\sethlcolor{yellow}\hl{#1}}
+
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{PreFlect: From Retrospective to Prospective Reflection in Large Language Model Agents}
+
+\begin{document}
+
+\twocolumn[
+  \icmltitle{PreFlect: From Retrospective to Prospective Reflection \\
+  in Large Language Model Agents}
+
+  % It is OKAY to include author information, even for blind submissions: the
+  % style file will automatically remove it for you unless you've provided
+  % the [accepted] option to the icml2026 package.
+
+  % List of affiliations: The first argument should be a (short) identifier you
+  % will use later to specify author affiliations Academic affiliations
+  % should list Department, University, City, Region, Country Industry
+  % affiliations should list Company, City, Region, Country
+
+  % You can specify symbols, otherwise they are numbered in order. Ideally, you
+  % should not use this facility. Affiliations will be numbered in order of
+  % appearance and this is the preferred way.
+  \icmlsetsymbol{equal}{*}
+
+  \begin{icmlauthorlist}
+    \icmlauthor{Hanyu Wang}{psu}
+    \icmlauthor{Yuanpu Cao}{psu}
+    \icmlauthor{Lu Lin}{psu}
+    \icmlauthor{Jinghui Chen}{psu}
+  \end{icmlauthorlist}
+
+  
+  \icmlaffiliation{psu}{College of Information Sciences and Technology, The Pennsylvania State University, State College, PA, USA}
+
+\icmlcorrespondingauthor{Hanyu Wang}{hbw5365@psu.edu}
+\icmlcorrespondingauthor{Jinghui Chen}{jzc5917@psu.edu}
+
+  % You may provide any keywords that you find helpful for describing your
+  % paper; these are used to populate the "keywords" metadata in the PDF but
+  % will not be shown in the document
+  \icmlkeywords{Machine Learning, ICML}
+
+  \vskip 0.3in
+]
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+
+% This command actually creates the footnote in the first column listing the
+% affiliations and the copyright notice. The command takes one argument, which
+% is text to display at the start of the footnote. The \icmlEqualContribution
+% command is standard text for equal contribution. Remove it (just {}) if you
+% do not need this facility.
+
+% Use ONE of the following lines. DO NOT remove the command.
+% If you have no special notice, KEEP empty braces:
+\printAffiliationsAndNotice{}  % no special notice (required even if empty)
+% Or, if applicable, use the standard equal contribution text:
+% \printAffiliationsAndNotice{\icmlEqualContribution}
+
+\begin{abstract}
+  Advanced large language model agents typically adopt self-reflection for improving performance, where agents iteratively analyze past actions to correct errors. However, existing reflective approaches are inherently retrospective: agents act, observe failure, and only then attempt to recover. In this work, we introduce \textbf{\method}, a prospective reflection mechanism that shifts the paradigm from post hoc correction to pre-execution foresight by criticizing and refining agent plans before execution. To support grounded prospective reflection, we distill planning errors from historical agent trajectories, capturing recurring success and failure patterns observed across past executions. Furthermore, we complement prospective reflection with a dynamic re-planning mechanism that provides execution-time plan update in case the original plan encounters unexpected deviation. Evaluations on different benchmarks demonstrate that \method significantly improves overall agent utility on complex real-world tasks, outperforming strong reflection-based baselines and several more complex agent architectures. Code will be updated at \url{https://github.com/wwwhy725/PreFlect}.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+\input{main/intro}
+
+
+
+
+\begin{figure*}[t]
+
+    \centering \includegraphics[width=0.95\linewidth]{img/overview_preflect_2.pdf}
+    \caption{The architecture of \textbf{\method} comparing with basic agent workflow (top). \method integrates a prospective reflection loop (pink box) into the planning stage. The bottom-right panel illustrates dynamic re-planning workflow.}
+    \vspace{-10pt}
+    \label{fig:main}
+\end{figure*}
+
+\section{Related Work}
+\label{sec:related_work}
+
+\input{main/related_work}
+
+
+
+\section{Methodology}
+\label{sec:method}
+
+\input{main/method}
+
+
+
+
+\section{Experiments}
+\label{sec:experiment}
+
+\input{main/experiment}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+In this work, we propose \method, a prospective reflection mechanism that shifts from reactive correction to proactive failure prevention. Our approach introduces distilled planning errors to provide structured and grounded error detection, while a dynamic re-planning mechanism brings up an updated plan in case errors are neglected during execution. Experimental results demonstrate that \method's significant improvements in complex task solving and remarkable transferability across different agent architectures.
+
+% \section*{Accessibility}
+
+% Authors are kindly asked to make their submissions as accessible as possible
+% for everyone including people with disabilities and sensory or neurological
+% differences. Tips of how to achieve this and what to pay attention to will be
+% provided on the conference website \url{http://icml.cc/}.
+
+% \section*{Software and Data}
+
+% If a paper is accepted, we strongly encourage the publication of software and
+% data with the camera-ready version of the paper whenever appropriate. This can
+% be done by including a URL in the camera-ready copy. However, \textbf{do not}
+% include URLs that reveal your institution or identity in your submission for
+% review. Instead, provide an anonymous URL or upload the material as
+% ``Supplementary Material'' into the OpenReview reviewing system. Note that
+% reviewers are not required to look at this material when writing their review.
+
+% Acknowledgements should only appear in the accepted version.
+% \section*{Acknowledgements}
+
+% \textbf{Do not} include acknowledgements in the initial version of the paper
+% submitted for blind review.
+
+% If a paper is accepted, the final camera-ready version can (and usually should)
+% include acknowledgements.  Such acknowledgements should be placed at the end of
+% the section, in an unnumbered section that does not count towards the paper
+% page limit. Typically, this will include thanks to reviewers who gave useful
+% comments, to colleagues who contributed to the ideas, and to funding agencies
+% and corporate sponsors that provided financial support.
+
+\newpage
+\section*{Impact Statement}
+
+This work introduces a novel prospective reflection mechanism to enhance general capability of LLM agents. By addressing significant weaknesses of previous reflection methods, \method contributes to the development of more reliable and advanced agent systems.
+
+% In the unusual situation where you want a paper to appear in the
+% references without citing it in the main text, use \nocite
+% \nocite{langley00}
+
+\bibliography{example_paper}
+\bibliographystyle{icml2026}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\appendix
+\onecolumn
+
+
+\section{Implementation Details}
+\label{appendix:imp}
+
+\input{appendix/implementation}
+
+% \section{Baseline Analysis}
+% \label{appendix:baseline}
+
+% \input{appendix/baseline}
+
+
+\section{Planning Errors}
+\label{appendix:error}
+
+
+\input{appendix/planning_errors}
+
+\section{Agent Sources}
+\label{appendix:source}
+
+\input{appendix/agent_source}
+
+
+\section{Prompts}
+\label{appendix:prompt}
+\input{appendix/prompt}
+
+\end{document}
+
+% This document was modified from the file originally made available by
+% Pat Langley and Andrea Danyluk for ICML-2K. This version was created
+% by Iain Murray in 2018, and modified by Alexandre Bouchard in
+% 2019 and 2021 and by Csaba Szepesvari, Gang Niu and Sivan Sabato in 2022.
+% Modified again in 2023 and 2024 by Sivan Sabato and Jonathan Scarlett.
+% Previous contributors include Dan Roy, Lise Getoor and Tobias
+% Scheffer, which was slightly modified from the 2010 version by
+% Thorsten Joachims & Johannes Fuernkranz, slightly modified from the
+% 2009 version by Kiri Wagstaff and Sam Roweis's 2008 version, which is
+% slightly modified from Prasad Tadepalli's 2007 version which is a
+% lightly changed version of the previous year's version by Andrew
+% Moore, which was in turn edited from those of Kristian Kersting and
+% Codrina Lauth. Alex Smola contributed to the algorithmic style files.

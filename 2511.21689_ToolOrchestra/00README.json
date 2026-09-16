@@ -1,0 +1,29 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "main_tech_report.tex"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "assets/nvidia-logo.png"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "fancyhdr.sty"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "main_tech_report.bbl"
+      },
+      {
+         "usage" : "ignore",
+         "filename" : "main_tech_report.bib"
+      }
+   ],
+   "spec_version" : 1,
+   "texlive_version" : "2025",
+   "process" : {
+      "compiler" : "pdflatex"
+   }
+}

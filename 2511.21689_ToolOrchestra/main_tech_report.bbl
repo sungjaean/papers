@@ -1,0 +1,295 @@
+\begin{thebibliography}{10}
+
+\bibitem{phan2025humanity}
+Long Phan, Alice Gatti, Ziwen Han, Nathaniel Li, Josephina Hu, Hugh Zhang, Chen Bo~Calvin Zhang, Mohamed Shaaban, John Ling, Sean Shi, et~al.
+\newblock Humanity's last exam.
+\newblock {\em arXiv preprint arXiv:2501.14249}, 2025.
+
+\bibitem{qintoolllm}
+Yujia Qin, Shihao Liang, Yining Ye, Kunlun Zhu, Lan Yan, Yaxi Lu, Yankai Lin, Xin Cong, Xiangru Tang, Bill Qian, et~al.
+\newblock Toolllm: Facilitating large language models to master 16000+ real-world apis.
+\newblock In {\em The Twelfth International Conference on Learning Representations}, 2023.
+
+\bibitem{schick2023toolformer}
+Timo Schick, Jane Dwivedi-Yu, Roberto Dess{\`\i}, Roberta Raileanu, Maria Lomeli, Eric Hambro, Luke Zettlemoyer, Nicola Cancedda, and Thomas Scialom.
+\newblock Toolformer: Language models can teach themselves to use tools.
+\newblock {\em Advances in Neural Information Processing Systems}, 36:68539--68551, 2023.
+
+\bibitem{qin2024tool}
+Yujia Qin, Shengding Hu, Yankai Lin, Weize Chen, Ning Ding, Ganqu Cui, Zheni Zeng, Xuanhe Zhou, Yufei Huang, Chaojun Xiao, et~al.
+\newblock Tool learning with foundation models.
+\newblock {\em ACM Computing Surveys}, 57(4):1--40, 2024.
+
+\bibitem{gehring2024rlef}
+Jonas Gehring, Kunhao Zheng, Jade Copet, Vegard Mella, Quentin Carbonneaux, Taco Cohen, and Gabriel Synnaeve.
+\newblock Rlef: Grounding code llms in execution feedback with reinforcement learning.
+\newblock {\em arXiv preprint arXiv:2410.02089}, 2024.
+
+\bibitem{qian2024tell}
+Cheng Qian, Bingxiang He, Zhong Zhuang, Jia Deng, Yujia Qin, Xin Cong, Zhong Zhang, Jie Zhou, Yankai Lin, Zhiyuan Liu, et~al.
+\newblock Tell me more! towards implicit user intention understanding of language model driven agents.
+\newblock In {\em Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)}, pages 1088--1113, 2024.
+
+\bibitem{yu2024steptool}
+Yuanqing Yu, Zhefan Wang, Weizhi Ma, Shuai Wang, Chuhan Wu, Zhiqiang Guo, and Min Zhang.
+\newblock Steptool: Enhancing multi-step tool usage in llms through step-grained reinforcement learning.
+\newblock {\em arXiv preprint arXiv:2410.07745}, 2024.
+
+\bibitem{goldie2025synthetic}
+Anna Goldie, Azalia Mirhoseini, Hao Zhou, Irene Cai, and Christopher~D Manning.
+\newblock Synthetic data generation \& multi-step rl for reasoning \& tool use.
+\newblock {\em arXiv preprint arXiv:2504.04736}, 2025.
+
+\bibitem{zhang2025nemotron}
+Shaokun Zhang, Yi~Dong, Jieyu Zhang, Jan Kautz, Bryan Catanzaro, Andrew Tao, Qingyun Wu, Zhiding Yu, and Guilin Liu.
+\newblock Nemotron-research-tool-n1: Exploring tool-using language models with reinforced reasoning.
+\newblock {\em arXiv preprint arXiv:2505.00024}, 2025.
+
+\bibitem{qian2025toolrl}
+Cheng Qian, Emre~Can Acikgoz, Qi~He, Hongru Wang, Xiusi Chen, Dilek Hakkani-T{\"u}r, Gokhan Tur, and Heng Ji.
+\newblock Toolrl: Reward is all tool learning needs.
+\newblock {\em arXiv preprint arXiv:2504.13958}, 2025.
+
+\bibitem{zheng2023judging}
+Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao Zhuang, Zi~Lin, Zhuohan Li, Dacheng Li, Eric Xing, et~al.
+\newblock Judging llm-as-a-judge with mt-bench and chatbot arena.
+\newblock {\em Advances in neural information processing systems}, 36:46595--46623, 2023.
+
+\bibitem{barres2025tau}
+Victor Barres, Honghua Dong, Soham Ray, Xujie Si, and Karthik Narasimhan.
+\newblock {${\tau}^2$-Bench: Evaluating Conversational Agents in a Dual-Control Environment}.
+\newblock {\em arXiv preprint arXiv:2506.07982}, 2025.
+
+\bibitem{krishna2024factfetchreasonunified}
+Satyapriya Krishna, Kalpesh Krishna, Anhad Mohananey, Steven Schwarcz, Adam Stambler, Shyam Upadhyay, and Manaal Faruqui.
+\newblock Fact, fetch, and reason: A unified evaluation of retrieval-augmented generation, 2024.
+
+\bibitem{belcak2025small}
+Peter Belcak, Greg Heinrich, Shizhe Diao, Yonggan Fu, Xin Dong, Saurav Muralidharan, Yingyan~Celine Lin, and Pavlo Molchanov.
+\newblock Small language models are the future of agentic ai.
+\newblock {\em arXiv preprint arXiv:2506.02153}, 2025.
+
+\bibitem{zhao2025llm}
+Bingxi Zhao, Lin~Geng Foo, Ping Hu, Christian Theobalt, Hossein Rahmani, and Jun Liu.
+\newblock Llm-based agentic reasoning frameworks: A survey from methods to scenarios.
+\newblock {\em arXiv preprint arXiv:2508.17692}, 2025.
+
+\bibitem{xi2024agentgym}
+Zhiheng Xi, Yiwen Ding, Wenxiang Chen, Boyang Hong, Honglin Guo, Junzhe Wang, Dingwen Yang, Chenyang Liao, Xin Guo, Wei He, et~al.
+\newblock Agentgym: Evolving large language model-based agents across diverse environments.
+\newblock {\em arXiv preprint arXiv:2406.04151}, 2024.
+
+\bibitem{zhou2024archer}
+Yifei Zhou, Andrea Zanette, Jiayi Pan, Sergey Levine, and Aviral Kumar.
+\newblock Archer: Training language model agents via hierarchical multi-turn rl.
+\newblock {\em arXiv preprint arXiv:2402.19446}, 2024.
+
+\bibitem{xi2025agentgym}
+Zhiheng Xi, Jixuan Huang, Chenyang Liao, Baodai Huang, Honglin Guo, Jiaqi Liu, Rui Zheng, Junjie Ye, Jiazheng Zhang, Wenxiang Chen, et~al.
+\newblock Agentgym-rl: Training llm agents for long-horizon decision making through multi-turn reinforcement learning.
+\newblock {\em arXiv preprint arXiv:2509.08755}, 2025.
+
+\bibitem{li2025torl}
+Xuefeng Li, Haoyang Zou, and Pengfei Liu.
+\newblock Torl: Scaling tool-integrated rl.
+\newblock {\em arXiv preprint arXiv:2503.23383}, 2025.
+
+\bibitem{jin2025search}
+Bowen Jin, Hansi Zeng, Zhenrui Yue, Jinsung Yoon, Sercan Arik, Dong Wang, Hamed Zamani, and Jiawei Han.
+\newblock Search-r1: Training llms to reason and leverage search engines with reinforcement learning.
+\newblock {\em arXiv preprint arXiv:2503.09516}, 2025.
+
+\bibitem{shao2024deepseekmath}
+Zhihong Shao, Peiyi Wang, Qihao Zhu, Runxin Xu, Junxiao Song, Xiao Bi, Haowei Zhang, Mingchuan Zhang, YK~Li, Yang Wu, et~al.
+\newblock Deepseekmath: Pushing the limits of mathematical reasoning in open language models.
+\newblock {\em arXiv preprint arXiv:2402.03300}, 2024.
+
+\bibitem{zhang2025qwen3}
+Yanzhao Zhang, Mingxin Li, Dingkun Long, Xin Zhang, Huan Lin, Baosong Yang, Pengjun Xie, An~Yang, Dayiheng Liu, Junyang Lin, et~al.
+\newblock Qwen3 embedding: Advancing text embedding and reranking through foundation models.
+\newblock {\em arXiv preprint arXiv:2506.05176}, 2025.
+
+\bibitem{gpt-5}
+OpenAI.
+\newblock Introducing gpt-5.
+\newblock \url{https://openai.com/index/introducing-gpt-5/}.
+\newblock Accessed: 2025-09-23.
+
+\bibitem{hui2024qwen2}
+Binyuan Hui, Jian Yang, Zeyu Cui, Jiaxi Yang, Dayiheng Liu, Lei Zhang, Tianyu Liu, Jiajun Zhang, Bowen Yu, Keming Lu, et~al.
+\newblock Qwen2. 5-coder technical report.
+\newblock {\em arXiv preprint arXiv:2409.12186}, 2024.
+
+\bibitem{yang2024qwen2}
+An~Yang, Beichen Zhang, Binyuan Hui, Bofei Gao, Bowen Yu, Chengpeng Li, Dayiheng Liu, Jianhong Tu, Jingren Zhou, Junyang Lin, et~al.
+\newblock Qwen2. 5-math technical report: Toward mathematical expert model via self-improvement.
+\newblock {\em arXiv preprint arXiv:2409.12122}, 2024.
+
+\bibitem{dubey2024llama}
+Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek Kadian, Ahmad Al-Dahle, Aiesha Letman, Akhil Mathur, Alan Schelten, Amy Yang, Angela Fan, et~al.
+\newblock The llama 3 herd of models.
+\newblock {\em arXiv e-prints}, pages arXiv--2407, 2024.
+
+\bibitem{yang2025qwen3}
+An~Yang, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo~Zheng, Bowen Yu, Chang Gao, Chengen Huang, Chenxu Lv, et~al.
+\newblock Qwen3 technical report.
+\newblock {\em arXiv preprint arXiv:2505.09388}, 2025.
+
+\bibitem{claude41}
+{Anthropic}.
+\newblock Claude opus 4.1.
+\newblock \url{https://www.anthropic.com/news/claude-opus-4-1}, 2025.
+
+\bibitem{bercovich2025llama}
+Akhiad Bercovich, Itay Levy, Izik Golan, Mohammad Dabbah, Ran El-Yaniv, Omri Puny, Ido Galil, Zach Moshe, Tomer Ronen, Najeeb Nabwani, et~al.
+\newblock Llama-nemotron: Efficient reasoning models.
+\newblock {\em arXiv preprint arXiv:2505.00949}, 2025.
+
+\bibitem{gpt-4o}
+OpenAI.
+\newblock Hello gpt-4o.
+\newblock \url{https://openai.com/index/hello-gpt-4o/}.
+\newblock Accessed: 2025-09-23.
+
+\bibitem{codestral}
+Mistral~AI team.
+\newblock Codestral.
+\newblock \url{https://mistral.ai/news/codestral}, 2024.
+
+\bibitem{toshniwal2024openmath}
+Shubham Toshniwal, Ivan Moshkov, Sean Narenthiran, Daria Gitman, Fei Jia, and Igor Gitman.
+\newblock Openmathinstruct-1: A 1.8 million math instruction tuning dataset.
+\newblock {\em arXiv preprint arXiv: Arxiv-2402.10176}, 2024.
+
+\bibitem{team2025gemma}
+Team {Google}, Aishwarya Kamath, Johan Ferret, Shreya Pathak, Nino Vieillard, Ramona Merhej, Sarah Perrin, Tatiana Matejovicova, Alexandre Ram{\'e}, Morgane Rivi{\`e}re, et~al.
+\newblock Gemma 3 technical report.
+\newblock {\em arXiv preprint arXiv:2503.19786}, 2025.
+
+\bibitem{nakano2021webgpt}
+Reiichiro Nakano, Jacob Hilton, Suchir Balaji, Jeff Wu, Long Ouyang, Christina Kim, Christopher Hesse, Shantanu Jain, Vineet Kosaraju, William Saunders, et~al.
+\newblock Webgpt: Browser-assisted question-answering with human feedback.
+\newblock {\em arXiv preprint arXiv:2112.09332}, 2021.
+
+\bibitem{openai_deep_research_2025}
+{OpenAI}.
+\newblock Introducing deep research, 2025.
+
+\bibitem{deepmind_gemini_deep_research_2025}
+{Google DeepMind}.
+\newblock Gemini deep research — your personal research assistant, 2025.
+
+\bibitem{perplexity_deep_research_2025}
+{Perplexity AI}.
+\newblock Introducing perplexity deep research, 2025.
+
+\bibitem{moonshot_kimi_researcher_2025}
+{Moonshot AI}.
+\newblock Kimi-researcher: End-to-end rl training for emerging agentic capabilities, 2025.
+
+\bibitem{compound-ai-blog}
+Matei Zaharia, Omar Khattab, Lingjiao Chen, Jared~Quincy Davis, Heather Miller, Chris Potts, James Zou, Michael Carbin, Jonathan Frankle, Naveen Rao, and Ali Ghodsi.
+\newblock The shift from models to compound ai systems.
+\newblock \url{https://bair.berkeley.edu/blog/2024/02/18/compound-ai-systems/}, 2024.
+
+\bibitem{chaudhry2025towards}
+Gohar~Irfan Chaudhry, Esha Choukse, {\'I}{\~n}igo Goiri, Rodrigo Fonseca, Adam Belay, and Ricardo Bianchini.
+\newblock Towards resource-efficient compound ai systems.
+\newblock In {\em Proceedings of the 2025 Workshop on Hot Topics in Operating Systems}, pages 218--224, 2025.
+
+\bibitem{smolagents}
+Aymeric Roucher, Albert~Villanova del Moral, Thomas Wolf, Leandro von Werra, and Erik Kaunismäki.
+\newblock `smolagents`: a smol library to build great agentic systems.
+\newblock \url{https://github.com/huggingface/smolagents}, 2025.
+
+\bibitem{li2025websailor}
+Kuan Li, Zhongwang Zhang, Huifeng Yin, Liwen Zhang, Litu Ou, Jialong Wu, Wenbiao Yin, Baixuan Li, Zhengwei Tao, Xinyu Wang, et~al.
+\newblock Websailor: Navigating super-human reasoning for web agent.
+\newblock {\em arXiv preprint arXiv:2507.02592}, 2025.
+
+\bibitem{wu2025webdancer}
+Jialong Wu, Baixuan Li, Runnan Fang, Wenbiao Yin, Liwen Zhang, Zhengwei Tao, Dingchu Zhang, Zekun Xi, Gang Fu, Yong Jiang, et~al.
+\newblock Webdancer: Towards autonomous information seeking agency.
+\newblock {\em arXiv preprint arXiv:2505.22648}, 2025.
+
+\bibitem{tao2025webshaper}
+Zhengwei Tao, Jialong Wu, Wenbiao Yin, Junkai Zhang, Baixuan Li, Haiyang Shen, Kuan Li, Liwen Zhang, Xinyu Wang, Yong Jiang, et~al.
+\newblock Webshaper: Agentically data synthesizing via information-seeking formalization.
+\newblock {\em arXiv preprint arXiv:2507.15061}, 2025.
+
+\bibitem{hu2025owl}
+Mengkang Hu, Yuhang Zhou, Wendong Fan, Yuzhou Nie, Bowei Xia, Tao Sun, Ziyu Ye, Zhaoxuan Jin, Yingru Li, Qiguang Chen, et~al.
+\newblock Owl: Optimized workforce learning for general multi-agent assistance in real-world task automation.
+\newblock {\em arXiv preprint arXiv:2505.23885}, 2025.
+
+\bibitem{tang2025autoagent}
+Jiabin Tang, Tianyu Fan, and Chao Huang.
+\newblock Autoagent: A fully-automated and zero-code framework for llm agents.
+\newblock {\em arXiv preprint arXiv:2502.05957}, 2025.
+
+\bibitem{zhu2025oagents}
+He~Zhu, Tianrui Qin, King Zhu, Heyuan Huang, Yeyi Guan, Jinxiang Xia, Yi~Yao, Hanhao Li, Ningning Wang, Pai Liu, et~al.
+\newblock Oagents: An empirical study of building effective agents.
+\newblock {\em arXiv preprint arXiv:2506.15741}, 2025.
+
+\bibitem{wang2025self}
+Hongru Wang, Boyang Xue, Baohang Zhou, Tianhua Zhang, Cunxiang Wang, Huimin Wang, Guanhua Chen, and Kam-Fai Wong.
+\newblock Self-dc: When to reason and when to act? self divide-and-conquer for compositional unknown questions.
+\newblock In {\em Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers)}, pages 6510--6525, 2025.
+
+\bibitem{wang2025efficient}
+Ningning Wang, Xavier Hu, Pai Liu, He~Zhu, Yue Hou, Heyuan Huang, Shengyu Zhang, Jian Yang, Jiaheng Liu, Ge~Zhang, et~al.
+\newblock Efficient agents: Building effective agents while reducing cost.
+\newblock {\em arXiv preprint arXiv:2508.02694}, 2025.
+
+\bibitem{qian2025smart}
+Cheng Qian, Emre~Can Acikgoz, Hongru Wang, Xiusi Chen, Avirup Sil, Dilek Hakkani-T{\"u}r, Gokhan Tur, and Heng Ji.
+\newblock Smart: Self-aware agent for tool overuse mitigation.
+\newblock {\em arXiv preprint arXiv:2502.11435}, 2025.
+
+\bibitem{aggarwal2025l1}
+Pranjal Aggarwal and Sean Welleck.
+\newblock L1: Controlling how long a reasoning model thinks with reinforcement learning.
+\newblock {\em arXiv preprint arXiv:2503.04697}, 2025.
+
+\bibitem{arora2025training}
+Daman Arora and Andrea Zanette.
+\newblock Training language models to reason efficiently.
+\newblock {\em arXiv preprint arXiv:2502.04463}, 2025.
+
+\bibitem{wang2025harnessing}
+Rui Wang, Hongru Wang, Boyang Xue, Jianhui Pang, Shudong Liu, Yi~Chen, Jiahao Qiu, Derek~Fai Wong, Heng Ji, and Kam-Fai Wong.
+\newblock Harnessing the reasoning economy: A survey of efficient reasoning for large language models.
+\newblock {\em arXiv preprint arXiv:2503.24377}, 2025.
+
+\bibitem{peng2025agentic}
+Hao Peng, Yunjia Qi, Xiaozhi Wang, Zijun Yao, Bin Xu, Lei Hou, and Juanzi Li.
+\newblock Agentic reward modeling: Integrating human preferences with verifiable correctness signals for reliable reward systems.
+\newblock {\em arXiv preprint arXiv:2502.19328}, 2025.
+
+\bibitem{burns2024weak}
+Collin Burns, Pavel Izmailov, Jan~Hendrik Kirchner, Bowen Baker, Leo Gao, Leopold Aschenbrenner, Yining Chen, Adrien Ecoffet, Manas Joglekar, Jan Leike, et~al.
+\newblock Weak-to-strong generalization: Eliciting strong capabilities with weak supervision.
+\newblock In {\em International Conference on Machine Learning}, pages 4971--5012. PMLR, 2024.
+
+\bibitem{wang2025otc}
+Hongru Wang, Cheng Qian, Wanjun Zhong, Xiusi Chen, Jiahao Qiu, Shijue Huang, Bowen Jin, Mengdi Wang, Kam-Fai Wong, and Heng Ji.
+\newblock Otc: Optimal tool calls via reinforcement learning.
+\newblock {\em arXiv e-prints}, pages arXiv--2504, 2025.
+
+\bibitem{guo2025deepseek}
+Daya Guo, Dejian Yang, Haowei Zhang, Junxiao Song, Ruoyu Zhang, Runxin Xu, Qihao Zhu, Shirong Ma, Peiyi Wang, Xiao Bi, et~al.
+\newblock Deepseek-r1: Incentivizing reasoning capability in llms via reinforcement learning.
+\newblock {\em arXiv preprint arXiv:2501.12948}, 2025.
+
+\bibitem{abouelenin2025phi}
+Abdelrahman Abouelenin, Atabak Ashfaq, Adam Atkinson, Hany Awadalla, Nguyen Bach, Jianmin Bao, Alon Benhaim, Martin Cai, Vishrav Chaudhary, Congcong Chen, et~al.
+\newblock Phi-4-mini technical report: Compact yet powerful multimodal language models via mixture-of-loras.
+\newblock {\em arXiv preprint arXiv:2503.01743}, 2025.
+
+\bibitem{lozhkov2024starcoder}
+Anton Lozhkov, Raymond Li, Loubna~Ben Allal, Federico Cassano, Joel Lamy-Poirier, Nouamane Tazi, Ao~Tang, Dmytro Pykhtar, Jiawei Liu, Yuxiang Wei, et~al.
+\newblock Starcoder 2 and the stack v2: The next generation.
+\newblock {\em arXiv preprint arXiv:2402.19173}, 2024.
+
+\end{thebibliography}

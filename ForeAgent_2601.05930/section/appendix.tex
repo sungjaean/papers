@@ -1,0 +1,429 @@
+\section*{Appendix Table of Contents}
+\begin{itemize}
+    \item \textbf{Appendix \ref{app:extended_related_work}: Extended Related Work}
+    \item \textbf{Appendix \ref{apendix:corpus_details}: Corpus Details}
+    \begin{itemize}
+        \item \ref{sec:appendix_task_detail} Task Metadata and Scale
+        \item \ref{sec:appendix_algo_details} Algorithm and Architecture Distribution
+        \item \ref{sec:appendix_agent_benchmark} Agent Evaluation Benchmark
+        \item \ref{sec:trajectory_sampling} Trajectory Sampling and Intermediate States
+    \end{itemize}
+    \item \textbf{Appendix \ref{appendix:detailed_exp_result}: Detailed Experiment Result}
+    \begin{itemize}
+        \item \ref{app:fine_grained_performance} Fine-grained Performance on Prediction Corpus
+        \item \ref{app:trajectory_variance} Analysis of Pair Source and Trajectory Variance
+        \item \ref{app:ai4s_bench} Detailed Performance Metrics of \ours on AI4Science Benchmarks
+        \item \ref{app:search_efficiency} Search Efficiency Analysis of \ours
+        \item \ref{app:fidelity_analysis} Decision Fidelity and Reliability in Local Iterations
+        \item \ref{app:ablation_k} Ablation Study on Top $k$ Selection
+        \item \ref{app:license} Licensing and Artifact Usage
+        \item \ref{app:compute} Computational Infrastructure and Budget
+        \item \ref{app:packages} Software Dependencies and Metric Implementation
+    \end{itemize}
+    \item \textbf{Appendix \ref{appendix:case_studies}: Detailed Qualitative Analysis}
+    \begin{itemize}
+        \item \ref{app:case_bias} Case I: Overcoming Complexity Bias
+        \item \ref{app:case_domain} Case II: Domain Fit over Architectural Sophistication
+        \item \ref{app:case_report} Case III: Sample of the Verbal Data Report
+        \item \ref{app:case_instruction} Case IV: Sample of the Task Instruction ($I$)
+    \end{itemize}
+    \item \textbf{Appendix \ref{appendix:prompt_templates}: Prompt Templates}
+\end{itemize}
+\vspace{1em}
+
+
+\section{Extended Related Work}
+\label{app:extended_related_work}
+
+This section expands upon the brief literature review in Section~\ref{sec:related-work}, providing a detailed taxonomy of LLM-based autonomous agents and the theoretical underpinnings of world models in the code domain.
+
+\paragraph{LLM-based Agents for Scientific Discovery}
+LLMs with strong reasoning capabilities~\cite{qiao-etal-2023-reasoning} are increasingly serving as core controllers for autonomous agents in scientific discovery~\cite{gu2024largelanguagemodelsconstructing,chen2025ai4researchsurveyartificialintelligence}, extending to specialized machine research domains~\cite{toledo2025airesearchagentsmachine, Wen-lin2025}.
+Beyond the digital realm, agents are transforming laboratory research~\cite{liu2025alphagomomentmodelarchitecture, li2025mlrcopilotautonomousmachinelearning, Yuxuan2025, schmidgall2025agentlaboratoryusingllm} and complex data analytics~\cite{sun2025agenticdataagenticdataanalytics, zhang2025deepanalyzeagenticlargelanguage}.
+Prominent systems now autonomously propose hypotheses~\cite{chai2025scimastergeneralpurposescientificai, yu2025alpharesearchacceleratingnewalgorithm, internagentteam2025internagentagentscientist, novikov2025alphaevolvecodingagentscientific} and conduct closed-loop experiments~\cite{gottweis2025aicoscientist, lange2025shinkaevolveopenendedsampleefficientprogram, yuan2025dolphinmovingclosedloopautoresearch, yu2025researchtownsimulatorhumanresearch, WOS:001446914500004}, highlighting the trend of ``AI Scientists'' operating in open-ended exploration loops.
+
+Narrowing down to the machine learning domain, the ecosystem is highly diversified.
+One stream of research focuses on managing the end-to-end workflow, ranging from autonomous frameworks~\cite{nam2025mlestarmachinelearningengineering, yang2025rdagentllmagentframeworkautonomous, qiao2025scalinggeneralistdataanalyticagents, Ze-xi2025} to engineering pipelines~\cite{Fang2025, chi2024selatreesearchenhancedllm, DOI:10.3724/2096-7004.di.2024.0005}.
+Another stream, driven by benchmarks like MLE-bench~\cite{chan2025mlebenchevaluatingmachinelearning, huang2024mlagentbenchevaluatinglanguageagents} and broader evaluation suites~\cite{zhang2025mlrcbenchlanguageagentssolve, jing2024dsbench, zhang2024benchmarking, Nathani2025}, focuses on competitive problem-solving through knowledge-guided reasoning~\cite{luo2025executableknowledgegraphsreplicating, ou2025automindadaptiveknowledgeableagent} and evolutionary optimization~\cite{du2025automlgennavigatingfinegrainedoptimization, guo2024dsagentautomateddatascience, li2025fmagent, liu2025mlmasteraiforaiintegrationexploration}.
+
+Additionally, general-purpose platforms and optimization frameworks offer the foundational tooling and multi-agent architectures required for scalable research~\cite{wang2025openhandsopenplatformai, jiang2025aideaidrivenexplorationspace, hong2024datainterpreterllmagent, qiang2025mledojointeractiveenvironmentsempowering, wang2025configurablemultiagentframeworkscalable}.
+However, to mitigate the significant computational overhead of the generation-execution-feedback loop inherent in these systems, recent approaches explore utilizing internal priors to estimate feasibility and prune redundant steps, thereby accelerating optimization~\cite{kulibaba2025kompeteaiacceleratedautonomousmultiagent, trirat2025automlagentmultiagentllmframework, Zhang2024, Astorga2024}.
+
+
+\paragraph{Operational Details of Agent Baselines}
+
+As introduced in Section~\ref{sec:agent_paradigm}, we take two representative agent frameworks that operate under the \textbf{Generate-Execute-Feedback} paradigm as examples. Here we provide their detailed mechanisms:
+
+\begin{itemize}
+    \item \textbf{AIDE:} AIDE~\citep{jiang2025aideaidrivenexplorationspace} is an LLM-based agent that frames machine learning engineering as a code optimization problem.
+    It structures the trial-and-error process as a tree search in the solution space, reusing and refining promising code candidates.
+    This method effectively trades computational resources for enhanced performance.
+    Specifically, AIDE first generates initial code $C_0$ based on instruction $I$.
+    The code is executed by training on dataset $D$ to obtain results. Subsequently, AIDE iteratively derives new code $C_1, C_2, \dots, C_t$ based on the feedback.
+
+    \item \textbf{AutoMind:} Building upon the AIDE framework, AutoMind~\citep{ou2025automindadaptiveknowledgeableagent} further integrates a curated expert knowledge base and a self-adaptive coding strategy.
+    While retaining the tree search structure, it grounds the agent in domain expertise and dynamically tailors code generation to task complexity.
+    This approach aims to reduce invalid attempts by improving the quality of the initial draft and subsequent refinements.
+\end{itemize}
+
+
+\paragraph{World Models and Execution-Free Evaluation}
+The concept of World Models originates from model-based reinforcement learning, where agents learn to simulate the environment's transition dynamics to plan actions without expensive trial-and-error~\cite{Ding2025, hafner2024masteringdiversedomainsworld, feng2025webworldmodels, wong2023wordmodelsworldmodels, li2025wordworldlargelanguage}.
+Our work adapts this concept to the code generation domain, addressing the ``Execution Bottleneck'' inherent in the agentic loops described above.
+
+Recent research enables models to internalize the execution process, predicting test outcomes~\cite{Hora2024predictingtestresultswithoutexecution, faircodegenteam2025cwmopenweightsllmresearch,wei2025swerladvancingllmreasoning} or assessing logic consistency directly~\cite{li2025codeiocondensingreasoningpatterns, Changshu2024codemind}.
+This capability is rigorously evaluated on reasoning-centric benchmarks~\cite{wei2025equibenchbenchmarkinglargelanguage, gu2024cruxevalbenchmarkcodereasoning, jain2024livecodebenchholisticcontaminationfree}.
+Unlike traditional benchmarks that may allow for rote memorization, these tasks require models to transcend statistical pattern matching and develop a deep semantic understanding of algorithmic states and control flows~\cite{chen2025scalingagentlearningexperience, sun2025zerosearchincentivizesearchcapability, akhauri2025regressionlanguagemodelscode, Chen2025reval}, serving as the foundational capability for our proposed framework.
+Aligning with OpenAI's Level 4 ``Innovators''~\cite{metz2024openai, zhang2025innogymbenchmarkinginnovationpotential}, this empowers agents to drive innovation by leveraging internal world models to proactively prune vast hypothesis spaces, shifting the paradigm from ensuring syntactic correctness to optimizing for semantic success.
+This transition resonates with the broader Data-Centric AI movement~\cite{zha2023datacentricartificialintelligencesurvey, cabrera2025machinelearningsystemssurvey}, moving beyond model architecture to focus on the quality of evaluative signals.
+Specifically, our framework incorporates rationale-based preference optimization~\cite{Just2024datacentrichuman} and rigorous dataset construction criteria~\cite{Shen2024towardsdatacentricrlhf} to ensure that the ``implicit world model'' is grounded in data-specific realities rather than abstract heuristics~\cite{tschalzev2024datacentricperspectiveevaluatingmachine}.
+
+
+
+\section{Corpus Details}
+\label{apendix:corpus_details}
+
+To support the reproducibility of our analysis and provide a comprehensive view of the solution space, we provide detailed metadata for the corpus.
+
+
+\subsection{Task Metadata and Scale}
+\label{sec:appendix_task_detail}
+Table~\ref{tab:appendix_task_details_part1} outlines the specific characteristics of each of the 26 tasks, including the domain, machine learning paradigm, data size, and the scale of the constructed evaluation set.
+
+
+\subsection{Algorithm and Architecture Distribution}
+\label{sec:appendix_algo_details} % 给这一小节一个标签，方便引用
+
+As shown in Figure~\ref{fig:algo_diversity_sunburst} and Table~\ref{tab:appendix_algo_dist_part1}, the solutions range from traditional statistical methods to advanced deep learning architectures, ensuring that our analysis is evaluated against a heterogeneous solution manifold.
+
+\input{tables/appendix_task_details}
+
+% \newpage
+
+
+\subsection{Agent Evaluation Benchmark}
+\label{sec:appendix_agent_benchmark}
+
+We curated a specialized benchmark to test the World Model's capability to generalize from seen tasks to unseen scientific problems. As detailed in Table~\ref{tab:agent_benchmark}, this selection covers diverse AI4Science domains including Biology, Physics, Geoscience, Ecology, and Medicine. Note that tasks marked with ``*'' (Aerial Cactus and Histo. Cancer Detect) are \textit{unseen} tasks, meaning they were not used in the main experiments and serve as out-of-distribution evaluations.
+
+
+% --- 算法表格（详细数据） ---
+\input{tables/appendix_algo_dist}
+
+\input{tables/appendix_extra_task_details}
+
+% --- 算法分布图（Sunburst Chart） ---
+% 强调这张图的宏观概览作用
+\begin{figure*}
+    \centering
+    % 请确保你的图片路径正确，且为 PDF 格式
+    \includegraphics[width=0.8\textwidth]{figures/appendix_algo_distribution_pie.pdf} 
+    \caption{Hierarchical distribution of the unique solution architectures in our Prediction Corpus. The chart illustrates the balance achieved across major machine learning paradigms: Gradient Boosting\&Trees, General/Sequential NNs, CNNs, and Transformers. The outer ring details specific model instances, demonstrating the high heterogeneity of the solution space.}
+    \label{fig:algo_diversity_sunburst}
+\end{figure*}
+
+
+\subsection{Trajectory Sampling and Intermediate States}
+\label{sec:trajectory_sampling}
+
+To clarify the composition of our Preference Corpus, it is important to note that the dataset captures the entire lifecycle of an agent's exploration.
+While we filter out syntactically invalid code that crashes, our dataset is rich in logically imperfect intermediate states. 
+
+As shown in Figure \ref{fig:trajectory_tree}, we generate pairs not just from the final best solution, but across the entire valid search path. 
+This extensively tests the model's implicit modeling capabilities to distinguish and guide improvements among messy and unfinalized intermediate code states, ensuring the agent moves from working but poor to working and good.
+
+\newsavebox{\myverbbox}
+\begin{figure*}
+\centering
+\begin{lrbox}{\myverbbox}
+\begin{minipage}{0.85\textwidth}
+\footnotesize
+\begin{verbatim}
+Root
+ |-- Bug (Syntax Error) [Filtered: Handled by Interpreter]
+ |    \-- Bug (Runtime Error) [Filtered]
+ |         \-- Score: 0.380 (Valid, Intermediate "Half-baked") -> INCLUDED
+ |              \-- Score: 0.377 (Valid, Improved) -> INCLUDED
+ |                   |-- Score: 0.385 (Valid, Regressed) -> INCLUDED
+ |                   |-- Score: 0.377 (Valid, Best-so-far) -> INCLUDED
+ |                   \-- Score: 0.383 (Valid, Sub-optimal) -> INCLUDED
+\end{verbatim}
+\end{minipage}
+\end{lrbox}
+\fbox{\usebox{\myverbbox}}
+\caption{A representative trajectory snippet illustrating our sampling strategy. This extensively tests the model's implicit modeling capabilities to distinguish and guide improvements among messy and unfinalized intermediate code states, ensuring the agent moves from working but poor to working and good.}
+\label{fig:trajectory_tree}
+\end{figure*}
+
+
+
+
+
+\section{Detailed Experiment Result}
+\label{appendix:detailed_exp_result}
+
+In this section, we provide a comprehensive breakdown of the experimental results, supplementing the main paper with granular performance metrics across individual tasks, domains, and agent architectures.
+
+\subsection{Fine-grained Performance on Prediction Corpus}
+\label{app:fine_grained_performance}
+Table~\ref{tab:appendix_final_v3} presents the task-level performance comparison between DeepSeek-V3.2 and GPT-5.1 across all 26 tasks in the Prediction Corpus.
+The results are categorized by task domain (CV, NLP, Data Science) and difficulty level, offering a detailed view of model capabilities.
+Furthermore, to provide a deeper understanding of the ``Others'' category mentioned in the main table (Table~\ref{tab:final_compact_matrix_clean}), Table~\ref{tab:appendix_paradigm_breakdown} breaks down performance by specific machine learning paradigms.
+This granular analysis reveals distinct performance characteristics in Ranking, Matching, Segmentation, and Extraction tasks, highlighting significant gaps in Matching and Ranking capabilities between the models.
+Finally, we investigate the impact of data context in Figure~\ref{fig:appendix_domain_sensitivity}, which presents the data representation sensitivity analysis.
+The stacked bar chart reveals the incremental impact of adding Raw Data, Numerical Statistics, and Verbal Reports.
+While code-only context serves as a strong baseline, enriching the context with multimodal data yields consistently superior performance, with the magnitude of improvement exhibiting distinct domain-specific patterns.
+
+
+\subsection{Analysis of Pair Source and Trajectory Variance}
+\label{app:trajectory_variance}
+
+To rigorously test whether random sampling introduces easy pairs by comparing an initial half baked script versus a refined solution from the same trajectory, we performed a stratified analysis.
+We split our test set into two subsets: Within Trajectory Pairs (both solutions come from the same agent run session) and Cross Trajectory Pairs (solutions come from different agent run sessions or different tasks).
+
+As shown in table~\ref{tab:pair_source}, our experimental results indicate that performance inflation is not observed between two subsets. For DeepSeek V3.2, accuracy on Within Trajectory pairs (60.4\%) is slightly lower than on Cross Trajectory pairs (61.7\%). For GPT 5.1, the performance is statistically identical across both subsets.
+
+A qualitative inspection of the trajectories reveals why the assumption of early half baked code does not hold for our specific agents (AIDE and AutoMind).
+Unlike human developers who may write broken snippets in early stages, these autonomous agents are prompted to generate fully executable end to end scripts at every step of the iteration.
+Even the first generated solution is typically a complete runnable pipeline.
+Later steps represent methodological refinements, such as switching algorithms or adding feature engineering, rather than fixing broken code.
+
+Therefore, distinguishing between an early complete script and a late complete script relies on subtle algorithmic reasoning, not on detecting obvious syntax errors or incompleteness.
+The model's predictive capability is robust and reflects genuine reasoning about solution quality rather than the exploitation of trajectory artifacts.
+
+
+\subsection{Detailed Performance Metrics of \ours on AI4Science Benchmarks}
+\label{app:ai4s_bench}
+
+We evaluate the generalization capability of \ours on a subset of 5 challenging AI4Science tasks using the Beat Ratio metric.
+Table~\ref{tab:main_results_aide_vs_foreagent} details the specific quantitative results for both the AIDE baseline and \ours.
+The comparison explicitly distinguishes between tasks seen during the training phase and unseen out-of-distribution tasks.
+The metrics demonstrate that \ours maintains robust performance on seen tasks while achieving superior generalization on unseen problems, such as Aerial Cactus Identification and Histopathologic Cancer Detection, validating the effectiveness of the World Model in bridging the implementation gap.
+
+
+\subsection{Search Efficiency Analysis of \ours}
+\label{app:search_efficiency}
+
+To elucidate the operational efficiency and robustness of \ours, we analyze its training dynamics.
+First, regarding temporal efficiency, Figure~\ref{fig:appendix_agent_perf} plots the Average Beat Ratio over the 12-hour execution window.
+The trajectories indicate that \ours converges to optimal solutions significantly faster than the baseline across the majority of tasks.
+Complementing this, Figure~\ref{fig:appendix_agent_node} visualizes the search breadth.
+It shows that by leveraging the World Model for low-cost evaluation, \ours maintains a higher rate of node exploration, effectively covering a broader search space within the same computational budget.
+
+
+\subsection{Decision Fidelity and Reliability in Local Iterations}
+\label{app:fidelity_analysis}
+
+To investigate whether the framework maintains predictive reliability on noisy intermediate code and prevents the agent from going deeper into incorrect trajectories, we conducted a granular analysis of the decision making process comparing AIDE (execution only) and \ours across 15 runs.
+We focused on three key metrics.
+Test Improve Rate is the probability that a modification intended to improve the code based on Validation feedback actually yields a better score on the hidden Test set.
+Test Non degrade Rate is the probability that the test score of the new candidate is greater than or equal to its parent, indicating the modification did not harm the performance.
+Val vs Test Agreement measures how often the Validation signal correctly predicts the Test direction for iterative improvement steps.
+
+As shown in table~\ref{tab:decision_reliability}, the results directly address the impact of intermediate noise.
+The execution only baseline (AIDE) struggles with non finalized code, showing a low success rate of 30.39\%.
+This indicates that in local iterations, validation scores are extremely noisy.
+Traditional agents frequently go deeper into bad trajectories because they are misled by validation overfitting.
+
+\ours significantly improves the Test Improve Rate to 53.49\%.
+By introducing the World Model as a filter before execution, the framework successfully prunes many candidate nodes that achieve high validation scores but are logically flawed.
+This proves that the World Model does not regress to the baseline when faced with draft code. Instead, it acts as a robust Semantic Safeguard, effectively filtering through the noise of intermediate development and reducing the risk of following incorrect trajectory paths.
+
+Although the Val vs Test Agreement for local improve pairs shows a slight decrease (75.23\%), it remains highly consistent with the global 72\% theoretical ceiling discussed in Section~\ref{subsec:rq4_cases}.
+The higher actual success rate demonstrates that \ours is a more reliable navigator for autonomous research and development than execution only feedback.
+
+
+\subsection{Ablation Study on Top $k$ Selection}
+\label{app:ablation_k}
+
+We evaluated the parameter $k$ to balance search breadth and selection stability, comparing our default $k=1$ with $k=2$ and AIDE baseline.
+
+Table \ref{tab:ablation_k} reveals three findings: (1) \textbf{Search Space Expansion}: Setting $k=2$ forces the execution of two candidates per iteration, surging the average node count to 157.87. (2) \textbf{Metric Correlation}: ForeAgent ($k=1$) balances stable Val Test Agreement (75.23\%) with a substantially improved Test Improve Rate (53.49\%). (3) \textbf{Performance Degradation}: Increasing $k$ amplifies exposure to noisy validation signals and increases variance, which destabilizes exploration and lowers the overall score.
+
+In conclusion, $k=1$ provides the optimal balance.
+We note this preliminary study only isolates $k$.
+Future work will comprehensively explore tuning additional hyperparameter combinations.
+
+
+\subsection{Licensing and Artifact Usage}
+\label{app:license}
+
+We clarify the licensing terms for the key artifacts involved in this study to ensure compliance and reproducibility:
+
+\begin{itemize}
+    \item \textbf{Datasets:} All problem statements and datasets are sourced from public Kaggle competitions. They are utilized in strict accordance with their respective competition rules and standard Creative Commons licenses (predominantly CC-BY-SA 4.0).
+    \item \textbf{Models:} The backbone language models employed are open-weights models used under their official Apache 2.0 and MIT licenses.
+    \item \textbf{Code and Benchmark:} We will release our curated corpus and the accompanying agent framework under the MIT license to facilitate future research.
+\end{itemize}
+
+Our usage of these artifacts aligns with their intended purpose of fostering machine learning research.
+Furthermore, the derived corpus we will release is strictly intended for non-commercial research evaluation, ensuring compatibility with the original access conditions.
+
+
+\subsection{Computational Infrastructure and Budget}
+\label{app:compute}
+
+\paragraph{Hardware Setup.}
+All experiments were conducted on a high-performance local server equipped with an Intel Xeon Gold 6138 CPU (80 logical cores, 2.00GHz) and $6\times$ NVIDIA GeForce RTX 3090 GPUs (24GB VRAM each).
+To maximize throughput, we orchestrated a parallelized evaluation pipeline with 6 concurrent workers, assigning one dedicated GPU to each task environment. This ensures that physical code executions are isolated and do not suffer from resource contention.
+
+\paragraph{Token Consumption.}
+Table~\ref{tab:compute_budget} summarizes the estimated token usage for the primary data construction and ablation phases.
+The main benchmark generation (covering 18,438 solution pairs) consumed approximately 78.5 million tokens (Input + Output).
+We note that the computational cost for agent baselines (e.g., AIDE) is highly stochastic due to their autonomous error-recovery loops, where a single difficult task may trigger exponential branching and token usage compared to our linear inference approach.
+
+\begin{table*}
+    \centering
+    \small
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Experiment Phase} & \textbf{Sample Scale} & \textbf{Input Tokens} & \textbf{Output Tokens} & \textbf{Est. Total} \\
+        \midrule
+        \textbf{Main Benchmark} & Max 50 sols/task & $\approx$ 60.1M & $\approx$ 18.4M & $\approx$ 78.5M \\
+        \textit{(Full Construction)} & (18,438 pairs) & & & \\
+        \midrule
+        \textbf{Analysis \& Ablation} & Max 15 sols/task & $\approx$ 7.3M & $\approx$ 2.3M & $\approx$ 9.6M \\
+        \textit{(Subset Evaluation)} & & & & \\
+        \midrule
+        \textbf{Agent Baselines} & Dynamic & \multicolumn{2}{c}{\textit{High Variance (Task-Dependent)}} & - \\
+        \textit{(AIDE / AutoMind)} & & & & \\
+        \bottomrule
+    \end{tabular}
+    \caption{\textbf{Computational Budget and Token Consumption.} Statistics are aggregated across all 26 tasks. The agent baselines exhibit high variance due to their autonomous feedback loops, making precise token estimation non-deterministic.}
+    \label{tab:compute_budget}
+\end{table*}
+
+
+\subsection{Software Dependencies and Metric Implementation}
+\label{app:packages}
+
+To ensure the reproducibility of our evaluation metrics and inference pipelines, we detail the software environment and parameter settings used:
+
+\begin{itemize}
+    \item \textbf{Evaluation Metrics:} We utilize the standard implementations provided by Scikit-learn for calculating all performance metrics. Unless explicitly stated otherwise, we strictly adhere to the default parameter settings to maintain consistency with standard leaderboards.
+    \item \textbf{Data Processing:} Data manipulation and feature extraction are performed using NumPy.
+    \item \textbf{LLM Inference:} We employ the official OpenAI Python Library to conduct inference. This standardizes interactions across different model endpoints. We utilize default sampling parameters to ensure deterministic outputs for the "Predict" phase.
+\end{itemize}
+
+
+
+\input{tables/appendix_main_tab_detail}
+
+\input{tables/appendix_task_paradigm}
+
+\input{tables/appendix_agent_result}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\linewidth]{figures/appendix_agent_perf.pdf}
+    \caption{\textbf{Temporal Evolution of Performance.} The curves display the Average Beat Ratio as a function of Execution Time (0--12 hours) for both the AIDE baseline and \textsc{ForeAgent}. The results are broken down by the five individual AI4Science tasks and the overall Micro Average.}
+    \label{fig:appendix_agent_perf}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=\linewidth]{figures/appendix_agent_node.pdf}
+    \caption{\textbf{Progression of Search Node Exploration.} This figure illustrates the cumulative number of nodes explored (Avg. Node Num.) over the 12-hour duration. It compares the search trajectories of \textsc{ForeAgent} against AIDE across each specific task and the aggregated Micro Average.}
+    \label{fig:appendix_agent_node}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+    % 请确保把文件名替换成你实际的文件名
+    \includegraphics[width=\linewidth]{figures/appendix_data_repr.pdf}
+    
+    \caption{\textbf{Domain and Task Sensitivity Analysis.} The stacked bar chart presents the data representation study for each individual task. It visualizes the incremental performance impact of adding Raw Data, Numerical Statistics, and Verbal Reports to the Code-only baseline. The tasks are grouped by their respective domains (CV, NLP, and Data Science) to highlight domain-specific sensitivity.}
+    \label{fig:appendix_domain_sensitivity}
+\end{figure*}
+
+% \clearpage
+
+
+\section{Detailed Qualitative Analysis}
+\label{appendix:case_studies}
+
+% 引入包含所有四个Figure的文件
+\input{figures/appendix_case}
+
+To validate the model's reasoning depth and provide transparency into our pipeline, we present four qualitative examples.
+First, we analyze two reasoning trajectories (Google Quest Challenge and TGS Salt Identification) to illustrate how the model acts as a skeptical critic, prioritizing methodological fit over superficial sophistication and overcoming human bias (Finding 5).
+Subsequently, we provide visual samples of two critical system artifacts: the \textit{Verbal Data Report} and the \textit{Task Instruction}, enabling a concrete inspection of the agent's input and context.
+
+\subsection{Case I: Overcoming Complexity Bias (Reasoning Analysis)}
+\label{app:case_bias}
+
+To provide a concrete example of Finding 5 (``The World Model Transcends Human Intuition by Prioritizing Data-Grounded Constraints''), we present a detailed analysis in Figure~\ref{fig:case_study_quest}.
+This case illustrates a common pitfall where architectural sophistication clashes with fundamental data constraints.
+
+\paragraph{Scenario and Conflict.}
+The agent evaluates two distinct solutions for the Google Quest Q\&A task:
+\begin{itemize}
+    \item \textbf{Solution 0:} A complex Deep Neural Network (DNN) with Cross-Attention.
+    \item \textbf{Solution 1:} A robust LightGBM ensemble.
+\end{itemize}
+Intuitively, human evaluators and models relying solely on code complexity heuristics often exhibit a ``complexity bias'' by favoring the deep learning approach under the assumption that greater architectural depth yields better performance.
+
+\paragraph{World Model Reasoning.}
+However, the World Model leverages the generated Data Analysis Report to detect a critical mismatch.
+The report highlights that the dataset is relatively small ($N \approx 5.5k$ samples) with skewed targets.
+Synthesizing this finding with model design principles, the World Model predicts a high risk of overfitting for the complex DNN.
+Consequently, it correctly prioritizes the LightGBM ensemble (Solution 1), determining that the gradient boosting approach offers a superior Data-Model Fit for this specific sample size.
+
+\subsection{Case II: Domain Fit over Architectural Sophistication}
+\label{app:case_domain}
+
+To further substantiate the model's robustness against complex-looking but flawed solutions (``Square peg in a round hole''), we present a second trajectory analysis in Figure~\ref{fig:case_study_tgs}.
+
+\paragraph{Scenario and Conflict.}
+The agent evaluates two segmentation solutions for the TGS Salt Identification task:
+\begin{itemize}
+    \item \textbf{Solution 0:} A Vision Transformer (ViT-B/16) pre-trained on ImageNet.
+    \item \textbf{Solution 1:} A standard U-Net.
+\end{itemize}
+Human intuition might favor the ViT due to its top-tier status and global context modeling capabilities.
+
+\paragraph{World Model Reasoning.}
+The World Model recognizes that the task requires pixel-perfect segmentation of small ($101 \times 101$) seismic images. It correctly identifies that forcing inputs into the ViT's required $224 \times 224$ resolution introduces interpolation noise and destroys fine-grained salt details. Unswayed by the ``SOTA'' status, the model rejects the ViT in favor of the standard U-Net, citing the necessity of preserving native spatial resolution and avoiding severe domain mismatch.
+
+\subsection{Case III: Sample of the Verbal Data Report}
+\label{app:case_report}
+
+Figure~\ref{fig:report_patent} presents a representative sample of the Verbal Data Report ($D_{rep}$) generated for the \textit{US Patent Matching} task.
+This artifact visualizes the mechanism described in Section~\ref{sec:input_augmentation}: transforming raw execution logs (e.g., text length statistics, label skew) into semantic narratives.
+It serves as the grounding anchor that allows the language model to ``read'' and internalize dataset properties without direct access to the raw files.
+
+\subsection{Case IV: Sample of the Task Instruction ($I$)}
+\label{app:case_instruction}
+
+Finally, to visualize the input definition provided in Section~\ref{sec:agent_paradigm}, Figure~\ref{fig:task_instruction_denoising} displays the raw Task Instruction ($I$) for the task \textit{Denoising Dirty Docs}.
+This prompt encapsulates the natural language description, specific dataset paths, and optimization goals, acting as the initial state that triggers the agent's autonomous loop.
+
+
+\section{Prompt Templates}
+\label{appendix:prompt_templates}
+
+To ensure reproducibility and transparency, we provide the full prompt templates used in our World Model framework. The workflow consists of four key stages:
+
+\begin{enumerate}
+    \item \textbf{Data Analysis Code Generation (Figure~\ref{fig:appendix_da_code_prompt}):} The agent is first instructed to generate a robust Python script for profiling the dataset. This step extracts key statistical meta-features without training a model.
+    \item \textbf{Data Analysis Report Generation (Figure~\ref{fig:appendix_da_report_prompt}):} Based on the execution logs from the previous step, the agent summarizes the findings into a structured, causal report. This report serves as a critical context for the reasoning engine.
+    \item \textbf{Result Prediction Query (Figure~\ref{fig:appendix_result_predict_query}):} This is the core reasoning prompt where the World Model predicts the relative performance of candidate solutions. It integrates the task description, the generated data analysis report, and the solution code to form a grounded judgment.
+    \item \textbf{Complexity Scoring (Figure~\ref{fig:appendix_complexity_prompt}):} An auxiliary prompt used to calculate the complexity heuristic baseline. It evaluates solutions across code engineering, model architecture, and data pipeline dimensions to detect potential bias towards complexity.
+\end{enumerate}
+
+The specific prompt templates are illustrated below.
+
+
+\onecolumn
+% 引入外部的 Prompts 文件
+\input{figures/appendix_prompts}
+
+% \clearpage
+
+
+
+
+
+% 更多的讨论
+% 为什么coder模型没有更好
+% 为什么中等难度的任务打得最好

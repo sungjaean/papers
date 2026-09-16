@@ -1,0 +1,475 @@
+% This must be in the first 5 lines to tell arXiv to use pdfLaTeX, which is strongly recommended.
+\pdfoutput=1
+% In particular, the hyperref package requires pdfLaTeX in order to break URLs across lines.
+\documentclass[11pt]{article}
+\newcommand{\xkg}{\mathrm{\ours}}
+% \usepackage[table,xcdraw]{xcolor}
+
+% Change "review" to "final" to generate the final (sometimes called camera-ready) version.
+% Change to "preprint" to generate a non-anonymous version with page numbers.
+
+\raggedbottom
+
+% === ATTENTION ===
+% IF WE NEED TO RESUBMIT TO ARR
+% PLEASE REMOVE ALL THE PERSONAL INFORMATION
+% ESPECIALLY IN APPENDIX
+% =================
+% \usepackage[review]{acl}
+\usepackage[final]{acl}
+\usepackage{arydshln}
+% Standard package includes
+\usepackage{times}
+\usepackage{latexsym}
+
+% For proper rendering and hyphenation of words containing Latin characters (including in bib files)
+\usepackage[T1]{fontenc}
+% For Vietnamese characters
+% \usepackage[T5]{fontenc}
+% See https://www.latex-project.org/help/documentation/encguide.pdf for other character sets
+
+% This assumes your files are encoded as UTF8
+\usepackage[utf8]{inputenc}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+
+% This is also not strictly necessary, and may be commented out.
+% However, it will improve the aesthetics of text in
+% the typewriter font.
+\usepackage{inconsolata}
+
+%Including images in your LaTeX document requires adding
+%additional package(s)
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wrapfig}   % 用于实现文字环绕图片
+\usepackage{float}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{mdframed}
+\usepackage{tcolorbox}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{lipsum}
+\usepackage{array}
+\usepackage{chngcntr}
+\usepackage{ragged2e}
+\tcbuselibrary{breakable}
+\usepackage{booktabs}
+\usepackage{makecell}
+\usepackage{caption}
+\usepackage{xcolor} % Added for color definitions
+\usepackage{pifont}  % For \ding{55} (a cross)
+\usepackage{longtable}
+
+\usepackage{todonotes}
+
+\usepackage[table]{xcolor} % 用于表格颜色     % 用于单元格内换行
+\definecolor{lightgray}{gray}{0.9} % 定义一个浅灰色
+\tcbuselibrary{skins}
+\usepackage{diagbox}
+
+\usepackage{xstring}
+
+
+% Author information can be set in various styles:
+% For several authors from the same institution:
+% \author{Author 1 \and ... \and Author n \\
+%         Address line \\ ... \\ Address line}
+% if the names do not fit well on one line use
+%         Author 1 \\ {\bf Author 2} \\ ... \\ {\bf Author n} \\
+% For authors from different institutions:
+% \author{Author 1 \\ Address line \\  ... \\ Address line
+%         \And  ... \And
+%         Author n \\ Address line \\ ... \\ Address line}
+% To start a separate ``row'' of authors use \AND, as in
+% \author{Author 1 \\ Address line \\  ... \\ Address line
+%         \AND
+%         Author 2 \\ Address line \\ ... \\ Address line \And
+%         Author 3 \\ Address line \\ ... \\ Address line}
+\author{
+    Jingsheng Zheng$^{\dag\ddag}$, Jintian Zhang$^{\dag\ddag}$, Yujie Luo$^{\dag\ddag}$, Yuren Mao$^{\dag}$, Yunjun Gao$^{\dag}$, \\
+    \textbf{Lun Du}$^{\S\ddag}$, \textbf{Huajun Chen}$^{\dag\ddag}$, \textbf{Ningyu Zhang}$^{\dag\ddag}$\thanks{Corresponding Author.} \\
+    $^{\dag}$Zhejiang University \quad $^{\S}$Ant Group \\
+    $^{\ddag}$Zhejiang University - Ant Group Joint Laboratory of Knowledge Graph \\
+    \texttt{zhengjohnson0@gmail.com, zhangningyu@zju.edu.cn}
+}
+
+
+\definecolor{myGreen}{RGB}{0, 150, 0}
+\definecolor{myRed}{RGB}{200, 0, 0}
+
+% 放在导言区
+\definecolor{myblue}{RGB}{30, 144, 255} % 纯正亮蓝，不发紫
+
+\usepackage{bm}
+% --- 修正后的 \perf 命令 ---
+% 在 \rlap 内部，用 $...$ 将包含下标 _ 的部分包裹起来，以进入数学模式
+\newcommand{\perf}[2]{%
+    #1%
+    \rlap{$
+        \,_{\IfBeginWith{#2}{-}%
+            {\color{myGreen}\text{\tiny{(#2)}}}%
+            {\color{myRed}\text{\tiny{(#2)}}}%
+        }
+    $}%
+}
+
+\tcbuselibrary{most} 
+
+% ============================================================
+% 定义 Definition Box (用于概念定义)
+%    这是一个普通的盒子，文字会正常渲染 LaTeX 格式
+% ============================================================
+\newtcolorbox{definitionbox}[1][]{%
+  enhanced,                % 启用高级绘图引擎
+  title={Definition},      % 默认标题
+  colback=blue!5,          % 内容背景色
+  colframe=blue!50!black,  % 边框颜色
+  coltitle=white,          % 标题文字颜色
+  colbacktitle=blue!60!black, % 标题背景色
+  boxrule=1.5pt,           % 边框粗细
+  arc=3mm,                 % 圆角大小 (统一设为 3mm 会比较好看)
+  fonttitle=\bfseries,     % 标题字体
+  
+  % 这一段是为了实现“独立标题块”的漂亮效果
+  attach boxed title to top left={yshift=-2mm,xshift=4mm}, 
+  boxed title style={
+    rounded corners,
+    boxrule=0pt,           % 标题框不要边框，看起来更干净
+  },
+  
+  breakable,               % 建议加上这个，防止长定义无法跨页
+  #1                       % 允许调用时覆盖参数
+}
+
+
+% ==================================================
+% Custom Insight Box Definition
+% ==================================================
+% \usepackage[T1]{fontenc}
+\usepackage{utfsym}
+\usepackage{stfloats}
+% 定义通用环境: insightbox
+% 参数 #1: 标题内容 (e.g., Discussion: ...)
+\newtcolorbox{insightbox}{
+    float*=!hb,            % 强制跨栏浮动到底部
+    width=\textwidth,    % 宽度占满整页
+    colback=myblue!5!white, % 极淡背景 (截图看起来像白底，你可以改成 white)
+    fontupper=\small\linespread{1.05}\selectfont,
+    colframe=black,         % 黑色细边框    
+    boxrule=0.5pt,          % 边框很细 (0.5pt)
+    arc=6pt,                % 圆角很小 (2pt)，看起来很锐利但有圆润感
+    left=8pt, right=8pt, top=4pt, bottom=4pt,
+    before skip=10pt,
+    after skip=10pt
+}
+
+
+% ============================================================
+% 定义 Prompt Box (用于 LLM Prompt/代码)
+%    这是一个 Listing 盒子，里面的内容会按“纯文本”处理
+% ============================================================
+\usepackage[scale=0.85]{FiraMono}
+\newtcolorbox{promptbox}[2][]{
+  enhanced,
+  title={#2},
+  colframe=myblue!50!gray,
+  colback=myblue!5!white,
+  colbacktitle=myblue!50!gray,
+  fonttitle=\bfseries\large,
+  fontupper=\ttfamily\small\linespread{1.1}\selectfont, % 稍微减小行距更紧凑
+  boxrule=1pt,
+  arc=2mm,
+  breakable,                % 允许跨页
+  top=10pt, bottom=10pt,    % 增加一点内边距，防止文字贴边
+  oversize,                 % 允许稍微突破栏宽（可选）
+  % 处理跨页时的边框样式：
+  % skin=enhancedlast,        % 优化跨页后的最后一部分渲染
+  #1
+}
+
+
+% =================================================================
+% CASE STUDY MACROS DEFINITION (Aligned Version)
+% =================================================================
+\tcbuselibrary{raster}
+\usepackage{fontawesome5}
+
+% 1. 外层大框架 (保持不变)
+\newtcolorbox{CaseStudyFrame}[2]{
+    enhanced, 
+    title={\large \textbf{#1}},
+    colback=white, colframe=gray!70!black, coltitle=white,
+    fonttitle=\bfseries,
+    width=\textwidth, 
+    boxrule=1pt,
+    arc=4pt,
+    label={#2}
+}
+
+% 2. 上下文说明条 (保持不变)
+\newcommand{\ContextBar}[1]{
+    \begin{tcolorbox}[
+        enhanced, colback=gray!10, colframe=gray!30, 
+        sharp corners, boxrule=0.5pt,
+        left=4pt, right=4pt, top=3pt, bottom=3pt
+    ]
+        \small #1 
+    \end{tcolorbox}
+    \vspace{0.3cm}
+}
+
+% 3. 解决方案列 (SolutionColumn) - 核心容器
+% 这里的 #4 是 Group ID，我们将复用它来对齐内部元素
+\newtcolorbox{SolutionColumn}[4]{
+    enhanced,
+    equal height group={#4}, % 外框等高
+    title={\textbf{#3}},
+    colframe=#1, colback=white, coltitle=white,
+    subtitle style={colback=#2, colupper=black},
+    drop shadow, 
+    width=\linewidth,
+    fonttitle=\small\bfseries,
+    left=3pt, right=3pt,
+    % 关键：让内部内容垂直分布，把多余空间撑开，但我们主要靠内部盒子对齐
+    valign=top 
+}
+
+
+\newtcolorbox{ReportFrame}[2]{
+    enhanced,
+    % breakable, % <--- 关键：允许自动跨页
+    title={\large \textbf{#1}}, % 标题
+    colback=white, 
+    colframe=gray!70!black, 
+    coltitle=white,
+    fonttitle=\bfseries,
+    width=\textwidth,
+    boxrule=1pt,
+    arc=4pt,
+    % 核心样式设置：打字机字体 + 小字号 + 紧凑行距
+    fontupper=\ttfamily\small\linespread{1.1}\selectfont, 
+    label={#2}
+}
+
+% -----------------------------------------------------------
+% [新增] 4. 对齐用的描述文本框 (AlignedDesc)
+% 用法：\begin{AlignedDesc}{GroupID} 文字... \end{AlignedDesc}
+% 作用：强制左右两栏的“描述文字区域”高度一致，对齐下方的 View 框
+% -----------------------------------------------------------
+\newtcolorbox{AlignedDesc}[1]{
+    enhanced,
+    frame hidden,      % 隐藏边框
+    colback=white,     % 背景透明/白
+    equal height group={#1_desc}, % 关键：使用后缀 _desc 自动分组
+    left=0pt, right=0pt, top=0pt, bottom=5pt, % 调整间距
+    nobeforeafter      % 防止不必要的换行干扰
+}
+
+% -----------------------------------------------------------
+% 5. 人类视角观点 (HumanView) - 修改版
+% 新增可选参数 #1，用于传入 GroupID 实现对齐
+% 用法：\HumanView[GroupID]{内容}{Verdict}
+% -----------------------------------------------------------
+\newcommand{\HumanView}[3][]{
+    \begin{tcolorbox}[
+        enhanced, 
+        % 如果传入了 ID，则启用等高分组，后缀 _view
+        code={\ifstrempty{#1}{}{\tcbset{equal height group={#1_view}}}},
+        colback=gray!5,       
+        colframe=gray!30,     
+        title={\footnotesize \faUserTie\ \textbf{Human Intuition}}, 
+        boxrule=1pt, 
+        left=3pt, right=3pt, top=3pt,
+        coltitle=black
+    ]
+        \small \textit{"#2"} 
+        \par\smallskip
+        \textbf{Verdict:} \textbf{#3}
+    \end{tcolorbox}
+}
+
+% -----------------------------------------------------------
+% 6. 世界模型视角 (WMView) - 修改版
+% 用法：\WMView[GroupID]{ModelName}{内容}{Verdict}
+% -----------------------------------------------------------
+\newcommand{\WMView}[4][]{
+    \begin{tcolorbox}[
+        enhanced, 
+        % 启用等高分组
+        code={\ifstrempty{#1}{}{\tcbset{equal height group={#1_view}}}},
+        colback=myblue!5,     
+        colframe=myblue!30,   
+        title={\footnotesize \faRobot\ \textbf{World Model #2}}, 
+        boxrule=1pt, 
+        left=3pt, right=3pt, top=3pt,
+        coltitle=black 
+    ]
+        \small \textit{"#3"} 
+        \par\smallskip
+        \textbf{Verdict:} \textbf{#4}
+    \end{tcolorbox}
+}
+
+% 7. 底部总结 (保持不变)
+\newcommand{\OutcomeFooter}[1]{
+    \vspace{0.5cm}
+    \hrule
+    \vspace{0.1cm}
+    \small 
+    \textbf{Outcome:} #1
+}
+
+
+% ============================================================
+% 定义 Case Raw Box
+%    这是一个 Listing 盒子，里面的内容会按“纯文本”处理
+% ============================================================
+\usepackage[scale=0.85]{FiraMono} % scale=0.85 防止字体过大
+
+% --- 修复版 caserawbox ---
+\newtcblisting{caserawbox}[2][]{
+  enhanced,
+  title={#2},
+  colback=white,
+  colframe=gray!70!black,
+  coltitle=white,
+  fonttitle=\bfseries\large,
+  boxrule=1pt,
+  arc=2mm,
+  breakable,
+  listing only,
+  listing options={
+    basicstyle=\ttfamily\scriptsize,
+    breaklines=true,
+    columns=fullflexible,
+    keepspaces=true,
+    showstringspaces=false,
+    extendedchars=false, 
+    literate={ }{ {~} }1 {≈}{{$\approx$}}1, 
+    inputencoding=utf8,
+  },
+  #1
+}
+
+
+% ==================== Table Preamble ====================
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+
+% 定义背景色
+\definecolor{domainbg}{gray}{0.95}
+
+% 辅助命令：任务类型标签的小样式
+\newcommand{\tagbox}[1]{\texttt{\footnotesize #1}}
+
+\usepackage{xspace}
+\newcommand{\ours}{\textsc{ForeAgent}\xspace}
+
+
+\title{Can We Predict Before Executing Machine Learning Agents?}
+
+
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    Autonomous machine learning agents have revolutionized scientific discovery, yet they remain constrained by a Generate-Execute-Feedback paradigm. Previous approaches suffer from a severe Execution Bottleneck, as hypothesis evaluation relies strictly on expensive physical execution. To bypass these physical constraints, we internalize execution priors to substitute costly runtime checks with instantaneous predictive reasoning, drawing inspiration from World Models. In this work, we formalize the task of Data-centric Solution Preference and construct a comprehensive corpus of 18,438 pairwise comparisons. We demonstrate that LLMs exhibit significant predictive capabilities when primed with a Verified Data Analysis Report, achieving 61.5\% accuracy and robust confidence calibration. Finally, we instantiate this framework in \ours, an agent that employs a Predict-then-Verify loop, achieving a 6x acceleration in convergence while surpassing execution-based baselines by +6\%. Our code and dataset are publicly available at \url{https://github.com/zjunlp/predict-before-execute}.
+\end{abstract}
+
+% version 1
+
+% 近几年，Machine Learning Agents 越来越重要的作用。它们通过试错式交互来探索策略空间，从而在复杂任务中取得超越传统自动化调参系统的效果。然而，尽管 ML Agents 能显著提升自主决策与自适应能力，其效率却受制于一个核心瓶颈：每一次策略改进都依赖大量真实运行、计算与环境反馈。这种「必须先运行再知道好坏」的闭环导致成本高、反馈慢、探索冗余，尤其在模型训练资源昂贵或需要快速决策的条件下，极大制约了 Agent 的可扩展性与实用性。
+% 这引出了一个关键问题： 是否有可能在 不运行 Agent 的情况下，提前预测其表现？ 如果我们能像“世界模型（World Model）”一样，直接推演其行为与结果，那么 Agent 的探索就可以从依赖真实执行转变为基于可计算的推理，这将从根本上重构 ML Agent 的效率边界。
+% 基于此，我们提出了一项探索：构建一个“Agent 结果预测模型”，在不执行策略的情况下，对其最终表现进行快速估计。我们将 Agent 的数据分布、任务参数、模型配置等结构化特征转化为可建模的状态表示，通过对大量历史 Agent 运行数据的压缩分析，我们探索了系统能够“想象”一次运行会带来怎样的结果。
+% 实验表明，相比真实运行，这种预测能够以数量级更低的计算成本提供稳定可用的性能预估。进一步地，当将预测模块嵌入 ML Agent 的决策循环中，Agent 能够在执行前对候选策略进行筛选，从而显著减少无效探索，整体加速 ML Agent 的收敛过程。
+% 最终，我们展示了一个新的范式方向： Machine Learning Agents Without Running —— 用预测替代试错，用推理替代执行。
+
+% 以下是整体论文结构可相应呼应上述逻辑：
+% Sec.2 Task Formulation（任务设定） 明确 ML Agent 的决策空间、输入状态定义以及目标性能指标，将“运行”过程形式化。
+% Sec.3 Data Collection and Dataset Construction（数据收集与构建） 构建大规模 Agent 运行 → 结果 的配对数据，提取轨迹、配置、梯度趋势等可预测信号。
+% Sec.4 Experiments（实验） 
+
+% Sec.5 Machine Learning Agents Without Running（无需运行的智能体） 讨论范式转变：从“基于执行的优化”走向“基于推理的优化”。
+
+
+% version 2
+
+% RQ1 — 表征理解：
+% 机器学习代理（ML agents）能否在不运行或仅用给定数据的情况下，从可用的数据中可靠地推断其学习能力？换言之，模型是否能够“理解”输入数据的结构、噪声、偏差与分布漂移，并据此预测代理在目标任务上的表现边界？ ————同一份代码，正常数据 vs 随机数据
+% RQ2 — 参数空间决策：
+% 在给定数据集与算法设计（包括模型架构、超参策略和训练流程）时，是否存在可计算的判别函数或代理（meta-predictor），能够在参数空间内预测不同方案的相对优劣，从而在实际训练前推荐最可能成功的方案或节省资源的替代策略？ ————同一份数据，不同代码
+
+% 拔高后的科学问题陈述（可放在引言或摘要）
+% 当前机器学习代理设计高度依赖大量试验与经验性调参，这在资源受限或需要快速部署的场景下难以接受。我们提出并研究一个根本性问题：能否在代价昂贵的全面训练之前，通过数据驱动的分析与参数空间建模，预测代理的学习效果与失败风险？
+
+% 解决该问题不仅要求从原始数据中抽取出与学习可行性高度相关的表征（数据复杂度、任务可辨识性、标签噪声、分布偏移等），还要求在高维参数/设计空间中构建可信的前瞻性评分或排序机制，从而实现训练前的方案筛选与资源最优分配。若成功，该能力将显著提升智能体生成机器学习算法、自我进化等系统的效率与可靠性。
+
+% 可检验的假设（Hypotheses）
+% 1. 表征假设： 有一组可计算的数据表征（就是从数据里分析的东西）能显著预测代理在指定任务上的上限表现 好或不好（R² 显著大于零）。
+% 2. 参数可预测性假设： 在给定数据表征与模型/训练配置描述的条件下，能在未运行的情况下，对不同方案的最终性能进行有效排序（排序相关性高、Top-k 精度高）。
+% 3. 资源节约假设： 基于上述预测筛选的方案，能在相同资源预算下达到显著更好的平均性能或节省显著训练时间。   这就是集成进智能体
+
+
+% 机器学习代理的设计与调优高度依赖昂贵的试验性训练。本文提出并验证了一个新的研究方向：在完整训练前，是否可以基于数据表征与参数/算法描述预测代理的最终表现与失败风险。我们证明了在多种场景下可不分获得显著的预测能力，从而为节省计算资源并加速可靠部署提供可行路径。
+
+% 主表：
+
+
+% 分析实验：
+% 1. 直接猜测是否可以一定程度抑制由于测试集和训练集之间分布的偏差？agent可能由于test-time更好的指标而选择实际上更差的方案
+% 2. 指标跟什么有关？任务？方法？能力边界
+% 3. 排序能力？top-k-acc, Spearman correlation coeffcient
+% 4. 数据量大小（提到）
+% 5. 数据分析的影响，数字型、文字型数据分析，手工、不同模型自动生成数据分析。
+
+
+
+\input{section/1_intro}
+
+\input{section/background}
+
+\input{section/data_construction}
+
+\input{section/experiment}
+
+\input{section/analysis}
+
+\input{section/agent}
+
+\input{section/related_work}
+
+\input{section/conclusion}
+
+% \clearpage
+
+\input{section/limitation}
+
+% Bibliography entries for the entire Anthology, followed by custom entries
+%\bibliography{anthology,custom}
+% Custom bibliography entries only
+\bibliography{custom}
+% \nocite{*}
+
+\clearpage
+% \onecolumn
+
+\appendix
+
+\input{section/appendix}
+
+
+
+
+\end{document}

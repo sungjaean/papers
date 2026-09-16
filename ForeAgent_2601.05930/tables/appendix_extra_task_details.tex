@@ -1,0 +1,39 @@
+\begin{table*}
+    \centering
+    \footnotesize
+    
+    \begin{tabular}{
+        >{\raggedright\arraybackslash\bfseries}p{0.20\linewidth} 
+        >{\raggedright\arraybackslash}p{0.38\linewidth} 
+        >{\raggedright\arraybackslash}p{0.15\linewidth} 
+        l 
+        c
+    }
+    % --- 表头 ---
+    \toprule
+    Task Name & Task Description & ML Paradigm & Size & Status \\
+    \midrule
+
+    % ================= SEEN TASKS =================
+    \multicolumn{5}{l}{\cellcolor{gray!15}\textbf{\textit{Seen Tasks (In-Distribution)}}} \\
+    \midrule
+    Stanford COVID Vaccine & \textit{(Biology)} Predict RNA degradation rates at various locations along RNA sequences to assist in mRNA vaccine stability research. & Regression (Seq) & 14M & \textbf{Seen} \\ \addlinespace
+
+    Ventilator Pressure & \textit{(Physics)} Simulate the pressure of a mechanical ventilator connected to a sedated patient's lung to optimize breathing assistance. & Regression (Time-Series) & 291M & \textbf{Seen} \\ \addlinespace
+
+    Statoil Iceberg & \textit{(Geoscience)} Distinguish between icebergs and ships in satellite radar imagery (SAR) to improve navigation safety. & Classification (Image) & 205M & \textbf{Seen} \\ \addlinespace
+
+    % ================= UNSEEN TASKS =================
+    \multicolumn{5}{l}{\cellcolor{gray!15}\textbf{\textit{Unseen Tasks (Out-of-Distribution)}}} \\
+    \midrule
+    Aerial Cactus Identification* & \textit{(Ecology)} Determine the presence of columnar cacti in high-resolution aerial imagery to track protected species in the desert. & Classification (Image) & 25.4M & \textbf{Unseen} \\ \addlinespace
+
+    Histopathologic Cancer Detection.* & \textit{(Medicine)} Identify metastatic cancer tissue in small image patches taken from larger digital pathology scans. & Classification (Image) & 7.7G & \textbf{Unseen} \\
+    
+    \bottomrule
+    \end{tabular}
+
+    \caption{Agent Evaluation Benchmark. The table details the specific tasks used to evaluate the agent, categorized by their domain and their visibility status (Seen vs. Unseen).}
+    \label{tab:agent_benchmark}
+
+\end{table*}

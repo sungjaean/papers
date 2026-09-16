@@ -1,0 +1,30 @@
+\section{Related Work} \label{section:related_work}
+
+\textbf{Automated Generation of Agentic Workflows}. Recent advancements\,\citep{rise_agent_survey_25, LLMReasoning_Survey_25, AgenticAI_Survey_25, ALLM_Survey_25} in agentic workflows have led to the development of various frameworks aimed at enhancing multi-agent collaboration for complex tasks\,\citep{LLM_MultiAgents_Survey_IJCAI_24, AutoMLAgent_ICML_25, Flow_ICLR_25, MONAQ_EMNLP_25}. MetaGPT\,\citep{MetaGPT_ICLR_24} and ChatDev\,\citep{ChatDev_ACL_24} use predefined multi-agent structures to address coding challenges, while AgentVerse\,\citep{AgentVerse_ICLR_24} introduces iterative collaboration where agents discuss, execute, and evaluate tasks. LLM-Debate\,\citep{LLMDebate_ICML_24} employs multiple expert agents that engage in debates over several rounds to derive final answers. However, these systems often rely on static configurations, which limits their adaptability to diverse queries across different tasks and domains.
+
+To optimize agentic workflows, GPTSwarm\,\citep{GPTSwarm_ICML24} and G-Designer\,\citep{GDesigner_ICML_25} apply variants of the REINFORCE algorithm to optimize workflow structures represented as directed acyclic graphs\,(DAGs), while DyLAN\,\citep{DyLAN_COLM_24} dynamically selects agents based on task requirements. ADAS\,\citep{ADAS_ICLR_25} and AFlow\,\citep{AFlow_ICLR_25} further leverage powerful LLMs (e.g., Claude-3.5-Sonnet and GPT-4) to iteratively generate task-specific multi-agent systems. Similarly, AgentSquare\,\citep{AgentSquare_ICLR_25} proposes a modular design space for automatic LLM agent search, enhancing adaptability to novel tasks. Despite their effectiveness, these methods typically require numerous LLM calls, resulting in significant computational and financial overheads, making them less practical for real-world applications.
+
+\begin{wraptable}{r}{0.6\textwidth}
+\vspace*{-0.75cm}
+\caption{Comparison between ours{} and existing frameworks for prediction-based workflow generation.} \label{table:comparison}
+\resizebox{0.6\textwidth}{!}{%
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Framework} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Multi-View \\ Representation\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Unsupervised \\ Pretraining\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Lightweight\\ Predictor\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Search \\ Agnostic\end{tabular}} \\ \midrule \midrule
+MAS-GPT\,\citep{MASGPT_25}         & \textcolor{red}{$\times$} & \textcolor{red}{$\times$} & \textcolor{red}{$\times$} & \textcolor{red}{$\times$} \\
+FLORA-Bench\,\citep{FLORA_Bench_25}      & \textcolor{red}{$\times$} & \textcolor{red}{$\times$} & \textcolor{teal}{$\checkmark$} & \textcolor{teal}{$\checkmark$} \\ \midrule
+\textbf{\ours{}} \emph{(Ours)} & \textcolor{teal}{$\checkmark$} & \textcolor{teal}{$\checkmark$} & \textcolor{teal}{$\checkmark$} & \textcolor{teal}{$\checkmark$} \\ \bottomrule
+\end{tabular}%
+}
+\vspace*{-0.3cm}
+\end{wraptable}
+
+
+Rather than manually designing a fixed workflow\,\citep{ChatDev_ACL_24, AgentVerse_ICLR_24, LLMDebate_ICML_24} or paying repeated inference costs to synthesize one per query\,\citep{GPTSwarm_ICML24, DyLAN_COLM_24}, \ours{} presents a lightweight performance predictor to rapidly estimate the quality of candidate agentic workflows, enabling broad exploration without exhaustive evaluations. Among recent efforts, FLORA-Bench\,\citep{FLORA_Bench_25} advocates GNN-based predictors and releases a benchmark that models workflows as a single-view graph where prompts are node features. A complementary direction, MAS-GPT\,\citep{MASGPT_25}, fine-tunes LLMs to directly generate workflows in a single call. \textbf{In contrast to these directions}, \ours{} differs in three respects: \emph{representation}\,(multi-view encoding of agent topology, code, and system prompts vs. single-view graphs), \emph{learning}\,(cross-domain unsupervised pretraining to mitigate label scarcity, rather than no pretraining recipe or supervised LLM fine-tuning), and \emph{efficiency}\,(a compact predictor for fast evaluation without repeated LLM calls). \autoref{table:comparison} summarizes these distinctions.
+
+
+\textbf{Performance Predictors for NAS}. Neural architecture search\,(NAS) has spurred the development of performance predictors that aim to reduce the significant computational cost of evaluating candidate architectures. PRE-NAS\,\citep{PRENAS_GECCO_22} employs a predictor-assisted evolutionary strategy to estimate model performance, thereby alleviating the need for exhaustive training. BRP-NAS\,\citep{BRPNAS_NeurIPS_20} integrates graph convolutional networks to forecast hardware-aware performance metrics, improving the practicality of NAS under resource constraints. CAP\,\citep{CAP_IJCAI_24} introduces a context-aware neural predictor, leveraging self-supervised learning to generate expressive and generalizable representations of architectures, thus enabling more effective search space exploration. FlowerFormer\,\citep{FlowerFormer_CVPR_24} advances architecture encoding through a flow-aware graph transformer, yielding improved prediction accuracy. A unifying trend among these methods is the emphasis on learning more \emph{informative representations} to guide the search process. Building on this insight, we propose the \ours{} framework, which approaches performance prediction from a \emph{representation-centric} perspective. By incorporating multi-view representations conditioned on workflow configurations, \ours{} facilitates accurate performance estimation and efficient exploration of the agentic workflow space. 

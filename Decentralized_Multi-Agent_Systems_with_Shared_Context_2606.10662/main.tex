@@ -1,0 +1,326 @@
+
+\documentclass{article}
+\pdfoutput=1
+\usepackage{arxiv}
+\setcitestyle{authoryear,open={(},close={)}}
+\renewcommand{\cite}{\citep}
+
+\usepackage[utf8]{inputenc} %
+\usepackage[T1]{fontenc}    %
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}       %
+\usepackage{amsfonts}       %
+\usepackage{nicefrac}       %
+\usepackage{microtype}      %
+\usepackage{dsfont}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{cases}
+\usepackage{color}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{bbm}
+\usepackage{comment}
+\usepackage{xspace}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{authblk}
+\usepackage{xspace}
+\usepackage{algpseudocode}
+\usepackage{adjustbox}
+\usepackage{wrapfig}
+
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs} %
+
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{mleftright}
+
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\input{math_commands.tex}
+\newcommand{\LC}{\texttt{LC}\xspace}
+\newcommand{\Claude}{\text{Claude}}
+\hypersetup{
+    colorlinks,
+    citecolor=[rgb]{0.00, 0.45, 0.70}, %
+    linkcolor=[rgb]{0.01, 0.62, 0.45}, %
+    urlcolor=[rgb]{0.68, 0.45, 0.63} %
+}
+\definecolor{green1}{rgb}{0.01, 0.62, 0.45}
+\definecolor{blue1}{rgb}{0.00, 0.45, 0.70}
+\definecolor{blue2}{rgb}{0.612, 0.8, 0.902}
+\definecolor{purple1}{rgb}{0.68, 0.45, 0.63}
+\definecolor{red1}{rgb}{1.0, 0.1, 0.3}
+\definecolor{red2}{rgb}{1.0, 0.77, 0.80}
+
+\usepackage{todonotes}
+\usepackage{enumitem}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\LM}{\text{LM}}
+\newcommand{\RL}{\text{RL}}
+\newcommand{\SFT}{\text{SFT}}
+\newcommand{\User}{\text{User}}
+\newcommand{\Base}{\text{Base}}
+\newcommand{\Para}{\text{Para}}
+\newcommand{\LLM}{\text{LLM}}
+\newcommand{\Sc}{R}
+\newcommand{\NB}[1]{\textcolor{red}{(NB: #1)}}
+\newcommand{\Lall}{\mathcal{L}_{\text{all}}}
+\newcommand{\Lr}{\mathcal{L}_{\text{r}}}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[bbgreekl]{mathbbol}
+
+\DeclareMathSymbol\drule  \mathord{bbold}{"01}
+\newcommand{\druleall}{{\drule_{\text{all}}}}
+\newcommand{\drulel}{{\drule_{\mathcal{L}}}}
+\newcommand{\phiCC}{\phi_{\text{cc}}}
+\newcommand{\phiDC}{\phi_{\text{dc}}}
+\newcommand{\DeltaAns}{\Delta^{|\mathcal{Y}|}}
+\newcommand{\f}{f}
+\newcommand{\reader}{reader}
+\newcommand{\forecast}{\f(x, z)}
+\newcommand{\surrforecast}{\widetilde{\f}(x, z)}
+
+\usepackage{bbm}
+% \usepackage[ruled]{algorithm2e}
+
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{titletoc}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{placeins}
+\usepackage[most]{tcolorbox} %
+\usepackage{pdflscape}
+\usepackage{algorithm}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{soul}
+
+\DeclareRobustCommand{\hlblue}[1]{{\sethlcolor{blue2}\hl{#1}}}
+\DeclareRobustCommand{\hlred}[1]{{\sethlcolor{red2}\hl{#1}}}
+
+
+\newcommand{\pms}[1]{\ensuremath{{\scriptstyle\pm #1}}}
+\newcommand{\scr}[1]{\ensuremath{{\scriptstyle #1}}}
+
+\newcommand*{\Chen}[1]{\textcolor{blue}{[Chen: #1]}}
+\newcommand*{\edit}[1]{\textcolor{blue}{#1}}
+\newcommand{\tnote}[1]{{\color{orange} [TM:#1]}}
+
+\sisetup{detect-weight,mode=text}
+\renewrobustcmd{\bfseries}{\fontseries{b}\selectfont}
+\renewrobustcmd{\boldmath}{}
+\newrobustcmd{\B}{\bfseries}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{amsmath}
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\usepackage{xspace}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+% \usepackage{biblatex}
+% \addbibresource{example_paper.bib}
+\usepackage{algpseudocode}
+\usepackage{color}
+\usepackage{tabu}
+\usepackage{diagbox}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{multirow}
+\usepackage{tikz}
+% \usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{colortbl}
+\usepackage{threeparttable}
+% --- Stage badge: circled number matching Figure 3 ---
+\definecolor{stepfill}{RGB}{20,20,20}   % near-black; set to {0,0,0} for pure black
+\definecolor{cmtgray}{gray}{0.5}
+
+\newcommand{\stepbadge}[1]{%
+  \tikz[baseline=-0.55ex]{%
+    \node[circle, fill=stepfill, text=white, inner sep=0pt,
+          minimum size=1.15em, font=\sffamily\scriptsize\bfseries] {#1};}%
+}
+% ---- Global data structures (containers) ----
+% To revert any of these to plain, just drop the \mathcal, e.g. \newcommand{\sctx}{C}
+\newcommand{\sctx}{\mathcal{C}}   % shared context        (was C)
+\newcommand{\tque}{\mathcal{T}}   % task queue            (was T)
+\newcommand{\Lsto}{\mathcal{L}}   % summary backing store (was L)
+\newcommand{\Rsto}{\mathcal{R}}   % raw backing store     (was R)
+
+% ---- Ref-tag, renamed from r to avoid clashing with the result r_i ----
+\newcommand{\reftag}{\rho}        % used as \reftag_{i,k}
+% alternatives if you prefer: \newcommand{\reftag}{\mathrm{ref}}  or  {c}
+% Right-aligned stage tag with optional gray description, e.g. \stage[note]{2}
+\newcommand{\stage}[2][]{%
+  \hfill
+  \ifx\relax#1\relax\else
+    \textcolor{cmtgray}{\itshape #1}\hspace{0.45em}%
+  \fi
+  \stepbadge{#2}%
+}
+
+% Lighter, italic comments for incidental notes
+\renewcommand{\algorithmiccomment}[1]{\hfill\textcolor{cmtgray}{$\triangleright$\,\textit{#1}}}
+
+% Prettier Input/Output labels (optional)
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+% Highlight box for pluggable components
+\definecolor{plugcolor}{RGB}{255,243,205} % soft amber
+\newcommand{\plug}[1]{\colorbox{plugcolor}{#1}}
+\definecolor{rowgray}{gray}{0.93}
+\NewDocumentCommand{\yuzhen}{ mO{} }{\textcolor{red}{\textsuperscript{\textit{yuzhen}}\textsf{\textbf{\small[#1]}}}}
+\newcommand{\toolName}{\textsc{DeLM}\xspace}
+\newcommand{\revise}[1]{\textcolor{black}{#1}}
+\definecolor{plugbg}{HTML}{DCEEFB}
+\definecolor{plugfg}{HTML}{124780}
+\DeclareRobustCommand{\plug}[1]{%
+  {\setlength{\fboxsep}{1.5pt}%
+   \colorbox{plugbg}{\textcolor{plugfg}{#1}}}}
+
+\newtcolorbox{qualitativeBox}{
+  colback=gray!10, %
+  colframe=gray!20, %
+  rounded corners, %
+  boxrule=0.5pt, %
+  left=10pt, %
+  right=10pt, %
+  top=5pt, %
+  bottom=5pt, %
+  boxsep=5pt, %
+}
+\newtcolorbox{ourMethodBox}{
+  colback=blue1!10, %
+  colframe=gray!20, %
+  rounded corners, %
+  boxrule=0.5pt, %
+  left=10pt, %
+  right=10pt, %
+  top=5pt, %
+  bottom=5pt, %
+  boxsep=5pt, %
+}
+\newtcolorbox{theirMethodBox}{
+  colback=red1!10, %
+  colframe=gray!20, %
+  rounded corners, %
+  boxrule=0.5pt, %
+  left=10pt, %
+  right=10pt, %
+  top=5pt, %
+  bottom=5pt, %
+  boxsep=5pt, %
+}
+
+\definecolor{gisttext}{HTML}{24292E}
+\definecolor{gistbg}{HTML}{F4F6F8}
+\definecolor{gistframe}{HTML}{CDD4DC}
+\definecolor{gistfact}{HTML}{157F5F}
+\definecolor{gistfail}{HTML}{C0392B}
+\definecolor{gisttid}{HTML}{5A67B8}
+\lstdefinestyle{gist}{%
+  basicstyle=\footnotesize\ttfamily\color{gisttext},
+  backgroundcolor=\color{gistbg},
+  frame=single,
+  framerule=0.7pt,
+  rulecolor=\color{gistframe},
+  framesep=7pt,
+  framexleftmargin=7pt,
+  xleftmargin=9pt,
+  xrightmargin=5pt,
+  breaklines=true,
+  breakatwhitespace=false,
+  columns=fullflexible,
+  keepspaces=true,
+  aboveskip=0.9\baselineskip,
+  belowskip=0.7\baselineskip,
+  emph={[1]FACT},emphstyle={[1]\bfseries\color{gistfact}},
+  emph={[2]FAIL},emphstyle={[2]\bfseries\color{gistfail}},
+  emph={[3]t0,t1,t2,t3,t4,t5},emphstyle={[3]\color{gisttid}},
+}
+
+\newtcolorbox{keyidea}{
+  enhanced, breakable,
+  colback=blue!8!white, colbacktitle=blue!8!white,
+  colframe=blue!55!black, coltitle=blue!60!black,
+  fonttitle=\bfseries\footnotesize,
+  boxrule=0.6pt, arc=2pt, left=4pt, right=4pt, top=4pt, bottom=4pt
+}
+
+\begin{document}
+
+\title{Decentralized Multi-Agent Systems with Shared Context}
+\author{
+    \large{Yuzhen Mao, ~
+Azalia Mirhoseini}\linebreak
+    \large{Stanford University}\linebreak
+        {\texttt{\{yuzhenm,azalia\}@stanford.edu}}
+}
+
+\date{}
+
+\maketitle
+
+\input{sections/1_abstract.tex}
+\input{sections/2_introduction.tex}
+\input{sections/4_method.tex}
+\input{sections/5_experiments.tex}
+\input{sections/6_related_work.tex}
+\input{sections/7_discussion.tex}
+\newpage
+
+
+
+\bibliography{bibliography}
+\bibliographystyle{plainnat}
+
+
+\newpage
+\appendix
+\onecolumn
+
+\input{sections/8_appendix.tex}
+
+
+
+\end{document}

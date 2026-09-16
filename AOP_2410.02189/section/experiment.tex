@@ -1,0 +1,133 @@
+\section{Experiments}
+\label{sec:exp}
+In this section, we provide empirical comparisons between \name and the existing studies.
+
+\subsection{Settings}
+\label{subsec:exp_settings}
+\paragraph{Datasets \& Evaluations} 
+We conduct experiments based on a numerical reasoning dataset~\citep{kim2024husky}, which necessitates the collaboration of multiple agents in resolving the queries. For example, a query can be ``If Sarah wants to buy one BMW X5 and one Tesla Model 3, how much more would she need to pay to buy the BMW X5 compared to the Tesla Model 3?'' To resolve this query, we first need to search for the prices of the BMW X5 and Tesla Model 3, and then calculate the price difference between them.
+Following previous study~\citep{kim2024husky}, we adopt Husky-QA, which consists of 1,440 queries in the training data and 292 queries in the test data. Besides, we also provide more experimental results on the decontextualized versions of a subset of DROP~\citep{DROP} and IIRC~\citep{IIRC} in Appendix~\ref{app:exp_more_datasets}.
+
+For quantification comparisons, we provide instructions to GPT-4o \citep{openai20244o} for assisting in judging whether the execution results align with the ground truth and calculate accuracy as the evaluation metric. The prompt used for evaluation can be found in Appendix~\ref{evaluation}. 
+
+
+\paragraph{Involving Agents}  
+In the experiments, the multi-agent system includes a meta-agent and several diverse agents, including a code agent, math agent, search agent, and commonsense agent. The descriptions of these agents, which are similar to those in previous studies~\citep{kim2024husky} for a fair comparison, are shown below: 
+\begin{itemize}
+\item \textit{Code Agent}: Generate code in Python for precise computations to solve the given task.
+\item \textit{Math Agent}: Answer math questions by reasoning step-by-step.
+\item \textit{Search Agent}: Call the Bing Search API to obtain information related to the given task.
+\item \textit{Commonsense Agent}: Answer the given question using commonsense reasoning.
+\end{itemize}
+
+The meta-agent is tasked with decomposing user queries into sub-tasks and assigning the most suitable agents to execute those sub-tasks. We use GPT-4o as the employed LLM for all agents, and the prompts used are provided in Appendix~\ref{agents}.
+Besides, an investigation on the effectiveness of involving expert agents powered by task-specified LLMs, and the method for efficiently handling the coexistence of similar agents can be found in Appendix~\ref{app:further_expert_agents}.
+
+
+\paragraph{Reward Model} 
+We adopt all-MiniLM-L6-v2 \citep{wang2020minilm} as the embedding layers of the reward model, which maps text sentences or paragraphs into a 384-dimensional dense vector space. The embeddings for both the sub-task and the agent's description are computed separately, and then are concatenated together to form a 768-dimensional dense vector. 
+Following the embedding model, we add a three-layer multilayer perceptron (MLP) with output dimensions of 256,64, and 1, respectively. 
+We freeze the embedding layers and only fine-tune the parameters of the MLP, making the training process efficient. The batch size is set to 32, and the learning rate is 1e-3. We train the reward model for 50 epochs on one Tesla V100-SXM2-32GB GPU.
+
+
+\paragraph{Baselines} 
+For the single-agent systems, we utilize {\bf GPT-4o} as a baseline method, providing user queries directly without any additional prompt engineering. 
+Besides, we provide GPT-4o with Chain-of-Thought (CoT)~\citep{wei2022chain} prompt and Zero-Shot CoT~\citep{kojima2022large} prompt to guide the LLM to perform reasoning processes, resulting in two baselines denoted as {\bf CoT} and {\bf Zero-Shot CoT}. 
+
+
+Regarding the multi-agent systems, we instruct GPT-4o to serve as a meta-agent responsible for performing fast task decomposition and allocation. We implement two baselines, denoted as {\bf Meta-Agent} and {\bf Meta-Agent: Traversal}, respectively. Meta-Agent denotes that GPT-4o selects one agent for each sub-task, while Meta-Agent: Traversal denotes that GPT-4o iteratively queries all agents for each sub-task and selects the best response. Besides, we compare \name with {\bf REACT}~\citep{yao2022react} and {\bf HUSKY}~\citep{kim2024husky}, which are representative methods involving task decomposition and sub-task execution.
+
+\begin{table}[!t]
+\centering
+\caption{Comparisons between \name and baselines.}
+\label{result}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lccccc}
+\toprule
+Method & Accuracy (\%)  & Prompt Tokens (M)  & Completion Tokens (M)   & Time (s)  \\ \midrule
+GPT-4o & 33.3 & 0.02 & 0.09 & 1,968  \\
+CoT & 35.6 & 0.07 & 0.08 & 1,375 \\
+Zero-Shot CoT & 32.2 & 0.02 & 0.11 & 1,565 \\
+Meta-Agent & 30.0 & 0.65 & 0.13 & 5,364 \\
+Meta-Agent: Traversal & 35.2 & 3.07 & 0.69 &  23,175 \\
+REACT & 37.6 & 2.47 & 0.19 & 11,510 \\
+HUSKY & 39.6 & 0.83 & 0.15 & 10,394 \\
+\midrule
+\name (ours) & \textbf{43.7} & 1.12 & 0.38 & 11,869 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsection{Comparisons and Analysis}
+\label{subsec:exp_comparisons}
+
+The comparisons between \name and the baseline methods are shown in Table~\ref{result}. We adopt accuracy as the metric for comparing effectiveness, and use prompt/completion tokens (refer to the total cost on the whole test dataset) and the execution time for comparing efficiency.
+
+Overall, the experimental results demonstrate that \name achieves notable improvements compared to all baseline methods. To be specific, when comparing with single-agent systems including GPT-4o, CoT, and Zero-Shot CoT, \name outperforms these systems by 10.4\%, 8.1\%, and 11.5\% in terms of accuracy, respectively. These improvements can be attributed to the collaboration among multiple diverse agents and the effective scheduling provided by the meta-agent. 
+
+It is not surprising to observe that the cost of \name is significantly higher than that of single-agent systems, and is at the same level compared to other multi-agent systems. These additional costs during the inference phase, which include task decomposition, allocation, and modifications carried out by the meta-agent, are affordable and can be worthwhile as long as they bring significant improvements in accuracy and stability when applied to real-world applications. Such an exploration aligns with a recent study~\citep{ openai20244o} in inference time computing, aimed at efficiently utilizing more tokens to resolve challenging tasks.
+
+
+Compared to systems that also involve a meta-agent for task decomposition and allocation, we can observe from the table that \name achieves at least a 4.1\% improvement in terms of accuracy while maintaining the same level of computation costs and inference times. The results of Meta-Agent and Meta-Agent: Iteration indicate that simply instructing GPT-4o to perform task decomposition and allocation does not always yield satisfactory responses, even though the capabilities of LLMs are recognized as powerful.
+Existing studies in task decomposition and allocation fail to consider the abilities and characteristics of the agents beyond their descriptions, and lack mechanisms for modifications and feedback within the multi-agent system, which can be hindered by the challenges as summarized in Section~\ref{preliminaries}. 
+\name is built upon these identified design principles and incorporates novel mechanisms for automatically evaluating intermediate results, allowing timely modifications and revisions, which guide and leverage the strengths of agents in the system to effectively resolve user queries and enhance the overall system performance. 
+
+
+
+
+\subsection{Further Discussions}
+\paragraph{Ablation Study}
+We conducted an ablation study to confirm the contributions of different components in \name. Specifically, we disable the detector, the reward model, and the representative works of agents in separate experiments, with results reported in Table~\ref{ablation}.
+From these results, we can observe that the detector has a significant impact on execution accuracy, as indicated by a notable increase in the incompleteness rate during the meta-agent's task decomposition phase. 
+Both the reward model and the representative works are necessary for ensuring the solvability of sub-tasks and for selecting the most suitable agents for each sub-task. 
+Overall, these results demonstrate that all three components are indispensable, working together to ensure the feasibility of task decomposition and allocation, leading to satisfactory responses to the original user queries. 
+
+
+\begin{table}[!t]
+\centering
+\caption{Experimental results of ablation study.}
+\vspace{-0.1in}
+\label{ablation}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lccccc}
+\toprule
+Method & Accuracy (\%)  & Prompt Tokens (M)  & Completion Tokens (M)  & Time (s)  \\ \midrule
+\name & 43.7 & 1.12 & 0.38 & 11,869 \\
+w/o Plan Detector & 36.6 & 1.05 & 0.29 & 9,504 \\
+w/o Reward Model & 38.7 & 1.17 & 0.37 & 11,651 \\
+w/o Representative Works & 41.1 & 1.14 & 0.36 &  11,178 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+
+\paragraph{Impact of the Scorer and Reward Model}
+
+The training dataset is constructed based on annotations provided by the scorer, which in previous experiments was implemented using LLMs. In this section, we shift to using human annotators to manually provide scores for the responses, evaluating whether a reward model trained on this manually labeled dataset would further enhance performance. This approach is denoted as {\bf Manual Scoring}. More detailed information about the manual scoring process can be found in Appendix~\ref{training}.
+Besides, based on the manually scored training dataset, we investigate the setting of updating the embedding layers of the reward model, denoted as {\bf Full Parameter Tuning}.
+
+The experimental results shown in Table~\ref{scorer_reward} indicate that both manual scoring and full parameter tuning lead to improved performance. These results suggest the potential for further improving \name by providing high-quality datasets for robust training.
+Although using a human-expert-based scorer can lead to further improvements, we predominantly adopt a model-based scorer in the above experiments, as it is more cost-effective and generalizable.
+Besides, we provide empirical studies on the generalization capability of the reward model in Appendix~\ref{app:exp_generalization_reward_model}, showing that the reward model trained on one dataset demonstrates good generalization to other datasets.
+
+
+
+\begin{table}[!t]
+\centering
+\caption{Experimental results on the impact of scorer and reward model}
+\vspace{-0.1in}
+\label{scorer_reward}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lccccc}
+\toprule
+Method & Accuracy (\%)  & Prompt Tokens (M)  & Completion Tokens (M)  & Time (s)  \\ \midrule
+\name & 43.7 & 1.12 & 0.38 & 11,869 \\
++ Manual Scoring & 46.9 & 1.26 & 0.40  & 12,676\\
++ Full Parameter Tuning & 47.9 & 1.28 & 0.41 & 13,063\\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+

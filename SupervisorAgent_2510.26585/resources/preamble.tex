@@ -1,0 +1,512 @@
+\usepackage{amsmath,amssymb,amsthm}
+
+\providecommand{\lin}[1]{\ensuremath{\left\langle #1 \right\rangle}}
+\providecommand{\abs}[1]{\left\lvert#1\right\rvert}
+\providecommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\providecommand{\refLE}[1]{\ensuremath{\stackrel{(\ref{#1})}{\leq}}}
+\providecommand{\refEQ}[1]{\ensuremath{\stackrel{(\ref{#1})}{=}}}
+\providecommand{\refGE}[1]{\ensuremath{\stackrel{(\ref{#1})}{\geq}}}
+\providecommand{\refID}[1]{\ensuremath{\stackrel{(\ref{#1})}{\equiv}}}
+
+\providecommand{\R}{\mathbb{R}} %
+\providecommand{\N}{\mathbb{N}} %
+
+\providecommand{\E}{{\mathbb E}}
+\providecommand{\E}[1]{{\mathbb E}\left.#1\right. }        %
+\providecommand{\Eb}[1]{{\mathbb E}\left[#1\right] }       %
+\providecommand{\EE}[2]{{\mathbb E}_{#1}\left.#2\right. }  %
+\providecommand{\EEb}[2]{{\mathbb E}_{#1}\left[#2\right] } %
+\providecommand{\prob}[1]{{\rm Pr}\left[#1\right] }
+\providecommand{\Prob}[2]{{\rm Pr}_{#1}\left[#2\right] }
+\providecommand{\P}[1]{{\rm Pr}\left.#1\right. }
+\providecommand{\Pb}[1]{{\rm Pr}\left[#1\right] }
+\providecommand{\PP}[2]{{\rm Pr}_{#1}\left[#2\right] }
+\providecommand{\PPb}[2]{{\rm Pr}_{#1}\left[#2\right] }
+\providecommand{\derive}[2]{\frac{{\partial}{#1}}{\partial #2} }  %
+\providecommand{\dm}{\mathrm{d}}
+
+\DeclareMathOperator*{\argmin}{arg\,min\,}
+\DeclareMathOperator*{\argmax}{arg\,max\,}
+\DeclareMathOperator*{\supp}{supp}
+\DeclareMathOperator*{\diag}{diag}
+\DeclareMathOperator*{\Tr}{Tr}
+
+\providecommand{\0}{\mathbf{0}}
+\providecommand{\1}{\mathbf{1}}
+\renewcommand{\aa}{\mathbf{a}}
+\providecommand{\bb}{\mathbf{b}}
+\providecommand{\cc}{\mathbf{c}}
+\providecommand{\dd}{\mathbf{d}}
+\providecommand{\ee}{\mathbf{e}}
+\providecommand{\ff}{\mathbf{f}}
+\let\ggg\gg
+\renewcommand{\gg}{\mathbf{g}}
+\providecommand{\gv}{\mathbf{g}}
+\providecommand{\hh}{\mathbf{h}}
+\providecommand{\ii}{\mathbf{i}}
+\providecommand{\jj}{\mathbf{j}}
+\providecommand{\kk}{\mathbf{k}}
+\let\lll\ll
+\renewcommand{\ll}{\mathbf{l}}
+\providecommand{\mm}{\mathbf{m}}
+\providecommand{\nn}{\mathbf{n}}
+\providecommand{\oo}{\mathbf{o}}
+\providecommand{\pp}{\mathbf{p}}
+\providecommand{\qq}{\mathbf{q}}
+\providecommand{\rr}{\mathbf{r}}
+\renewcommand{\ss}{\mathbf{s}}
+\providecommand{\tt}{\mathbf{t}}
+\providecommand{\uu}{\mathbf{u}}
+\providecommand{\vv}{\mathbf{v}}
+\providecommand{\ww}{\mathbf{w}}
+\providecommand{\xx}{\mathbf{x}}
+\providecommand{\yy}{\mathbf{y}}
+\providecommand{\zz}{\mathbf{z}}
+
+\providecommand{\mA}{\mathbf{A}}
+\providecommand{\mB}{\mathbf{B}}
+\providecommand{\mC}{\mathbf{C}}
+\providecommand{\mD}{\mathbf{D}}
+\providecommand{\mE}{\mathbf{E}}
+\providecommand{\mF}{\mathbf{F}}
+\providecommand{\mG}{\mathbf{G}}
+\providecommand{\mH}{\mathbf{H}}
+\providecommand{\mI}{\mathbf{I}}
+\providecommand{\mJ}{\mathbf{J}}
+\providecommand{\mK}{\mathbf{K}}
+\providecommand{\mL}{\mathbf{L}}
+\providecommand{\mM}{\mathbf{M}}
+\providecommand{\mN}{\mathbf{N}}
+\providecommand{\mO}{\mathbf{O}}
+\providecommand{\mP}{\mathbf{P}}
+\providecommand{\mQ}{\mathbf{Q}}
+\providecommand{\mR}{\mathbf{R}}
+\providecommand{\mS}{\mathbf{S}}
+\providecommand{\mT}{\mathbf{T}}
+\providecommand{\mU}{\mathbf{U}}
+\providecommand{\mV}{\mathbf{V}}
+\providecommand{\mW}{\mathbf{W}}
+\providecommand{\mX}{\mathbf{X}}
+\providecommand{\mY}{\mathbf{Y}}
+\providecommand{\mZ}{\mathbf{Z}}
+\providecommand{\mLambda}{\boldsymbol{\Lambda}}
+\providecommand{\mOmega}{\boldsymbol{\Omega}}
+\providecommand{\mTheta}{\boldsymbol{\Theta}}
+\providecommand{\mpi}{\boldsymbol{\pi}}
+\providecommand{\malpha}{\boldsymbol{\alpha}}
+\providecommand{\meta}{\boldsymbol{\eta}}
+\providecommand{\mxi}{\boldsymbol{\xi}}
+\providecommand{\mepsilon}{\boldsymbol{\epsilon}}
+\providecommand{\mphi}{\boldsymbol{\phi}}
+\providecommand{\momega}{\boldsymbol{\omega}}
+\providecommand{\mdelta}{\boldsymbol{\delta}}
+\providecommand{\mvarsigma}{\boldsymbol{\varsigma}}
+\providecommand{\mnu}{\boldsymbol{\nu}}
+\providecommand{\mtheta}{\boldsymbol{\theta}}
+\providecommand{\mmu}{\boldsymbol{\mu}}
+\providecommand{\mf}{\boldsymbol{f}}
+\providecommand{\mv}{\boldsymbol{v}}
+\providecommand{\mg}{\boldsymbol{g}}
+\providecommand{\mmF}{\boldsymbol{F}}
+\providecommand{\mmA}{\boldsymbol{A}}
+\providecommand{\mmB}{\boldsymbol{B}}
+\providecommand{\mmG}{\boldsymbol{G}}
+
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cI}{\mathcal{I}}
+\providecommand{\cJ}{\mathcal{J}}
+\providecommand{\cK}{\mathcal{K}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cP}{\mathcal{P}}
+\providecommand{\cQ}{\mathcal{Q}}
+\providecommand{\cR}{\mathcal{R}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cU}{\mathcal{U}}
+\providecommand{\cV}{\mathcal{V}}
+\providecommand{\cX}{\mathcal{X}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cZ}{\mathcal{Z}}
+
+\newenvironment{talign}
+{\let\displaystyle\textstyle\align}
+{\endalign}
+\newenvironment{talign*}
+{\let\displaystyle\textstyle\csname align*\endcsname}
+{\endalign}
+
+
+
+\usepackage[utf8]{inputenc}         %
+\usepackage[T1]{fontenc}            %
+\usepackage{url}                    %
+\usepackage{booktabs}               %
+\usepackage{amsfonts}               %
+\usepackage{nicefrac}               %
+\usepackage{microtype}              %
+\usepackage{algorithm}
+\usepackage{algpseudocode}  %
+\algnewcommand\algorithmicinput{\textbf{Input:}}
+\algnewcommand\Input{\item[\algorithmicinput]}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[flushleft]{threeparttable}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{xspace}
+\usepackage{enumitem}
+\usepackage[font=small]{caption}
+\usepackage{autobreak}
+\usepackage{sidecap}
+\usepackage{wrapfig}
+\usepackage{bbding}
+\usepackage[toc, page, header]{appendix}
+\usepackage{tikz}
+\usepackage{pifont}
+\usepackage{mdframed}
+\usepackage{colortbl}
+
+\usepackage{iclr2026_conference,times}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{listingsutf8}
+\usepackage{mdframed}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{xcolor} %
+\newcommand{\added}[1]{\textcolor{blue}{#1}} %
+\newenvironment{addedpar}
+{
+  \color{blue} 
+  \begingroup
+}
+{
+  \endgroup
+  \par 
+}
+\usepackage{graphicx} %
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{makecell}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\definecolor{coral}{RGB}{255,127,80}
+\definecolor{darkgreen}{RGB}{0,100,0}
+\definecolor{darkyellow}{RGB}{204,153,0}
+\definecolor{salmon}{RGB}{250,128,114}
+\definecolor{darkred}{RGB}{150,0,0}
+\newcommand{\darkredtext}[1]{{\color{darkred}#1}}
+
+\newcommand{\secref}[1]{\hyperref[#1]{\darkredtext{Sec.~\ref*{#1}}}}
+\newcommand{\thmref}[1]{\hyperref[#1]{\darkredtext{Thm.~\ref*{#1}}}}
+\newcommand{\defref}[1]{\hyperref[#1]{\darkredtext{Def.~\ref*{#1}}}}
+\newcommand{\propref}[1]{\hyperref[#1]{\darkredtext{Prop.~\ref*{#1}}}}
+\newcommand{\assumpref}[1]{\hyperref[#1]{\darkredtext{Assump.~\ref*{#1}}}}
+\newcommand{\remarkref}[1]{\hyperref[#1]{\darkredtext{Rem.~\ref*{#1}}}}
+\newcommand{\hypref}[1]{\hyperref[#1]{\darkredtext{Hyp.~\ref*{#1}}}}
+\newcommand{\conjref}[1]{\hyperref[#1]{\darkredtext{Conj.~\ref*{#1}}}}
+\newcommand{\lemref}[1]{\hyperref[#1]{\darkredtext{Lem.~\ref*{#1}}}}
+\newcommand{\corref}[1]{\hyperref[#1]{\darkredtext{Cor.~\ref*{#1}}}}
+\newcommand{\noteref}[1]{\hyperref[#1]{\darkredtext{Nota.~\ref*{#1}}}}
+\newcommand{\claimref}[1]{\hyperref[#1]{\darkredtext{Clm.~\ref*{#1}}}}
+\newcommand{\obsref}[1]{\hyperref[#1]{\darkredtext{Obs.~\ref*{#1}}}}
+\newcommand{\myalgref}[1]{\hyperref[#1]{\darkredtext{Alg.~\ref*{#1}}}}
+\newcommand{\figref}[1]{\hyperref[#1]{\darkredtext{Fig.~\ref*{#1}}}}
+\newcommand{\tabref}[1]{\hyperref[#1]{\darkredtext{Tab.~\ref*{#1}}}}
+\newcommand{\appref}[1]{\hyperref[#1]{\darkredtext{App.~\ref*{#1}}}}
+
+\newtheoremstyle{custom}
+{1pt} %
+{1pt} %
+{\itshape} %
+{} %
+{\bfseries} %
+{} %
+{ } %
+{\thmname{#1} \thmnumber{#2} \thmnote{(#3)} . } %
+
+\theoremstyle{custom}
+
+\newtheorem{innerdefinition}{Definition}
+\newtheorem{innerproposition}{Proposition}
+\newtheorem{innerassumption}{Assumption}
+\newtheorem{innerremark}{Remark}
+\newtheorem{innertheorem}{Theorem}
+\newtheorem{innerhypothesis}{Hypothesis}
+\newtheorem{innerconjecture}{Conjecture}
+\newtheorem{innerlemma}{Lemma}
+\newtheorem{innercorollary}{Corollary}
+\newtheorem{innernotation}{Notation}
+\newtheorem{innerclaim}{Claim}
+\newtheorem{innerproblem}{Problem}
+\newtheorem{innerexercise}{Exercise}
+\newtheorem{innerobservation}{Observation}
+\newtheorem{innernote}{Note}
+
+\newmdenv[
+    backgroundcolor=gray!10,
+    linecolor=gray!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{definitionframe}
+
+\newmdenv[
+    backgroundcolor=blue!10,
+    linecolor=blue!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{propositionframe}
+
+\newmdenv[
+    backgroundcolor=green!10,
+    linecolor=green!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{assumptionframe}
+
+\newmdenv[
+    backgroundcolor=yellow!10,
+    linecolor=yellow!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{remarkframe}
+
+\newmdenv[
+    backgroundcolor=red!10,
+    linecolor=red!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{theoremframe}
+
+\newmdenv[
+    backgroundcolor=purple!10,
+    linecolor=purple!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{hypothesisframe}
+
+\newmdenv[
+    backgroundcolor=orange!10,
+    linecolor=orange!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{conjectureframe}
+
+\newmdenv[
+    backgroundcolor=cyan!10,
+    linecolor=cyan!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{lemmaframe}
+
+\newmdenv[
+    backgroundcolor=magenta!10,
+    linecolor=magenta!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{corollaryframe}
+
+\newmdenv[
+    backgroundcolor=pink!10,
+    linecolor=pink!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{notationframe}
+
+\newmdenv[
+    backgroundcolor=violet!10,
+    linecolor=violet!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{claimframe}
+
+\newmdenv[
+    backgroundcolor=salmon!10,
+    linecolor=salmon!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{problemframe}
+
+\newmdenv[
+    backgroundcolor=lavender!10,
+    linecolor=lavender!100,
+    linewidth=0.8pt,
+    skipabove=2pt,
+    skipbelow=2pt,
+    innertopmargin=10pt,
+    innerbottommargin=5pt,
+    innerleftmargin=5pt,
+    innerrightmargin=5pt,
+]{observationframe}
+
+
+\newenvironment{definition}
+{\begin{definitionframe}\begin{innerdefinition}}
+            {\end{innerdefinition}\end{definitionframe}}
+
+\newenvironment{proposition}
+{\begin{propositionframe}\begin{innerproposition}}
+            {\end{innerproposition}\end{propositionframe}}
+
+\newenvironment{assumption}
+{\begin{assumptionframe}\begin{innerassumption}}
+            {\end{innerassumption}\end{assumptionframe}}
+
+\newenvironment{remark}
+{\begin{remarkframe}\begin{innerremark}}
+            {\end{innerremark}\end{remarkframe}}
+
+\newenvironment{theorem}
+{\begin{theoremframe}\begin{innertheorem}}
+            {\end{innertheorem}\end{theoremframe}}
+
+\newenvironment{hypothesis}
+{\begin{hypothesisframe}\begin{innerhypothesis}}
+            {\end{innerhypothesis}\end{hypothesisframe}}
+
+\newenvironment{conjecture}
+{\begin{conjectureframe}\begin{innerconjecture}}
+            {\end{innerconjecture}\end{conjectureframe}}
+
+\newenvironment{lemma}
+{\begin{lemmaframe}\begin{innerlemma}}
+            {\end{innerlemma}\end{lemmaframe}}
+
+\newenvironment{corollary}
+{\begin{corollaryframe}\begin{innercorollary}}
+            {\end{innercorollary}\end{corollaryframe}}
+
+\newenvironment{notation}
+{\begin{notationframe}\begin{innernotation}}
+            {\end{innernotation}\end{notationframe}}
+
+\newenvironment{claim}
+{\begin{claimframe}\begin{innerclaim}}
+            {\end{innerclaim}\end{claimframe}}
+
+\newenvironment{problem}
+{\begin{problemframe}\begin{innerproblem}}
+            {\end{innerproblem}\end{problemframe}}
+
+\newenvironment{observation}
+{\begin{observationframe}\begin{innerobservation}}
+            {\end{innerobservation}\end{observationframe}}
+
+
+\newcommand{\TBD}{\textcolor{red}{TBD}}
+\newcommand{\method}{\textsc{SupervisorAgent}\xspace} %
+\newcommand{\methods}{\method-\{T,\,S\}\xspace} %
+\newcommand{\tip}[1]{{\color{red}{[#1]}}}
+\newcommand{\sg}{\mathop{{\color{red}\operatorname{sg}}}\nolimits}
+\newcommand{\dg}[1]{\textcolor{darkgreen}{$^{\downarrow#1}$}}
+\newcommand{\up}[1]{\textcolor{red}{$^{\uparrow#1}$}}
+\newcommand{\rp}{$\boldsymbol{\color{red!70!black}\oplus}$}
+\newcommand{\graycell}[1]{\cellcolor[gray]{0.9}#1}
+\newcommand{\IPC}{\texttt{IPC}\xspace}
+\newcommand{\SSL}{\texttt{SSL}\xspace}
+\newcommand{\CMB}{\textcolor{green}{\CheckmarkBold}}
+\newcommand{\Tool}{(\raisebox{-0.5ex}{\includegraphics[height=1em]{sources/figures/btool.png}})\xspace}
+\newcommand{\Runer}{(\raisebox{-0.5ex}{\includegraphics[height=1em]{sources/figures/flash.png}})\xspace}
+\newcommand{\XXX}{\tip{XXX~\citep{template}}}
+
+
+\usepackage[textwidth=3.5cm]{todonotes}
+\newcommand{\tao}[1]{\todo[color=blue!20,size=\footnotesize,caption={}]{T: #1}{}}
+\newcommand{\peng}[1]{\todo[color=green!20,size=\footnotesize,caption={}]{S: #1}{}}
+\newcommand{\shang}[1]{\todo[color=orange!20,size=\footnotesize,caption={}]{Y: #1}{}}
+
+\newcommand{\itao}[1]{\todo[inline,color=blue!20,size=\footnotesize,caption={}]{T: #1}{}}
+\newcommand{\ipeng}[1]{\todo[inline,color=green!20,size=\footnotesize,caption={}]{S: #1}{}}
+\newcommand{\ishang}[1]{\todo[inline,color=orange!20,size=\footnotesize,caption={}]{Y: #1}{}}
+
+\usepackage{newunicodechar}
+\newunicodechar{↑}{$\uparrow$}
+\newunicodechar{↓}{$\downarrow$}
+
+
+\newcommand*\cw[1]{\tikz[baseline=(char.base)]{
+        \node[shape=circle,fill=white,draw,inner sep=0.5pt,scale=0.8,line width=0.8pt] (char) {\textcolor{black}{#1}};}}
+
+\newcommand*\cb[1]{\tikz[baseline=(char.base)]{
+        \node[shape=circle,fill=black,draw,inner sep=0.5pt,scale=0.8,line width=0.8pt] (char) {\textcolor{white}{#1}};}}

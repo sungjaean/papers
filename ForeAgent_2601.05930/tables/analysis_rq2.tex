@@ -1,0 +1,44 @@
+\begin{table}
+    \centering
+    % 定义辅助命令：显示均值±标准差，并适当缩小字号
+    \newcommand{\res}[2]{$#1_{\pm #2}$}
+    
+    % 调整表格样式
+    \footnotesize  % 使用小字号
+    \setlength{\tabcolsep}{3pt} % 极度压缩列间距 (默认是6pt)
+    \renewcommand{\arraystretch}{1.25} % 增加行高，避免拥挤
+    
+    % 强制让表格适应单栏宽度 (linewidth)
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}{c | c | c c c c}
+            \toprule
+            \textbf{Size} & \textbf{Corr.} & \multicolumn{4}{c}{\textbf{Accuracy@$k$ (\%)}} \\
+            \cmidrule(l){3-6}
+            \textbf{($N$)} & \textbf{Spr. $\rho$} & \textbf{$k$=1} & \textbf{$k$=2} & \textbf{$k$=3} & \textbf{$k$=4} \\
+            \midrule
+            
+            % N=2
+            \textbf{2} & \res{0.24}{0.01} & \res{61.3}{0.6} & -- & -- & -- \\
+            
+            % N=3
+            \textbf{3} & \res{0.22}{0.00} & \res{43.4}{0.4} & \res{25.5}{0.4} & -- & -- \\
+            
+            % N=4
+            \textbf{4} & \res{0.25}{0.00} & \res{35.0}{1.0} & \res{16.4}{0.7} & \res{10.2}{0.2} & -- \\
+            
+            % N=5
+            \textbf{5} & \res{0.22}{0.00} & \res{31.1}{0.9} & \res{11.2}{0.3} & \res{4.9}{0.1} & \res{3.0}{0.2} \\
+            
+            \bottomrule
+        \end{tabular}
+    }
+    
+    \caption{\textbf{Ranking Performance.} 
+    Listwise ranking metrics across varying list sizes $N$. 
+    \textbf{Spr.}: Spearman Correlation ($\rho$). 
+    \textbf{A@$k$}: Accuracy of the top-$k$ ranking positions (\%).
+    ``--'' denotes undefined metrics where $k \ge N$.}
+    
+    \label{tab:ranking_single_col}
+    
+\end{table}

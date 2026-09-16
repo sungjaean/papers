@@ -1,0 +1,32 @@
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+
+\begin{table*}[t!]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2} % 保持舒适的行高
+    
+    % 【关键修改1】设置一个正常的列间距，让表格看起来不拥挤
+    % 之前设为0是因为用了 fill 自动填充，现在回归普通表格需要手动给点间距
+    \setlength{\tabcolsep}{12pt} 
+    
+    % 【关键修改2】使用普通的 tabular，去掉宽度限制和自动填充
+    \begin{tabular}{l c c c}
+    \toprule
+    \textbf{Task Paradigm} & \textbf{Pairs ($N$)} & \textbf{DeepSeek-V3.2} & \textbf{GPT-5.1} \\
+    \midrule
+    
+    Classification (CLS) & 15,516 & \bres{58.9}{0.3} & \res{57.2}{0.5} \\
+    Regression (REG) & 12,685 & \bres{62.1}{0.1} & \res{59.2}{0.3} \\
+    Matching (MAT) & 2,356 & \bres{76.6}{0.8} & \res{74.9}{0.3} \\
+    Ranking (RNK) & 2,302 & \bres{68.3}{0.4} & \res{55.0}{0.8} \\
+    Segmentation (SEG) & 1,639 & \res{54.8}{0.4} & \bres{58.0}{0.2} \\
+    Extraction (EXT) & 351 & \bres{46.9}{4.3} & \res{44.1}{3.0} \\
+    
+    \bottomrule
+    \end{tabular}
+
+    \caption{Performance breakdown by specific Task Paradigms. This table expands on the main results by separating the ``Others'' category into Ranking, Matching, Segmentation, and Extraction. Values: Mean Accuracy (\%) $\pm$ Stdev.}
+    \label{tab:appendix_paradigm_breakdown}
+    
+\end{table*}

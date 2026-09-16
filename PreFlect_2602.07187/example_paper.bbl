@@ -1,0 +1,193 @@
+\begin{thebibliography}{37}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Besta et~al.(2024)Besta, Blach, Kubicek, Gerstenberger, Podstawski, Gianinazzi, Gajda, Lehmann, Niewiadomski, Nyczyk, et~al.]{besta2024graph}
+Besta, M., Blach, N., Kubicek, A., Gerstenberger, R., Podstawski, M., Gianinazzi, L., Gajda, J., Lehmann, T., Niewiadomski, H., Nyczyk, P., et~al.
+\newblock Graph of thoughts: Solving elaborate problems with large language models.
+\newblock In \emph{Proceedings of the AAAI conference on artificial intelligence}, volume~38, pp.\  17682--17690, 2024.
+
+\bibitem[Cao et~al.(2024)Cao, Zhang, Cao, Yin, Lin, Ma, and Chen]{cao2024personalized}
+Cao, Y., Zhang, T., Cao, B., Yin, Z., Lin, L., Ma, F., and Chen, J.
+\newblock Personalized steering of large language models: Versatile steering vectors through bi-directional preference optimization.
+\newblock \emph{Advances in Neural Information Processing Systems}, 37:\penalty0 49519--49551, 2024.
+
+\bibitem[Chen et~al.(2023)Chen, Dong, Shu, Zhang, Sesay, Karlsson, Fu, and Shi]{chen2023autoagents}
+Chen, G., Dong, S., Shu, Y., Zhang, G., Sesay, J., Karlsson, B.~F., Fu, J., and Shi, Y.
+\newblock Autoagents: A framework for automatic agent generation.
+\newblock \emph{arXiv preprint arXiv:2309.17288}, 2023.
+
+\bibitem[Chhikara et~al.(2025)Chhikara, Khant, Aryan, Singh, and Yadav]{chhikara2025mem0}
+Chhikara, P., Khant, D., Aryan, S., Singh, T., and Yadav, D.
+\newblock Mem0: Building production-ready ai agents with scalable long-term memory.
+\newblock \emph{arXiv preprint arXiv:2504.19413}, 2025.
+
+\bibitem[Comanici et~al.(2025)Comanici, Bieber, Schaekermann, Pasupat, Sachdeva, Dhillon, Blistein, Ram, Zhang, Rosen, et~al.]{comanici2025gemini}
+Comanici, G., Bieber, E., Schaekermann, M., Pasupat, I., Sachdeva, N., Dhillon, I., Blistein, M., Ram, O., Zhang, D., Rosen, E., et~al.
+\newblock Gemini 2.5: Pushing the frontier with advanced reasoning, multimodality, long context, and next generation agentic capabilities.
+\newblock \emph{arXiv preprint arXiv:2507.06261}, 2025.
+
+\bibitem[Fourney et~al.(2024)Fourney, Bansal, Mozannar, Tan, Salinas, Niedtner, Proebsting, Bassman, Gerrits, Alber, et~al.]{fourney2024magentic}
+Fourney, A., Bansal, G., Mozannar, H., Tan, C., Salinas, E., Niedtner, F., Proebsting, G., Bassman, G., Gerrits, J., Alber, J., et~al.
+\newblock Magentic-one: A generalist multi-agent system for solving complex tasks.
+\newblock \emph{arXiv preprint arXiv:2411.04468}, 2024.
+
+\bibitem[Ge et~al.(2025)Ge, Romeo, Cai, Sunkara, and Zhang]{ge2025samule}
+Ge, Y., Romeo, S., Cai, J., Sunkara, M., and Zhang, Y.
+\newblock Samule: Self-learning agents enhanced by multi-level reflection.
+\newblock In \emph{Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing}, pp.\  16602--16621, 2025.
+
+\bibitem[Gou et~al.(2023)Gou, Shao, Gong, Shen, Yang, Duan, and Chen]{gou2023critic}
+Gou, Z., Shao, Z., Gong, Y., Shen, Y., Yang, Y., Duan, N., and Chen, W.
+\newblock Critic: Large language models can self-correct with tool-interactive critiquing.
+\newblock \emph{arXiv preprint arXiv:2305.11738}, 2023.
+
+\bibitem[Guo et~al.(2025{\natexlab{a}})Guo, Yang, Zhang, Song, Zhang, Xu, Zhu, Ma, Wang, Bi, et~al.]{guo2025deepseek}
+Guo, D., Yang, D., Zhang, H., Song, J., Zhang, R., Xu, R., Zhu, Q., Ma, S., Wang, P., Bi, X., et~al.
+\newblock Deepseek-r1: Incentivizing reasoning capability in llms via reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2501.12948}, 2025{\natexlab{a}}.
+
+\bibitem[Guo et~al.(2025{\natexlab{b}})Guo, Xu, Wang, and Mao]{guo2025mirror}
+Guo, Z., Xu, B., Wang, X., and Mao, Z.
+\newblock Mirror: Multi-agent intra-and inter-reflection for optimized reasoning in tool learning.
+\newblock \emph{arXiv preprint arXiv:2505.20670}, 2025{\natexlab{b}}.
+
+\bibitem[Hu et~al.(2025)Hu, Zhou, Fan, Nie, Xia, Sun, Ye, Jin, Li, Chen, et~al.]{hu2025owl}
+Hu, M., Zhou, Y., Fan, W., Nie, Y., Xia, B., Sun, T., Ye, Z., Jin, Z., Li, Y., Chen, Q., et~al.
+\newblock Owl: Optimized workforce learning for general multi-agent assistance in real-world task automation.
+\newblock \emph{arXiv preprint arXiv:2505.23885}, 2025.
+
+\bibitem[Jiang et~al.(2025)Jiang, Lu, Li, Lyu, Nie, Wang, Su, Chen, Zou, Du, et~al.]{jiang2025verltool}
+Jiang, D., Lu, Y., Li, Z., Lyu, Z., Nie, P., Wang, H., Su, A., Chen, H., Zou, K., Du, C., et~al.
+\newblock Verltool: Towards holistic agentic reinforcement learning with tool use.
+\newblock \emph{arXiv preprint arXiv:2509.01055}, 2025.
+
+\bibitem[Li et~al.(2025)Li, Dong, Jin, Zhang, Zhou, Zhu, Zhang, and Dou]{li2025search}
+Li, X., Dong, G., Jin, J., Zhang, Y., Zhou, Y., Zhu, Y., Zhang, P., and Dou, Z.
+\newblock Search-o1: Agentic search-enhanced large reasoning models.
+\newblock \emph{arXiv preprint arXiv:2501.05366}, 2025.
+
+\bibitem[Madaan et~al.(2023)Madaan, Tandon, Gupta, Hallinan, Gao, Wiegreffe, Alon, Dziri, Prabhumoye, Yang, et~al.]{madaan2023self}
+Madaan, A., Tandon, N., Gupta, P., Hallinan, S., Gao, L., Wiegreffe, S., Alon, U., Dziri, N., Prabhumoye, S., Yang, Y., et~al.
+\newblock Self-refine: Iterative refinement with self-feedback.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36:\penalty0 46534--46594, 2023.
+
+\bibitem[Mialon et~al.(2023)Mialon, Fourrier, Wolf, LeCun, and Scialom]{mialon2023gaia}
+Mialon, G., Fourrier, C., Wolf, T., LeCun, Y., and Scialom, T.
+\newblock Gaia: a benchmark for general ai assistants.
+\newblock In \emph{The Twelfth International Conference on Learning Representations}, 2023.
+
+\bibitem[Press et~al.(2023)Press, Zhang, Min, Schmidt, Smith, and Lewis]{press2023measuring}
+Press, O., Zhang, M., Min, S., Schmidt, L., Smith, N.~A., and Lewis, M.
+\newblock Measuring and narrowing the compositionality gap in language models.
+\newblock In \emph{Findings of the Association for Computational Linguistics: EMNLP 2023}, pp.\  5687--5711, 2023.
+
+\bibitem[Qian et~al.(2025)Qian, Acikgoz, He, Wang, Chen, Hakkani-T{\"u}r, Tur, and Ji]{qian2025toolrl}
+Qian, C., Acikgoz, E.~C., He, Q., Wang, H., Chen, X., Hakkani-T{\"u}r, D., Tur, G., and Ji, H.
+\newblock Toolrl: Reward is all tool learning needs.
+\newblock \emph{arXiv preprint arXiv:2504.13958}, 2025.
+
+\bibitem[Qiu et~al.(2025)Qiu, Qi, Zhang, Juan, Guo, Lu, Wang, Yao, Ren, Jiang, et~al.]{qiu2025alita}
+Qiu, J., Qi, X., Zhang, T., Juan, X., Guo, J., Lu, Y., Wang, Y., Yao, Z., Ren, Q., Jiang, X., et~al.
+\newblock Alita: Generalist agent enabling scalable agentic reasoning with minimal predefinition and maximal self-evolution.
+\newblock \emph{arXiv preprint arXiv:2505.20286}, 2025.
+
+\bibitem[Radford et~al.(2023)Radford, Kim, Xu, Brockman, McLeavey, and Sutskever]{radford2023robust}
+Radford, A., Kim, J.~W., Xu, T., Brockman, G., McLeavey, C., and Sutskever, I.
+\newblock Robust speech recognition via large-scale weak supervision.
+\newblock In \emph{International conference on machine learning}, pp.\  28492--28518. PMLR, 2023.
+
+\bibitem[Roucher et~al.(2025)Roucher, del Moral, Wolf, von Werra, and Kaunismäki]{smolagents}
+Roucher, A., del Moral, A.~V., Wolf, T., von Werra, L., and Kaunismäki, E.
+\newblock `smolagents`: a smol library to build great agentic systems.
+\newblock \url{https://github.com/huggingface/smolagents}, 2025.
+
+\bibitem[Shinn et~al.(2023)Shinn, Cassano, Gopinath, Narasimhan, and Yao]{shinn2023reflexion}
+Shinn, N., Cassano, F., Gopinath, A., Narasimhan, K., and Yao, S.
+\newblock Reflexion: Language agents with verbal reinforcement learning.
+\newblock \emph{Advances in Neural Information Processing Systems}, 36:\penalty0 8634--8652, 2023.
+
+\bibitem[Stroebl et~al.(2025)Stroebl, Kapoor, and Narayanan]{hal}
+Stroebl, B., Kapoor, S., and Narayanan, A.
+\newblock Hal: A holistic agent leaderboard for centralized and reproducible agent evaluation.
+\newblock \url{https://github.com/princeton-pli/hal-harness}, 2025.
+
+\bibitem[Trivedi et~al.(2022)Trivedi, Balasubramanian, Khot, and Sabharwal]{trivedi2022musique}
+Trivedi, H., Balasubramanian, N., Khot, T., and Sabharwal, A.
+\newblock {{\eighthnote}} musique: Multihop questions via single-hop question composition.
+\newblock \emph{Transactions of the Association for Computational Linguistics}, 10:\penalty0 539--554, 2022.
+
+\bibitem[Wang et~al.(2024)Wang, Li, Deng, Roth, and Li]{wang2024devil}
+Wang, H., Li, T., Deng, Z., Roth, D., and Li, Y.
+\newblock Devil's advocate: Anticipatory reflection for llm agents.
+\newblock \emph{arXiv preprint arXiv:2405.16334}, 2024.
+
+\bibitem[Wang et~al.(2025{\natexlab{a}})Wang, Cao, Cao, and Chen]{wang2025truthflow}
+Wang, H., Cao, B., Cao, Y., and Chen, J.
+\newblock Truthflow: Truthful llm generation via representation flow correction.
+\newblock \emph{arXiv preprint arXiv:2502.04556}, 2025{\natexlab{a}}.
+
+\bibitem[Wang et~al.(2025{\natexlab{b}})Wang, Hu, Liu, Zhu, Hou, Huang, Zhang, Yang, Liu, Zhang, et~al.]{wang2025efficient}
+Wang, N., Hu, X., Liu, P., Zhu, H., Hou, Y., Huang, H., Zhang, S., Yang, J., Liu, J., Zhang, G., et~al.
+\newblock Efficient agents: Building effective agents while reducing cost.
+\newblock \emph{arXiv preprint arXiv:2508.02694}, 2025{\natexlab{b}}.
+
+\bibitem[Wei et~al.(2024)Wei, Karina, Chung, Jiao, Papay, Glaese, Schulman, and Fedus]{wei2024measuring}
+Wei, J., Karina, N., Chung, H.~W., Jiao, Y.~J., Papay, S., Glaese, A., Schulman, J., and Fedus, W.
+\newblock Measuring short-form factuality in large language models.
+\newblock \emph{arXiv preprint arXiv:2411.04368}, 2024.
+
+\bibitem[Wu et~al.(2024)Wu, Bansal, Zhang, Wu, Li, Zhu, Jiang, Zhang, Zhang, Liu, et~al.]{wu2024autogen}
+Wu, Q., Bansal, G., Zhang, J., Wu, Y., Li, B., Zhu, E., Jiang, L., Zhang, X., Zhang, S., Liu, J., et~al.
+\newblock Autogen: Enabling next-gen llm applications via multi-agent conversations.
+\newblock In \emph{First Conference on Language Modeling}, 2024.
+
+\bibitem[Xu et~al.(2025)Xu, Liang, Mei, Gao, Tan, and Zhang]{xu2025mem}
+Xu, W., Liang, Z., Mei, K., Gao, H., Tan, J., and Zhang, Y.
+\newblock A-mem: Agentic memory for llm agents.
+\newblock \emph{arXiv preprint arXiv:2502.12110}, 2025.
+
+\bibitem[Yang et~al.(2025)Yang, Li, Yang, Zhang, Hui, Zheng, Yu, Gao, Huang, Lv, et~al.]{yang2025qwen3}
+Yang, A., Li, A., Yang, B., Zhang, B., Hui, B., Zheng, B., Yu, B., Gao, C., Huang, C., Lv, C., et~al.
+\newblock Qwen3 technical report.
+\newblock \emph{arXiv preprint arXiv:2505.09388}, 2025.
+
+\bibitem[Yang et~al.(2018)Yang, Qi, Zhang, Bengio, Cohen, Salakhutdinov, and Manning]{yang2018hotpotqa}
+Yang, Z., Qi, P., Zhang, S., Bengio, Y., Cohen, W., Salakhutdinov, R., and Manning, C.~D.
+\newblock Hotpotqa: A dataset for diverse, explainable multi-hop question answering.
+\newblock In \emph{Proceedings of the 2018 conference on empirical methods in natural language processing}, pp.\  2369--2380, 2018.
+
+\bibitem[Yao et~al.(2022)Yao, Zhao, Yu, Du, Shafran, Narasimhan, and Cao]{yao2022react}
+Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K.~R., and Cao, Y.
+\newblock React: Synergizing reasoning and acting in language models.
+\newblock In \emph{The eleventh international conference on learning representations}, 2022.
+
+\bibitem[Yao et~al.(2023)Yao, Yu, Zhao, Shafran, Griffiths, Cao, and Narasimhan]{yao2023tree}
+Yao, S., Yu, D., Zhao, J., Shafran, I., Griffiths, T., Cao, Y., and Narasimhan, K.
+\newblock Tree of thoughts: Deliberate problem solving with large language models.
+\newblock \emph{Advances in neural information processing systems}, 36:\penalty0 11809--11822, 2023.
+
+\bibitem[Zeng et~al.(2025)Zeng, Ding, Hou, Wang, Du, Dai, Ding, Tang, Tu, Liu, et~al.]{zeng2025tool}
+Zeng, Y., Ding, X., Hou, Y., Wang, Y., Du, L., Dai, J., Ding, Q., Tang, D., Tu, D., Liu, W., et~al.
+\newblock Tool zero: Training tool-augmented llms via pure rl from scratch.
+\newblock In \emph{Findings of the Association for Computational Linguistics: EMNLP 2025}, pp.\  9135--9147, 2025.
+
+\bibitem[Zhou et~al.(2023)Zhou, Yan, Shlapentokh-Rothman, Wang, and Wang]{zhou2023language}
+Zhou, A., Yan, K., Shlapentokh-Rothman, M., Wang, H., and Wang, Y.-X.
+\newblock Language agent tree search unifies reasoning acting and planning in language models.
+\newblock \emph{arXiv preprint arXiv:2310.04406}, 2023.
+
+\bibitem[Zhu et~al.(2025{\natexlab{a}})Zhu, Qin, Zhu, Huang, Guan, Xia, Yao, Li, Wang, Liu, et~al.]{zhu2025oagents}
+Zhu, H., Qin, T., Zhu, K., Huang, H., Guan, Y., Xia, J., Yao, Y., Li, H., Wang, N., Liu, P., et~al.
+\newblock Oagents: An empirical study of building effective agents.
+\newblock \emph{arXiv preprint arXiv:2506.15741}, 2025{\natexlab{a}}.
+
+\bibitem[Zhu et~al.(2025{\natexlab{b}})Zhu, Liu, Li, Tian, Yang, Zhang, Han, Xie, Cui, Zhang, et~al.]{zhu2025llm}
+Zhu, K., Liu, Z., Li, B., Tian, M., Yang, Y., Zhang, J., Han, P., Xie, Q., Cui, F., Zhang, W., et~al.
+\newblock Where llm agents fail and how they can learn from failures.
+\newblock \emph{arXiv preprint arXiv:2509.25370}, 2025{\natexlab{b}}.
+
+\end{thebibliography}

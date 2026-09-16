@@ -1,0 +1,490 @@
+\begin{thebibliography}{97}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Akhauri et~al.(2025)Akhauri, Song, Wongpanich, Lewandowski, and Abdelfattah}]{akhauri2025regressionlanguagemodelscode}
+Yash Akhauri, Xingyou Song, Arissa Wongpanich, Bryan Lewandowski, and Mohamed~S. Abdelfattah. 2025.
+\newblock \href {https://arxiv.org/abs/2509.26476} {Regression language models for code}.
+\newblock \emph{Preprint}, arXiv:2509.26476.
+
+\bibitem[{Astorga et~al.(2025)Astorga, Liu, Xiao, and van~der Schaar}]{Astorga2024}
+Nicol\'as Astorga, Tennison Liu, Yuanzhang Xiao, and Mihaela van~der Schaar. 2025.
+\newblock \href {https://arxiv.org/abs/2411.01679} {Autoformulation of mathematical optimization models using llms}.
+\newblock \emph{Preprint}, arXiv:2411.01679.
+
+\bibitem[{Bender and Koller(2020)}]{benderkoller2020climbingtowardsnlu}
+Emily~M. Bender and Alexander Koller. 2020.
+\newblock \href {https://doi.org/10.18653/v1/2020.acl-main.463} {Climbing towards {NLU}: {On} meaning, form, and understanding in the age of data}.
+\newblock In \emph{Proceedings of the 58th Annual Meeting of the Association for Computational Linguistics}, pages 5185--5198, Online. Association for Computational Linguistics.
+
+\bibitem[{Cabrera et~al.(2025)Cabrera, Paleyes, Thodoroff, and Lawrence}]{cabrera2025machinelearningsystemssurvey}
+Christian Cabrera, Andrei Paleyes, Pierre Thodoroff, and Neil~D. Lawrence. 2025.
+\newblock \href {https://arxiv.org/abs/2302.04810} {Machine learning systems: A survey from a data-oriented perspective}.
+\newblock \emph{Preprint}, arXiv:2302.04810.
+
+\bibitem[{Chai et~al.(2025)Chai, Tang, Ye, Du, Zhu, Zhou, Wang, E, Zhang, Zhang, and Chen}]{chai2025scimastergeneralpurposescientificai}
+Jingyi Chai, Shuo Tang, Rui Ye, Yuwen Du, Xinyu Zhu, Mengcheng Zhou, Yanfeng Wang, Weinan E, Yuzhi Zhang, Linfeng Zhang, and Siheng Chen. 2025.
+\newblock \href {https://arxiv.org/abs/2507.05241} {Scimaster: Towards general-purpose scientific ai agents, part i. x-master as foundation: Can we lead on humanity's last exam?}
+\newblock \emph{Preprint}, arXiv:2507.05241.
+
+\bibitem[{Chan et~al.(2025)Chan, Chowdhury, Jaffe, Aung, Sherburn, Mays, Starace, Liu, Maksin, Patwardhan, Weng, and Mądry}]{chan2025mlebenchevaluatingmachinelearning}
+Jun~Shern Chan, Neil Chowdhury, Oliver Jaffe, James Aung, Dane Sherburn, Evan Mays, Giulio Starace, Kevin Liu, Leon Maksin, Tejal Patwardhan, Lilian Weng, and Aleksander Mądry. 2025.
+\newblock \href {https://arxiv.org/abs/2410.07095} {Mle-bench: Evaluating machine learning agents on machine learning engineering}.
+\newblock \emph{Preprint}, arXiv:2410.07095.
+
+\bibitem[{Changshu et~al.(2024)Changshu, Yang, and Jabbarvand}]{Changshu2024codemind}
+Liu Changshu, Chen Yang, and Reyhaneh Jabbarvand. 2024.
+\newblock \href {https://doi.org/10.48550/arxiv.2402.09664} {Codemind: Evaluating large language models for code reasoning}.
+\newblock \emph{http://arxiv.org/abs/2402.09664}.
+
+\bibitem[{Chen et~al.(2025{\natexlab{a}})Chen, Pan, Hu, Li, Li, and Xia}]{Chen2025reval}
+Junkai Chen, Zhiyuan Pan, Xing Hu, Zhenhao Li, Ge~Li, and Xin Xia. 2025{\natexlab{a}}.
+\newblock \href {https://doi.org/10.1109/ICSE55347.2025.00012} {Reasoning runtime behavior of a program with llm: How far are we?}
+\newblock In \emph{2025 IEEE/ACM 47th International Conference on Software Engineering (ICSE)}, pages 1869--1881.
+
+\bibitem[{Chen et~al.(2025{\natexlab{b}})Chen, Wang, Yu, Zhan, and Wang}]{chen2025largelanguagemodelbaseddata}
+Ke~Chen, Peiran Wang, Yaoning Yu, Xianyang Zhan, and Haohan Wang. 2025{\natexlab{b}}.
+\newblock \href {https://arxiv.org/abs/2508.02744} {Large language model-based data science agent: A survey}.
+\newblock \emph{Preprint}, arXiv:2508.02744.
+
+\bibitem[{Chen et~al.(2025{\natexlab{c}})Chen, Yang, Qin, Liu, Yan, Guan, Peng, Ji, Li, Hu, Zhang, Liang, Zhou, Wang, Chen, and Che}]{chen2025ai4researchsurveyartificialintelligence}
+Qiguang Chen, Mingda Yang, Libo Qin, Jinhao Liu, Zheng Yan, Jiannan Guan, Dengyun Peng, Yiyan Ji, Hanjing Li, Mengkang Hu, Yimeng Zhang, Yihao Liang, Yuhang Zhou, Jiaqi Wang, Zhi Chen, and Wanxiang Che. 2025{\natexlab{c}}.
+\newblock \href {https://arxiv.org/abs/2507.01903} {Ai4research: A survey of artificial intelligence for scientific research}.
+\newblock \emph{Preprint}, arXiv:2507.01903.
+
+\bibitem[{Chen et~al.(2025{\natexlab{d}})Chen, Zhao, Zhang, Liu, Qi, Wu, Kalluri, Cao, Xiong, Tong, Yao, Li, Zhu, Li, Song, Li, Weston, and Huynh}]{chen2025scalingagentlearningexperience}
+Zhaorun Chen, Zhuokai Zhao, Kai Zhang, Bo~Liu, Qi~Qi, Yifan Wu, Tarun Kalluri, Sara Cao, Yuanhao Xiong, Haibo Tong, Huaxiu Yao, Hengduo Li, Jiacheng Zhu, Xian Li, Dawn Song, Bo~Li, Jason Weston, and Dat Huynh. 2025{\natexlab{d}}.
+\newblock \href {https://arxiv.org/abs/2511.03773} {Scaling agent learning via experience synthesis}.
+\newblock \emph{Preprint}, arXiv:2511.03773.
+
+\bibitem[{Chi et~al.(2024)Chi, Lin, Hong, Pan, Fei, Mei, Liu, Pang, Kwok, Zhang, Liu, and Wu}]{chi2024selatreesearchenhancedllm}
+Yizhou Chi, Yizhang Lin, Sirui Hong, Duyi Pan, Yaying Fei, Guanghao Mei, Bangbang Liu, Tianqi Pang, Jacky Kwok, Ceyao Zhang, Bang Liu, and Chenglin Wu. 2024.
+\newblock \href {https://arxiv.org/abs/2410.17238} {Sela: Tree-search enhanced llm agents for automated machine learning}.
+\newblock \emph{Preprint}, arXiv:2410.17238.
+
+\bibitem[{Davies et~al.(2025)Davies, Nzoyem, Ajmeri, and Filho}]{davies2025languagemodelsembednumbers}
+Alex~O. Davies, Roussel Nzoyem, Nirav Ajmeri, and Telmo M.~Silva Filho. 2025.
+\newblock \href {https://arxiv.org/abs/2510.08009} {Language models do not embed numbers continuously}.
+\newblock \emph{Preprint}, arXiv:2510.08009.
+
+\bibitem[{{DeepSeek-AI}(2024)}]{deepseek2024apidocs}
+{DeepSeek-AI}. 2024.
+\newblock Deepseek api documentation: Parameter settings.
+\newblock \url{https://api-docs.deepseek.com/quick_start/parameter_settings}.
+\newblock Accessed: 2025-12-21.
+
+\bibitem[{DeepSeek-AI(2025{\natexlab{a}})}]{deepseekai2025deepseekr1incentivizingreasoningcapability}
+DeepSeek-AI. 2025{\natexlab{a}}.
+\newblock \href {https://arxiv.org/abs/2501.12948} {Deepseek-r1: Incentivizing reasoning capability in llms via reinforcement learning}.
+\newblock \emph{Preprint}, arXiv:2501.12948.
+
+\bibitem[{DeepSeek-AI(2025{\natexlab{b}})}]{deepseekai2025deepseekv3technicalreport}
+DeepSeek-AI. 2025{\natexlab{b}}.
+\newblock \href {https://arxiv.org/abs/2412.19437} {Deepseek-v3 technical report}.
+\newblock \emph{Preprint}, arXiv:2412.19437.
+
+\bibitem[{Ding et~al.(2025)Ding, Zhang, Shang, Feng, Zhang, Zong, Yuan, Su, Li, Piao, Deng, Sukiennik, Gao, Xu, and Li}]{Ding2025}
+Jingtao Ding, Yunke Zhang, Yu~Shang, Jie Feng, Yuheng Zhang, Zefang Zong, Yuan Yuan, Hongyuan Su, Nian Li, Jinghua Piao, Yucheng Deng, Nicholas Sukiennik, Chen Gao, Fengli Xu, and Yong Li. 2025.
+\newblock \href {https://arxiv.org/abs/2411.14499} {Understanding world or predicting future? a comprehensive survey of world models}.
+\newblock \emph{Preprint}, arXiv:2411.14499.
+
+\bibitem[{Doshi and Hauser(2024)}]{anil2024generativeaienhances}
+Anil~R. Doshi and Oliver~P. Hauser. 2024.
+\newblock \href {https://doi.org/10.1126/sciadv.adn5290} {Generative ai enhances individual creativity but reduces the collective diversity of novel content}.
+\newblock \emph{Science Advances}, 10(28):eadn5290.
+
+\bibitem[{Du et~al.(2025)Du, Yan, Jiang, Yuan, Hu, Li, He, Zhang, and Bai}]{du2025automlgennavigatingfinegrainedoptimization}
+Shangheng Du, Xiangchao Yan, Dengyang Jiang, Jiakang Yuan, Yusong Hu, Xin Li, Liang He, Bo~Zhang, and Lei Bai. 2025.
+\newblock \href {https://arxiv.org/abs/2510.08511} {Automlgen: Navigating fine-grained optimization for coding agents}.
+\newblock \emph{Preprint}, arXiv:2510.08511.
+
+\bibitem[{Dwork et~al.(2015)Dwork, Feldman, Hardt, Pitassi, Reingold, and Roth}]{dwork2015reusable}
+Cynthia Dwork, Vitaly Feldman, Moritz Hardt, Toniann Pitassi, Omer Reingold, and Aaron Roth. 2015.
+\newblock \href {https://doi.org/10.1126/science.aaa9375} {The reusable holdout: Preserving validity in adaptive data analysis}.
+\newblock \emph{Science}, 349(6248):636--638.
+
+\bibitem[{Fang et~al.(2025)Fang, Han, Erickson, Zhang, Zhou, Dagar, Zhang, Turkmen, Hu, Rangwala, Wu, Wang, and Karypis}]{Fang2025}
+Haoyang Fang, Boran Han, Nick Erickson, Xiyuan Zhang, Su~Zhou, Anirudh Dagar, Jiani Zhang, Ali~Caner Turkmen, Cuixiong Hu, Huzefa Rangwala, Ying~Nian Wu, Bernie Wang, and George Karypis. 2025.
+\newblock \href {https://arxiv.org/abs/2505.13941} {Mlzero: A multi-agent system for end-to-end machine learning automation}.
+\newblock \emph{Preprint}, arXiv:2505.13941.
+
+\bibitem[{Feng et~al.(2025)Feng, Zhang, Zhang, Lu, Liu, and Wang}]{feng2025webworldmodels}
+Jichen Feng, Yifan Zhang, Chenggong Zhang, Yifu Lu, Shilong Liu, and Mengdi Wang. 2025.
+\newblock \href {https://arxiv.org/abs/2512.23676} {Web world models}.
+\newblock \emph{Preprint}, arXiv:2512.23676.
+
+\bibitem[{Floridi et~al.(2025)Floridi, Jia, and Tohm\'e}]{floridi2025categoricalanalysislargelanguage}
+Luciano Floridi, Yiyang Jia, and Fernando Tohm\'e. 2025.
+\newblock \href {https://arxiv.org/abs/2512.09117} {A categorical analysis of large language models and why llms circumvent the symbol grounding problem}.
+\newblock \emph{Preprint}, arXiv:2512.09117.
+
+\bibitem[{Gottweis et~al.(2025)Gottweis, Weng, Daryin et~al.}]{gottweis2025aicoscientist}
+Juraj Gottweis, Wei-Hung Weng, Alexander Daryin, et~al. 2025.
+\newblock \href {https://arxiv.org/abs/2502.18864} {Towards an ai co-scientist}.
+\newblock \emph{Preprint}, arXiv:2502.18864.
+
+\bibitem[{Grayeli et~al.(2024)Grayeli, Sehgal, Costilla-Reyes, Cranmer, and Chaudhuri}]{grayeli2024symbolicregressionlearnedconcept}
+Arya Grayeli, Atharva Sehgal, Omar Costilla-Reyes, Miles Cranmer, and Swarat Chaudhuri. 2024.
+\newblock \href {https://arxiv.org/abs/2409.09359} {Symbolic regression with a learned concept library}.
+\newblock \emph{Preprint}, arXiv:2409.09359.
+
+\bibitem[{Gu et~al.(2024{\natexlab{a}})Gu, Rozière, Leather, Solar-Lezama, Synnaeve, and Wang}]{gu2024cruxevalbenchmarkcodereasoning}
+Alex Gu, Baptiste Rozière, Hugh Leather, Armando Solar-Lezama, Gabriel Synnaeve, and Sida~I. Wang. 2024{\natexlab{a}}.
+\newblock \href {https://arxiv.org/abs/2401.03065} {Cruxeval: A benchmark for code reasoning, understanding and execution}.
+\newblock \emph{Preprint}, arXiv:2401.03065.
+
+\bibitem[{Gu et~al.(2024{\natexlab{b}})Gu, You, Cao, Yu, Fan, and Qian}]{gu2024largelanguagemodelsconstructing}
+Yang Gu, Hengyu You, Jian Cao, Muran Yu, Haoran Fan, and Shiyou Qian. 2024{\natexlab{b}}.
+\newblock \href {https://arxiv.org/abs/2411.10478} {Large language models for constructing and optimizing machine learning workflows: A survey}.
+\newblock \emph{Preprint}, arXiv:2411.10478.
+
+\bibitem[{Guo et~al.(2024)Guo, Deng, Wen, Chen, Chang, and Wang}]{guo2024dsagentautomateddatascience}
+Siyuan Guo, Cheng Deng, Ying Wen, Hechang Chen, Yi~Chang, and Jun Wang. 2024.
+\newblock \href {https://arxiv.org/abs/2402.17453} {Ds-agent: Automated data science by empowering large language models with case-based reasoning}.
+\newblock \emph{Preprint}, arXiv:2402.17453.
+
+\bibitem[{Ha and Schmidhuber(2018)}]{ha2018worldmodels}
+David Ha and Jürgen Schmidhuber. 2018.
+\newblock \href {https://doi.org/10.5281/ZENODO.1207631} {World models}.
+\newblock \emph{Zenodo}.
+
+\bibitem[{Hafner et~al.(2024)Hafner, Pasukonis, Ba, and Lillicrap}]{hafner2024masteringdiversedomainsworld}
+Danijar Hafner, Jurgis Pasukonis, Jimmy Ba, and Timothy Lillicrap. 2024.
+\newblock \href {https://arxiv.org/abs/2301.04104} {Mastering diverse domains through world models}.
+\newblock \emph{Preprint}, arXiv:2301.04104.
+
+\bibitem[{Hong et~al.(2024)Hong, Lin, Liu et~al.}]{hong2024datainterpreterllmagent}
+Sirui Hong, Yizhang Lin, Bang Liu, et~al. 2024.
+\newblock \href {https://arxiv.org/abs/2402.18679} {Data interpreter: An llm agent for data science}.
+\newblock \emph{Preprint}, arXiv:2402.18679.
+
+\bibitem[{Hora(2024)}]{Hora2024predictingtestresultswithoutexecution}
+Andre Hora. 2024.
+\newblock \href {https://doi.org/10.1145/3663529.3663794} {Predicting test results without execution}.
+\newblock \emph{https://doi.org/10.1145/3663529.3663794}, pages 542--546.
+
+\bibitem[{Huang et~al.(2024)Huang, Vora, Liang, and Leskovec}]{huang2024mlagentbenchevaluatinglanguageagents}
+Qian Huang, Jian Vora, Percy Liang, and Jure Leskovec. 2024.
+\newblock \href {https://arxiv.org/abs/2310.03302} {Mlagentbench: Evaluating language agents on machine learning experimentation}.
+\newblock \emph{Preprint}, arXiv:2310.03302.
+
+\bibitem[{Huang et~al.(2025)Huang, Chen, Zhang, Li, Zhou, Fang, Yang, Li, Shang, Xu, Hao, Shao, and Wang}]{Yuxuan2025}
+Yuxuan Huang, Yihang Chen, Haozheng Zhang, Kang Li, Huichi Zhou, Meng Fang, Linyi Yang, Xiaoguang Li, Lifeng Shang, Songcen Xu, Jianye Hao, Kun Shao, and Jun Wang. 2025.
+\newblock \href {https://arxiv.org/abs/2506.18096} {Deep research agents: A systematic examination and roadmap}.
+\newblock \emph{Preprint}, arXiv:2506.18096.
+
+\bibitem[{Jain et~al.(2024)Jain, Han, Gu, Li, Yan, Zhang, Wang, Lezama, Sen, and Stoica}]{jain2024livecodebenchholisticcontaminationfree}
+Naman Jain, King Han, Alex Gu, Wending Li, Fanjia Yan, Tianjun Zhang, Sida Wang, Armando~Solar Lezama, Koushik Sen, and Ion Stoica. 2024.
+\newblock \href {https://arxiv.org/abs/2403.07974} {Livecodebench: Holistic and contamination free evaluation of large language models for code}.
+\newblock \emph{Preprint}, arXiv:2403.07974.
+
+\bibitem[{Jiang et~al.(2025)Jiang, Schmidt, Srikanth, Xu, Kaplan, Jacenko, and Wu}]{jiang2025aideaidrivenexplorationspace}
+Zhengyao Jiang, Dominik Schmidt, Dhruv Srikanth, Dixing Xu, Ian Kaplan, Deniss Jacenko, and Yuxiang Wu. 2025.
+\newblock \href {https://arxiv.org/abs/2502.13138} {Aide: Ai-driven exploration in the space of code}.
+\newblock \emph{Preprint}, arXiv:2502.13138.
+
+\bibitem[{Jing et~al.(2024)Jing, Huang, Wang, Yao, Yu, Ma, Zhang, Du, and Yu}]{jing2024dsbench}
+Liqiang Jing, Zhehui Huang, Xiaoyang Wang, Wenlin Yao, Wenhao Yu, Kaixin Ma, Hongming Zhang, Xinya Du, and Dong Yu. 2024.
+\newblock Dsbench: How far are data science agents from becoming data science experts?
+\newblock \emph{arXiv preprint arXiv:2409.07703}.
+
+\bibitem[{Just et~al.(2024)Just, Jin, Sahu, Phan, and Jia}]{Just2024datacentrichuman}
+Hoang Just, Ming Jin, Anit Sahu, Huy Phan, and Ruoxi Jia. 2024.
+\newblock \href {https://doi.org/10.48550/arxiv.2407.14477} {Data-centric human preference optimization with rationales}.
+\newblock \emph{arXiv (Cornell University)}.
+
+\bibitem[{Kojima et~al.(2023)Kojima, Gu, Reid, Matsuo, and Iwasawa}]{kojima2023largelanguagemodelszeroshot}
+Takeshi Kojima, Shixiang~Shane Gu, Machel Reid, Yutaka Matsuo, and Yusuke Iwasawa. 2023.
+\newblock \href {https://arxiv.org/abs/2205.11916} {Large language models are zero-shot reasoners}.
+\newblock \emph{Preprint}, arXiv:2205.11916.
+
+\bibitem[{Kulibaba et~al.(2025)Kulibaba, Dzhalilov, Pakhomov, Svidchenko, Gasnikov, and Shpilman}]{kulibaba2025kompeteaiacceleratedautonomousmultiagent}
+Stepan Kulibaba, Artem Dzhalilov, Roman Pakhomov, Oleg Svidchenko, Alexander Gasnikov, and Aleksei Shpilman. 2025.
+\newblock \href {https://arxiv.org/abs/2508.10177} {Kompeteai: Accelerated autonomous multi-agent system for end-to-end pipeline generation for machine learning problems}.
+\newblock \emph{Preprint}, arXiv:2508.10177.
+
+\bibitem[{Lange et~al.(2025)Lange, Imajuku, and Cetin}]{lange2025shinkaevolveopenendedsampleefficientprogram}
+Robert~Tjarko Lange, Yuki Imajuku, and Edoardo Cetin. 2025.
+\newblock \href {https://arxiv.org/abs/2509.19349} {Shinkaevolve: Towards open-ended and sample-efficient program evolution}.
+\newblock \emph{Preprint}, arXiv:2509.19349.
+
+\bibitem[{Li et~al.(2025{\natexlab{a}})Li, Wu, Ge et~al.}]{li2025fmagent}
+Annan Li, Chufan Wu, Zengle Ge, et~al. 2025{\natexlab{a}}.
+\newblock \href {https://arxiv.org/abs/2510.26144} {The fm agent}.
+\newblock \emph{Preprint}, arXiv:2510.26144.
+
+\bibitem[{Li et~al.(2025{\natexlab{b}})Li, Chen, Xu, Li, Hu, Teng, Li, Qiu, Zhang, Qing, and Chen}]{li-etal-2025-exposing}
+Haoyang Li, Xuejia Chen, Zhanchao Xu, Darian Li, Nicole Hu, Fei Teng, Yiming Li, Luyu Qiu, Chen~Jason Zhang, Li~Qing, and Lei Chen. 2025{\natexlab{b}}.
+\newblock \href {https://doi.org/10.18653/v1/2025.findings-acl.1026} {Exposing numeracy gaps: A benchmark to evaluate fundamental numerical abilities in large language models}.
+\newblock In \emph{Findings of the Association for Computational Linguistics: ACL 2025}, pages 20004--20026, Vienna, Austria. Association for Computational Linguistics.
+
+\bibitem[{Li et~al.(2025{\natexlab{c}})Li, Guo, Yang, Xu, Wu, and He}]{li2025codeiocondensingreasoningpatterns}
+Junlong Li, Daya Guo, Dejian Yang, Runxin Xu, Yu~Wu, and Junxian He. 2025{\natexlab{c}}.
+\newblock \href {https://arxiv.org/abs/2502.07316} {Codei/o: Condensing reasoning patterns via code input-output prediction}.
+\newblock \emph{Preprint}, arXiv:2502.07316.
+
+\bibitem[{Li et~al.(2025{\natexlab{d}})Li, Patel, Wang, and Du}]{li2025mlrcopilotautonomousmachinelearning}
+Ruochen Li, Teerth Patel, Qingyun Wang, and Xinya Du. 2025{\natexlab{d}}.
+\newblock \href {https://arxiv.org/abs/2408.14033} {Mlr-copilot: Autonomous machine learning research based on large language models agents}.
+\newblock \emph{Preprint}, arXiv:2408.14033.
+
+\bibitem[{Li et~al.(2025{\natexlab{e}})Li, Wang, Qiu, Yin, Zhang, Qian, Li, Ma, Chen, Ji, and Wang}]{li2025wordworldlargelanguage}
+Yixia Li, Hongru Wang, Jiahao Qiu, Zhenfei Yin, Dongdong Zhang, Cheng Qian, Zeping Li, Pony Ma, Guanhua Chen, Heng Ji, and Mengdi Wang. 2025{\natexlab{e}}.
+\newblock \href {https://arxiv.org/abs/2512.18832} {From word to world: Can large language models be implicit text-based world models?}
+\newblock \emph{Preprint}, arXiv:2512.18832.
+
+\bibitem[{Liu et~al.(2022)Liu, Wei, Gu, Wu, Vosoughi, Cui, Zhou, and Dai}]{liu2022mindseyegroundedlanguage}
+Ruibo Liu, Jason Wei, Shixiang~Shane Gu, Teyen Wu, Soroush Vosoughi, Claire Cui, Denny Zhou, and Andrew~M. Dai. 2022.
+\newblock \href {https://arxiv.org/abs/2210.05359} {Mind's eye: Grounded language model reasoning through simulation}.
+\newblock \emph{Preprint}, arXiv:2210.05359.
+
+\bibitem[{Liu et~al.(2025{\natexlab{a}})Liu, Nan, Xu, Hu, Ye, Qin, and Liu}]{liu2025alphagomomentmodelarchitecture}
+Yixiu Liu, Yang Nan, Weixian Xu, Xiangkun Hu, Lyumanshan Ye, Zhen Qin, and Pengfei Liu. 2025{\natexlab{a}}.
+\newblock \href {https://arxiv.org/abs/2507.18074} {Alphago moment for model architecture discovery}.
+\newblock \emph{Preprint}, arXiv:2507.18074.
+
+\bibitem[{Liu et~al.(2025{\natexlab{b}})Liu, Cai, Zhu, Zheng, Chen, Wen, Wang, E, and Chen}]{liu2025mlmasteraiforaiintegrationexploration}
+Zexi Liu, Yuzhu Cai, Xinyu Zhu, Yujie Zheng, Runkun Chen, Ying Wen, Yanfeng Wang, Weinan E, and Siheng Chen. 2025{\natexlab{b}}.
+\newblock \href {https://arxiv.org/abs/2506.16499} {Ml-master: Towards ai-for-ai via integration of exploration and reasoning}.
+\newblock \emph{Preprint}, arXiv:2506.16499.
+
+\bibitem[{Luo et~al.(2025)Luo, Yu, Wang, Zhu, Zhang, Wei, Du, Zheng, and Chen}]{luo2025executableknowledgegraphsreplicating}
+Yujie Luo, Zhuoyun Yu, Xuehai Wang, Yuqi Zhu, Ningyu Zhang, Lanning Wei, Lun Du, Da~Zheng, and Huajun Chen. 2025.
+\newblock \href {https://arxiv.org/abs/2510.17795} {Executable knowledge graphs for replicating ai research}.
+\newblock \emph{Preprint}, arXiv:2510.17795.
+
+\bibitem[{Metz(2024)}]{metz2024openai}
+Rachel Metz. 2024.
+\newblock \href {https://www.bloomberg.com/news/articles/2024-07-11/openai-sets-levels-to-track-progress-toward-superintelligent-ai} {Openai scale ranks progress toward 'human-level' ai}.
+\newblock \emph{Bloomberg}.
+
+\bibitem[{Nam et~al.(2025)Nam, Yoon, Chen, Shin, Arık, and Pfister}]{nam2025mlestarmachinelearningengineering}
+Jaehyun Nam, Jinsung Yoon, Jiefeng Chen, Jinwoo Shin, Sercan~Ö. Arık, and Tomas Pfister. 2025.
+\newblock \href {https://arxiv.org/abs/2506.15692} {Mle-star: Machine learning engineering agent via search and targeted refinement}.
+\newblock \emph{Preprint}, arXiv:2506.15692.
+
+\bibitem[{Nathani et~al.(2025)Nathani, Madaan, Roberts, Bashlykov, Menon, Moens, Budhiraja, Magka, Vorotilov, Chaurasia, Hupkes, Cabral, Shavrina, Foerster, Bachrach, Wang, and Raileanu}]{Nathani2025}
+Deepak Nathani, Lovish Madaan, Nicholas Roberts, Nikolay Bashlykov, Ajay Menon, Vincent Moens, Amar Budhiraja, Despoina Magka, Vladislav Vorotilov, Gaurav Chaurasia, Dieuwke Hupkes, Ricardo~Silveira Cabral, Tatiana Shavrina, Jakob Foerster, Yoram Bachrach, William~Yang Wang, and Roberta Raileanu. 2025.
+\newblock \href {https://arxiv.org/abs/2502.14499} {Mlgym: A new framework and benchmark for advancing ai research agents}.
+\newblock \emph{Preprint}, arXiv:2502.14499.
+
+\bibitem[{Novikov et~al.(2025)Novikov, Vũ, Eisenberger et~al.}]{novikov2025alphaevolvecodingagentscientific}
+Alexander Novikov, Ngân Vũ, Marvin Eisenberger, et~al. 2025.
+\newblock \href {https://arxiv.org/abs/2506.13131} {Alphaevolve: A coding agent for scientific and algorithmic discovery}.
+\newblock \emph{Preprint}, arXiv:2506.13131.
+
+\bibitem[{OpenAI(2024)}]{openai2024openaio1card}
+OpenAI. 2024.
+\newblock \href {https://arxiv.org/abs/2412.16720} {Openai o1 system card}.
+\newblock \emph{Preprint}, arXiv:2412.16720.
+
+\bibitem[{{OpenAI}(2025{\natexlab{a}})}]{openai2025o3card}
+{OpenAI}. 2025{\natexlab{a}}.
+\newblock \href {https://cdn.openai.com/gpt-5-system-card.pdf} {{System Card for gpt-5}}.
+\newblock Accessed on August 13, 2025.
+
+\bibitem[{{OpenAI}(2025{\natexlab{b}})}]{openai2025gpt5card}
+{OpenAI}. 2025{\natexlab{b}}.
+\newblock \href {https://openai.com/index/o3-mini-system-card/} {{System Card for o3-mini}}.
+\newblock Accessed on December 11, 2025.
+
+\bibitem[{Ou et~al.(2025)Ou, Luo, Zheng, Wei, Yu, Qiao, Zhang, Zheng, Mao, Gao, Chen, and Zhang}]{ou2025automindadaptiveknowledgeableagent}
+Yixin Ou, Yujie Luo, Jingsheng Zheng, Lanning Wei, Zhuoyun Yu, Shuofei Qiao, Jintian Zhang, Da~Zheng, Yuren Mao, Yunjun Gao, Huajun Chen, and Ningyu Zhang. 2025.
+\newblock \href {https://arxiv.org/abs/2506.10974} {Automind: Adaptive knowledgeable agent for automated data science}.
+\newblock \emph{Preprint}, arXiv:2506.10974.
+
+\bibitem[{Qiang et~al.(2025)Qiang, Zhuang, Li, K, Zhang, Li, Wong, Yang, Liang, Zhang, and Dai}]{qiang2025mledojointeractiveenvironmentsempowering}
+Rushi Qiang, Yuchen Zhuang, Yinghao Li, Dingu Sagar~V K, Rongzhi Zhang, Changhao Li, Ian~Shuhei Wong, Sherry Yang, Percy Liang, Chao Zhang, and Bo~Dai. 2025.
+\newblock \href {https://arxiv.org/abs/2505.07782} {Mle-dojo: Interactive environments for empowering llm agents in machine learning engineering}.
+\newblock \emph{Preprint}, arXiv:2505.07782.
+
+\bibitem[{Qiao et~al.(2023)Qiao, Ou, Zhang, Chen, Yao, Deng, Tan, Huang, and Chen}]{qiao-etal-2023-reasoning}
+Shuofei Qiao, Yixin Ou, Ningyu Zhang, Xiang Chen, Yunzhi Yao, Shumin Deng, Chuanqi Tan, Fei Huang, and Huajun Chen. 2023.
+\newblock \href {https://doi.org/10.18653/v1/2023.acl-long.294} {Reasoning with language model prompting: A survey}.
+\newblock In \emph{Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)}, pages 5368--5393, Toronto, Canada. Association for Computational Linguistics.
+
+\bibitem[{Qiao et~al.(2025)Qiao, Zhao, Qiu, Wang, Zhang, Bin, Zhang, Jiang, Xie, Huang, and Chen}]{qiao2025scalinggeneralistdataanalyticagents}
+Shuofei Qiao, Yanqiu Zhao, Zhisong Qiu, Xiaobin Wang, Jintian Zhang, Zhao Bin, Ningyu Zhang, Yong Jiang, Pengjun Xie, Fei Huang, and Huajun Chen. 2025.
+\newblock \href {https://arxiv.org/abs/2509.25084} {Scaling generalist data-analytic agents}.
+\newblock \emph{Preprint}, arXiv:2509.25084.
+
+\bibitem[{Rice(1953)}]{rice1953classesofrecursively}
+H.~G. Rice. 1953.
+\newblock \href {http://www.jstor.org/stable/1990888} {Classes of recursively enumerable sets and their decision problems}.
+\newblock \emph{Transactions of the American Mathematical Society}, 74(2):358--366.
+
+\bibitem[{Rytting and Wingate(2021)}]{Rytting2021leveragingtheinductivebias}
+Christopher~Michael Rytting and David Wingate. 2021.
+\newblock Leveraging the inductive bias of large language models for abstract textual reasoning.
+\newblock In \emph{Proceedings of the 35th International Conference on Neural Information Processing Systems}, NIPS '21, Red Hook, NY, USA. Curran Associates Inc.
+
+\bibitem[{Schmidgall et~al.(2025)Schmidgall, Su, Wang, Sun, Wu, Yu, Liu, Moor, Liu, and Barsoum}]{schmidgall2025agentlaboratoryusingllm}
+Samuel Schmidgall, Yusheng Su, Ze~Wang, Ximeng Sun, Jialian Wu, Xiaodong Yu, Jiang Liu, Michael Moor, Zicheng Liu, and Emad Barsoum. 2025.
+\newblock \href {https://arxiv.org/abs/2501.04227} {Agent laboratory: Using llm agents as research assistants}.
+\newblock \emph{Preprint}, arXiv:2501.04227.
+
+\bibitem[{Shen et~al.(2024)Shen, Sharma, Shen, Jun, Sharma, and Qin}]{Shen2024towardsdatacentricrlhf}
+Judy Shen, Archit Sharma, Judy Shen, Qin Jun, Archit Sharma, and Jun Qin. 2024.
+\newblock \href {https://doi.org/10.48550/arxiv.2409.09603} {Towards data-centric rlhf: Simple metrics for preference dataset comparison}.
+\newblock \emph{http://arxiv.org/abs/2409.09603}, abs/2409.09603.
+
+\bibitem[{Shi et~al.(2024)Shi, Ma, and Vosoughi}]{Shi2024judingthejudges}
+Lin Shi, Weicheng Ma, and Soroush Vosoughi. 2024.
+\newblock \href {https://doi.org/10.48550/arxiv.2406.07791} {Judging the judges: A systematic investigation of position bias in pairwise comparative assessments by llms}.
+\newblock \emph{arXiv (Cornell University)}.
+
+\bibitem[{Sun et~al.(2025{\natexlab{a}})Sun, Qiao, Guo, Fan, Hou, Jiang, Xie, Zhang, Huang, and Zhou}]{sun2025zerosearchincentivizesearchcapability}
+Hao Sun, Zile Qiao, Jiayan Guo, Xuanbo Fan, Yingyan Hou, Yong Jiang, Pengjun Xie, Yan Zhang, Fei Huang, and Jingren Zhou. 2025{\natexlab{a}}.
+\newblock \href {https://arxiv.org/abs/2505.04588} {Zerosearch: Incentivize the search capability of llms without searching}.
+\newblock \emph{Preprint}, arXiv:2505.04588.
+
+\bibitem[{Sun et~al.(2025{\natexlab{b}})Sun, Li, Zhou, Ma, Xu, and Li}]{sun2025agenticdataagenticdataanalytics}
+Ji~Sun, Guoliang Li, Peiyao Zhou, Yihui Ma, Jingzhe Xu, and Yuan Li. 2025{\natexlab{b}}.
+\newblock \href {https://arxiv.org/abs/2508.05002} {Agenticdata: An agentic data analytics system for heterogeneous data}.
+\newblock \emph{Preprint}, arXiv:2508.05002.
+
+\bibitem[{team et~al.(2025)team, Copet, Carbonneaux et~al.}]{faircodegenteam2025cwmopenweightsllmresearch}
+FAIR~CodeGen team, Jade Copet, Quentin Carbonneaux, et~al. 2025.
+\newblock \href {https://arxiv.org/abs/2510.02387} {Cwm: An open-weights llm for research on code generation with world models}.
+\newblock \emph{Preprint}, arXiv:2510.02387.
+
+\bibitem[{Team et~al.(2025)Team, Zhang, Feng et~al.}]{internagentteam2025internagentagentscientist}
+InternAgent Team, Bo~Zhang, Shiyang Feng, et~al. 2025.
+\newblock \href {https://arxiv.org/abs/2505.16938} {Internagent: When agent becomes the scientist -- building closed-loop system from hypothesis to verification}.
+\newblock \emph{Preprint}, arXiv:2505.16938.
+
+\bibitem[{Toledo et~al.(2025)Toledo, Hambardzumyan, Josifoski et~al.}]{toledo2025airesearchagentsmachine}
+Edan Toledo, Karen Hambardzumyan, Martin Josifoski, et~al. 2025.
+\newblock \href {https://arxiv.org/abs/2507.02554} {Ai research agents for machine learning: Search, exploration, and generalization in mle-bench}.
+\newblock \emph{Preprint}, arXiv:2507.02554.
+
+\bibitem[{Trirat et~al.(2025)Trirat, Jeong, and Hwang}]{trirat2025automlagentmultiagentllmframework}
+Patara Trirat, Wonyong Jeong, and Sung~Ju Hwang. 2025.
+\newblock \href {https://arxiv.org/abs/2410.02958} {Automl-agent: A multi-agent llm framework for full-pipeline automl}.
+\newblock \emph{Preprint}, arXiv:2410.02958.
+
+\bibitem[{Tschalzev et~al.(2024)Tschalzev, Marton, Lüdtke, Bartelt, and Stuckenschmidt}]{tschalzev2024datacentricperspectiveevaluatingmachine}
+Andrej Tschalzev, Sascha Marton, Stefan Lüdtke, Christian Bartelt, and Heiner Stuckenschmidt. 2024.
+\newblock \href {https://arxiv.org/abs/2407.02112} {A data-centric perspective on evaluating machine learning models for tabular data}.
+\newblock \emph{Preprint}, arXiv:2407.02112.
+
+\bibitem[{Wang et~al.(2025{\natexlab{a}})Wang, Subramanian, Sahni, Gone, Meng, Wang, Bertoli, Cheng, and Xu}]{wang2025configurablemultiagentframeworkscalable}
+Sai Wang, Senthilnathan Subramanian, Mudit Sahni, Praneeth Gone, Lingjie Meng, Xiaochen Wang, Nicolas~Ferradas Bertoli, Tingxian Cheng, and Jun Xu. 2025{\natexlab{a}}.
+\newblock \href {https://arxiv.org/abs/2507.14705} {Configurable multi-agent framework for scalable and realistic testing of llm-based agents}.
+\newblock \emph{Preprint}, arXiv:2507.14705.
+
+\bibitem[{Wang et~al.(2025{\natexlab{b}})Wang, Li, Song, Xu, Tang, Zhuge, Pan, Song, Li, Singh, Tran, Li, Ma, Zheng, Qian, Shao, Muennighoff, Zhang, Hui, Lin, Brennan, Peng, Ji, and Neubig}]{wang2025openhandsopenplatformai}
+Xingyao Wang, Boxuan Li, Yufan Song, Frank~F. Xu, Xiangru Tang, Mingchen Zhuge, Jiayi Pan, Yueqi Song, Bowen Li, Jaskirat Singh, Hoang~H. Tran, Fuqiang Li, Ren Ma, Mingzhang Zheng, Bill Qian, Yanjun Shao, Niklas Muennighoff, Yizhe Zhang, Binyuan Hui, Junyang Lin, Robert Brennan, Hao Peng, Heng Ji, and Graham Neubig. 2025{\natexlab{b}}.
+\newblock \href {https://arxiv.org/abs/2407.16741} {Openhands: An open platform for ai software developers as generalist agents}.
+\newblock \emph{Preprint}, arXiv:2407.16741.
+
+\bibitem[{Wei et~al.(2025{\natexlab{a}})Wei, Cao, Li, Chen, Zhang, Wang, Liu, Teixeira, Yang, Wang, and Aiken}]{wei2025equibenchbenchmarkinglargelanguage}
+Anjiang Wei, Jiannan Cao, Ran Li, Hongyu Chen, Yuhui Zhang, Ziheng Wang, Yuan Liu, Thiago S. F.~X. Teixeira, Diyi Yang, Ke~Wang, and Alex Aiken. 2025{\natexlab{a}}.
+\newblock \href {https://arxiv.org/abs/2502.12466} {Equibench: Benchmarking large language models' reasoning about program semantics via equivalence checking}.
+\newblock \emph{Preprint}, arXiv:2502.12466.
+
+\bibitem[{Wei et~al.(2023)Wei, Wang, Schuurmans, Bosma, Ichter, Xia, Chi, Le, and Zhou}]{wei2023chainofthoughtpromptingelicitsreasoning}
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Brian Ichter, Fei Xia, Ed~Chi, Quoc Le, and Denny Zhou. 2023.
+\newblock \href {https://arxiv.org/abs/2201.11903} {Chain-of-thought prompting elicits reasoning in large language models}.
+\newblock \emph{Preprint}, arXiv:2201.11903.
+
+\bibitem[{Wei et~al.(2025{\natexlab{b}})Wei, Duchenne, Copet, Carbonneaux, Zhang, Fried, Synnaeve, Singh, and Wang}]{wei2025swerladvancingllmreasoning}
+Yuxiang Wei, Olivier Duchenne, Jade Copet, Quentin Carbonneaux, Lingming Zhang, Daniel Fried, Gabriel Synnaeve, Rishabh Singh, and Sida~I. Wang. 2025{\natexlab{b}}.
+\newblock \href {https://arxiv.org/abs/2502.18449} {Swe-rl: Advancing llm reasoning via reinforcement learning on open software evolution}.
+\newblock \emph{Preprint}, arXiv:2502.18449.
+
+\bibitem[{Wong et~al.(2023)Wong, Grand, Lew, Goodman, Mansinghka, Andreas, and Tenenbaum}]{wong2023wordmodelsworldmodels}
+Lionel Wong, Gabriel Grand, Alexander~K. Lew, Noah~D. Goodman, Vikash~K. Mansinghka, Jacob Andreas, and Joshua~B. Tenenbaum. 2023.
+\newblock \href {https://arxiv.org/abs/2306.12672} {From word models to world models: Translating from natural language to the probabilistic language of thought}.
+\newblock \emph{Preprint}, arXiv:2306.12672.
+
+\bibitem[{Yang et~al.(2025)Yang, Yang, Fang, Zhang, Wang, Xian, Li, Li, Xu, Li, Pan, Zhang, Liu, Shen, Chen, and Bian}]{yang2025rdagentllmagentframeworkautonomous}
+Xu~Yang, Xiao Yang, Shikai Fang, Yifei Zhang, Jian Wang, Bowen Xian, Qizheng Li, Jingyuan Li, Minrui Xu, Yuante Li, Haoran Pan, Yuge Zhang, Weiqing Liu, Yelong Shen, Weizhu Chen, and Jiang Bian. 2025.
+\newblock \href {https://arxiv.org/abs/2505.14738} {R\&d-agent: An llm-agent framework towards autonomous data science}.
+\newblock \emph{Preprint}, arXiv:2505.14738.
+
+\bibitem[{Yao et~al.(2023)Yao, Zhao, Yu, Du, Shafran, Narasimhan, and Cao}]{yao2023reactsynergizingreasoningacting}
+Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. 2023.
+\newblock \href {https://arxiv.org/abs/2210.03629} {React: Synergizing reasoning and acting in language models}.
+\newblock \emph{Preprint}, arXiv:2210.03629.
+
+\bibitem[{Yu et~al.(2025{\natexlab{a}})Yu, Hong, Cheng, Zhu, Xuan, Yao, Feng, and You}]{yu2025researchtownsimulatorhumanresearch}
+Haofei Yu, Zhaochen Hong, Zirui Cheng, Kunlun Zhu, Keyang Xuan, Jinwei Yao, Tao Feng, and Jiaxuan You. 2025{\natexlab{a}}.
+\newblock \href {https://arxiv.org/abs/2412.17767} {Researchtown: Simulator of human research community}.
+\newblock \emph{Preprint}, arXiv:2412.17767.
+
+\bibitem[{Yu et~al.(2025{\natexlab{b}})Yu, Feng, Zhao, He, Zhang, and Cohan}]{yu2025alpharesearchacceleratingnewalgorithm}
+Zhaojian Yu, Kaiyue Feng, Yilun Zhao, Shilin He, Xiaoping Zhang, and Arman Cohan. 2025{\natexlab{b}}.
+\newblock \href {https://arxiv.org/abs/2511.08522} {Alpharesearch: Accelerating new algorithm discovery with language models}.
+\newblock \emph{Preprint}, arXiv:2511.08522.
+
+\bibitem[{Yuan et~al.(2025)Yuan, Yan, Feng, Zhang, Chen, Shi, Ouyang, Qiao, Bai, and Zhou}]{yuan2025dolphinmovingclosedloopautoresearch}
+Jiakang Yuan, Xiangchao Yan, Shiyang Feng, Bo~Zhang, Tao Chen, Botian Shi, Wanli Ouyang, Yu~Qiao, Lei Bai, and Bowen Zhou. 2025.
+\newblock \href {https://arxiv.org/abs/2501.03916} {Dolphin: Moving towards closed-loop auto-research through thinking, practice, and feedback}.
+\newblock \emph{Preprint}, arXiv:2501.03916.
+
+\bibitem[{Zeng et~al.(2025)Zeng, Zhou, Zhang, and Jiang}]{DOI:10.3724/2096-7004.di.2024.0005}
+Daojian Zeng, Lin Zhou, Zhiheng Zhang, and Lincheng Jiang. 2025.
+\newblock \href {https://doi.org/10.3724/2096-7004.di.2024.0005} {Autogen: Automated tool learning data generation with domain-specific structured data}.
+\newblock \emph{DATA INTELLIGENCE}, 7(4):1108--1128.
+
+\bibitem[{Zexi et~al.(2025)Zexi, Chai, Liu, Xinyu, Chai, Shuo, Zhu, Rui, Tang, Bo, Ye, Lei, Zhang, Chen, Bai, and Chen}]{Ze-xi2025}
+Liu Zexi, Jingyi Chai, Zexi Liu, Zhu Xinyu, Jingyi Chai, Tang Shuo, Xinyu Zhu, Ye~Rui, Shuo Tang, Zhang Bo, Rui Ye, Bai Lei, Bo~Zhang, Siheng Chen, Lei Bai, and Siheng Chen. 2025.
+\newblock \href {https://doi.org/10.48550/arxiv.2505.23723} {Ml-agent: Reinforcing llm agents for autonomous machine learning engineering}.
+\newblock \emph{https://doi.org/10.48550/arxiv.2505.23723}, abs/2505.23723.
+
+\bibitem[{Zha et~al.(2023)Zha, Bhat, Lai, Yang, Jiang, Zhong, and Hu}]{zha2023datacentricartificialintelligencesurvey}
+Daochen Zha, Zaid~Pervaiz Bhat, Kweiherng Lai, Fan Yang, Zhimeng Jiang, Shaochen Zhong, and Xia Hu. 2023.
+\newblock \href {https://arxiv.org/abs/2303.10158} {Data-centric artificial intelligence: A survey}.
+\newblock \emph{Preprint}, arXiv:2303.10158.
+
+\bibitem[{Zhang et~al.(2025{\natexlab{a}})Zhang, Wang, Wu, Huang, Wu, Chen, Song, Zhang, Rao, and Yu}]{zhang2025srllmrethinkingstructuredrepresentation}
+Jiahuan Zhang, Tianheng Wang, Hanqing Wu, Ziyi Huang, Yulong Wu, Dongbai Chen, Linfeng Song, Yue Zhang, Guozheng Rao, and Kaicheng Yu. 2025{\natexlab{a}}.
+\newblock \href {https://arxiv.org/abs/2502.14352} {Sr-llm: Rethinking the structured representation in large language model}.
+\newblock \emph{Preprint}, arXiv:2502.14352.
+
+\bibitem[{Zhang et~al.(2025{\natexlab{b}})Zhang, Xu, Zheng, Yu, Zhu, Luo, Wei, Qiao, Du, Zheng, Deng, Chen, and Zhang}]{zhang2025innogymbenchmarkinginnovationpotential}
+Jintian Zhang, Kewei Xu, Jingsheng Zheng, Zhuoyun Yu, Yuqi Zhu, Yujie Luo, Lanning Wei, Shuofei Qiao, Lun Du, Da~Zheng, Shumin Deng, Huajun Chen, and Ningyu Zhang. 2025{\natexlab{b}}.
+\newblock \href {https://arxiv.org/abs/2512.01822} {Innogym: Benchmarking the innovation potential of ai agents}.
+\newblock \emph{Preprint}, arXiv:2512.01822.
+
+\bibitem[{Zhang et~al.(2025{\natexlab{c}})Zhang, Fan, Fan, Li, and Du}]{zhang2025deepanalyzeagenticlargelanguage}
+Shaolei Zhang, Ju~Fan, Meihao Fan, Guoliang Li, and Xiaoyong Du. 2025{\natexlab{c}}.
+\newblock \href {https://arxiv.org/abs/2510.16872} {Deepanalyze: Agentic large language models for autonomous data science}.
+\newblock \emph{Preprint}, arXiv:2510.16872.
+
+\bibitem[{Zhang et~al.(2025{\natexlab{d}})Zhang, Li, Zhang, Jia, Wang, Guo, Liu, and Zhao}]{Wen-lin2025}
+Wenlin Zhang, Xiaopeng Li, Yingyi Zhang, Pengyue Jia, Yichao Wang, Huifeng Guo, Yong Liu, and Xiangyu Zhao. 2025{\natexlab{d}}.
+\newblock \href {https://arxiv.org/abs/2508.12752} {Deep research: A survey of autonomous research agents}.
+\newblock \emph{Preprint}, arXiv:2508.12752.
+
+\bibitem[{Zhang et~al.(2024{\natexlab{a}})Zhang, Mao, Chen, and Gao}]{WOS:001446914500004}
+Xilin Zhang, Zhixin Mao, Ziwen Chen, and Shen Gao. 2024{\natexlab{a}}.
+\newblock \href {https://doi.org/10.3724/2096-7004.di.2024.0013} {Effective tool augmented multi-agent framework for data analysis}.
+\newblock \emph{DATA INTELLIGENCE}, 6(4):923--945.
+
+\bibitem[{Zhang et~al.(2024{\natexlab{b}})Zhang, Ma, Ma, Han, Wu, and Tresp}]{Zhang2024}
+Yao Zhang, Zijian Ma, Yunpu Ma, Zhen Han, Yu~Wu, and Volker Tresp. 2024{\natexlab{b}}.
+\newblock \href {https://doi.org/10.48550/arXiv.2408.15978} {Webpilot: A versatile and autonomous multi-agent system for web task execution with strategic exploration}.
+\newblock \emph{AAAI Conference on Artificial Intelligence}.
+
+\bibitem[{Zhang et~al.(2024{\natexlab{c}})Zhang, Jiang, XingyuHan, Chen, Yang, and Ren}]{zhang2024benchmarking}
+Yuge Zhang, Qiyang Jiang, XingyuHan XingyuHan, Nan Chen, Yuqing Yang, and Kan Ren. 2024{\natexlab{c}}.
+\newblock Benchmarking data science agents.
+\newblock In \emph{Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)}, pages 5677--5700.
+
+\bibitem[{Zhang et~al.(2025{\natexlab{e}})Zhang, Khalifa, Bhushan, Murphy, Logeswaran, Kim, Lee, Lee, and Wang}]{zhang2025mlrcbenchlanguageagentssolve}
+Yunxiang Zhang, Muhammad Khalifa, Shitanshu Bhushan, Grant~D Murphy, Lajanugen Logeswaran, Jaekyeom Kim, Moontae Lee, Honglak Lee, and Lu~Wang. 2025{\natexlab{e}}.
+\newblock \href {https://arxiv.org/abs/2504.09702} {Mlrc-bench: Can language agents solve machine learning research challenges?}
+\newblock \emph{Preprint}, arXiv:2504.09702.
+
+\bibitem[{Zhu et~al.(2025{\natexlab{a}})Zhu, Xie, Weng, Wu, Lin, Yang, and Zhang}]{zhu2025aiscientistsfailstrong}
+Minjun Zhu, Qiujie Xie, Yixuan Weng, Jian Wu, Zhen Lin, Linyi Yang, and Yue Zhang. 2025{\natexlab{a}}.
+\newblock \href {https://arxiv.org/abs/2506.01372} {Ai scientists fail without strong implementation capability}.
+\newblock \emph{Preprint}, arXiv:2506.01372.
+
+\bibitem[{Zhu et~al.(2025{\natexlab{b}})Zhu, Wang, Yang et~al.}]{zhu2025surveydataagentsemerging}
+Yizhang Zhu, Liangwei Wang, Chenyu Yang, et~al. 2025{\natexlab{b}}.
+\newblock \href {https://arxiv.org/abs/2510.23587} {A survey of data agents: Emerging paradigm or overstated hype?}
+\newblock \emph{Preprint}, arXiv:2510.23587.
+
+\end{thebibliography}

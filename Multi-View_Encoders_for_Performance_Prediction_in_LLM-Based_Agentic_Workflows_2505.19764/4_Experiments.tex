@@ -1,0 +1,105 @@
+\vspace*{-0.2cm}
+\section{Experiments} \label{section:experiments}
+\vspace*{-0.2cm}
+
+We conduct a comprehensive evaluation of the proposed \ours{} framework from multiple perspectives, guided by the following questions: \textbf{(Q1)} How does \ours{} perform as a predictor of agentic workflow performance compared to relevant baselines? \textbf{(Q2)} How do different design choices of \ours{} affect its predictive accuracy? \textbf{(Q3)} Is the pretraining phase helpful for maintaining prediction quality under varying numbers of labels? \textbf{(Q4)} Does \ours{} maintain strong predictive performance under out-of-distribution shifts? \textbf{(Q5)} How does \ours{} compare against few-shot LLM-based workflow performance predictors?
+
+\vspace*{-0.3cm}
+\subsection{Setup} \label{section:setup}
+\vspace*{-0.2cm}
+
+\input{tables/benchmark_stats}
+
+\textbf{Benchmarks}. To evaluate performance predictors for agentic workflows, we use FLORA-Bench\,\citep{FLORA_Bench_25}, the only publicly available benchmark (to the best of our knowledge) that enumerates diverse workflows across multiple domains and LLM backbones. It spans five datasets covering three core areas: code generation (HumanEval\,\citep{HumanEval}, MBPP\,\citep{MBPP}), mathematical problem solving (GSM8K\,\citep{GSM8K}, MATH\,\citep{MATH_NeurIPS_21}), and general reasoning (MMLU\,\citep{MMLU}). \autoref{table:benchmarks} summarizes the benchmarks. Here, GD and AF denote the \emph{independently} developed G-Designer\,\citep{GDesigner_ICML_25} and AFlow\,\citep{AFlow_ICLR_25} agentic frameworks, respectively. We emphasize structural and procedural diversity over raw difficulty; even for datasets often considered solved by prompting\,(e.g., GSM8K), predicting success across workflow variants remains nontrivial. For each dataset, we randomly split instances into training (80\%), validation (10\%), and test (10\%) sets.
+
+\textbf{Evaluation Metrics}. To ensure a fair and consistent comparison, we strictly adhere to the official evaluation protocols specified by the benchmark.
+\begin{itemize}[leftmargin=12pt, nosep, noitemsep]
+    \item \textbf{Accuracy} quantifies how well a model predicts agentic workflow performance. It is defined as $accuracy = \frac{1}{|\mathcal{D}^{\text{test}}|} \sum_{i}^{|\mathcal{D}^{\textbf{test}}|}\mathbf{1}(\hat{e}_i = e_i)$, where $|\mathcal{D}^{\text{test}}|$ is the size of the test split, and $\hat{e}_i$ and $e_i$ denote the predicted and ground-truth performance, respectively. $\mathbf{1}(\cdot)$ is the indicator function, which returns 1 if $\hat{e}_i = e_i$, and 0 otherwise.
+
+    \item \textbf{Utility} evaluates the consistency between the workflow rankings predicted by the model and the ground-truth rankings, emphasizing the model's ability to determine the relative order of different workflows. First, we calculate the ground-truth and predicted success rates of a workflow $\mathcal{W}_i$ by averaging $e$ and $\hat{e}$ across all tasks in $\mathcal{D}^{\text{test}}$. Then, we rank the workflows and extract the top-$k$ workflows according to the respective scores, resulting in two ordered sets: $\mathcal{H} = \{\mathcal{W}_i\}_{i=1}^k$ and $\hat{\mathcal{H}} = \{\mathcal{W}^\prime_i\}_{i=1}^k$. Formally, $utility = \frac{1}{k}\sum_{i=1}^k \mathbf{1}(\mathcal{W}^\prime_i \in \mathcal{H})$.
+\end{itemize}
+
+
+\textbf{Baselines}. Since there is no direct baseline method specifically designed for performance prediction in agentic systems, we adopt comparison baselines from the benchmark paper. Some of these methods have previously been used as performance predictors for NAS\,\citep{powerful_nas_predictor_NeurIPS_21}. The selected baselines include one naive \textbf{MLP} and several strong graph-based models: \textbf{GCN}\,\citep{GCN_ICLR_17}, \textbf{GAT}\,\citep{GAT_ICLR_18}, \textbf{GCN-II}\,\citep{GCNII_ICML_20}, \textbf{Graph Transformer}\,\citep{GT_IJCAI_21}, \textbf{Dir-GNN}\,\citep{DirGNN_2024} and \textbf{One For All}\,\citep{OFA_ICLR_24}.
+
+
+\textbf{Implementation Details}. For all methods, we follow the same setup as suggested by \citet{FLORA_Bench_25}. Specifically, we use a 2-layer backbone with a hidden dimension of 512, set dropout to 0.5, and use a batch size of 512. Models are optimized with the Adam optimizer\,\citep{Adam} using a learning rate of $1 \times 10^{-4}$ and weight decay of $5 \times 10^{-4}$. Training is conducted for 200 epochs on a single NVIDIA A100-SXM4-80GB GPU, and the best checkpoint is selected by the highest accuracy on the validation subset. Our framework is encoder-agnostic by design. To ensure a controlled comparison, we reuse the \texttt{all-MiniLM-L6-v2}\,\citep{Minilm_NeurIPS_20} text encoder and adopt \texttt{CodeRankEmbed}\,\citep{CoRNStack_ICLR_25} for code, both via SentenceTransformers\,\citep{reimers-2019-sentence-bert} with default hyperparameters. Text inputs are truncated to 256 tokens and encoded into 384-dimensional vectors, while code inputs (function-level nodes and full-workflow files) are tokenized and truncated to model limits (up to 8,192 tokens) producing 768-dimensional vectors. All embeddings are finally mapped into a unified 512-dimensional space using a 2-layer $\mathrm{MLP}$ ($L=2$).
+
+\input{tables/main_results}
+
+\subsection{Main Results (Q1)} \label{section:main_results}
+
+We report all experimental results for agentic workflow performance prediction, averaged over three runs with different random seeds on the same dataset. \autoref{table:main_results} presents the main performance scores and standard deviations for all datasets. Our proposed framework, \ours{}, consistently outperforms baseline methods across the three task domains. For \textbf{accuracy}, \ours{} achieves top results in each domain---85.62\%, 79.56\%, and 87.96\%, respectively---yielding the highest overall average accuracy of 79.97\%. This corresponds to improvements of 2.05\% to 6.90\% over the comparison baselines. \textbf{Utility} scores show a similar pattern. \ours{} attains the highest utility in code generation (81.42\%) and math problem solving (74.08\%), as well as a near-best score in reasoning tasks (91.47\%), second only to GCN (91.82\%). On average, it achieves the highest utility score of 76.33\%, representing improvements of 3.79\% to 5.87\% over the baselines. These results demonstrate that \ours{} not only enhances predictive accuracy but also improves downstream utility across diverse agentic workflows, highlighting its robustness and generalizability. The consistent performance gains further underscore the advantages of leveraging multi-view encoding for heterogeneous agentic workflows.
+
+
+\subsection{Additional Analyses}
+
+\label{section:ablation_representations}
+\label{section:ablation_study}
+\textbf{Ablation Study (Q2)}. To substantiate our contributions on specific design of multi-view workflow encoding in \ours{}, we conduct ablation study on two main components using the AFlow subset: multi-view encoder and multi-graph encoding techniques. According to the results in \autoref{table:ablation_views}, we find that incorporating all three input views---code, graph, and text---results in the best overall performance across all tasks. Specifically, the full model configuration achieves the highest average accuracy (84.38\%) and utility (81.88\%), underscoring the complementary value of each modality. Notably, the removal of any single view leads to a consistent drop in performance, demonstrating the synergistic role of multimodal inputs in prediction capabilities of \ours{}.
+
+\input{tables/ablation_views} 
+\input{tables/ablation_multigraph}
+
+Furthermore, results in \autoref{table:ablation_multigraph} reveal the significance of multi-graph encoding. When multiple graphs are used instead of a single graph, the model shows a clear performance improvement, particularly in code generation (accuracy improves from 82.58\% to 84.44\%) and reasoning tasks (utility rises from 90.14\% to 91.03\%). This supports our hypothesis that different graph perspectives enrich structural context and lead to more robust representations. Together, these findings validate the architectural choices in \ours{}, demonstrating that both multi-view and multi-graph designs are integral to its superior performance.
+
+
+
+
+\label{section:label_ratios}
+\label{section:ablation_pretraining}
+
+\begin{wrapfigure}{r}{0.355\textwidth}
+    \vspace*{-0.5cm}
+    \includegraphics[width=0.355\textwidth]{figures/label_ratio.pdf}
+    \vspace*{-0.5cm}    
+    \caption{Accuracy comparison between \ours{} and the baselines across varying label ratios.} \label{figure:label_ratio}
+    \vspace*{-0.2cm}
+\end{wrapfigure}
+
+\textbf{Effects of Pretraining Phase (Q3)}. Since acquiring a large amount of ground-truth labels from agentic workflows is expensive, we examine whether cross-domain unsupervised pretraining (denoted as \ours{}+) benefits settings where labeled instances are limited. We vary the label ratio from 0.1 to 0.5, selecting labeled samples from the training split of all datasets in the benchmark. We pretrain the proposed multi-view encoder on the remaining 50\%\,($M$) of the training set with a batch size of 32 for 20 epochs. See more details in \S\ref{section:full_pretrain}. On average, the results shown in \autoref{figure:label_ratio} indicate that \ours{}+ consistently outperforms all baseline models across all label ratios, demonstrating the effectiveness of our unsupervised pretraining strategy. The gains are especially pronounced in low-label regimes: at a 0.1 label ratio, \ours{}+ maintains an accuracy above 73\%, while other models drop closer to 70\%. These findings underscore the importance of leveraging cross-domain structure through pretraining for generalizable workflow performance prediction, especially when direct supervision is limited.
+
+
+\textbf{Out-of-Distribution (OOD) Performance (Q4)}. We evaluate OOD robustness under \emph{cross-system} generalization (training on one agentic framework and testing on another) and \emph{cross-domain} generalization (training on one task domain and testing on disjoint domains). As shown in \S\ref{section:ood_results}, \ours{} consistently generalizes beyond in-distribution memorization, maintaining strong performance and preserving relative workflow rankings across both settings. For example, when trained on AFlow and tested on G-Designer, \ours{} improves average accuracy from 59.52\% (best baseline) to 62.05\% and utility from 55.33\% to 58.49\%. Similar gains hold in the reverse direction and under cross-domain splits.
+
+
+\textbf{Comparison with LLM Predictors (Q5)}. We evaluate 5-shot, prompt-based LLM classifiers\,(temperature 0) using the standardized LLM-PP template\,\citep{LLM_PP} with GPT-4.1, Claude 4 Sonnet, and Gemini 2.5 Flash. As shown in \autoref{table:llm_fewshot_results}, these prompt-only LLM predictors substantially underperform our graph-based model, indicating that they struggle to exploit the structured nature of agentic workflows. \ours{} achieves 84.97\% accuracy and 81.37\% utility, far exceeding the second-best GPT-4.1 at 62.86\% and 58.92\%, while also avoiding the considerable latency and monetary overhead of LLM inference. Overall, few-shot LLMs serve as a useful baseline but remain less effective and less economical for large-scale agent search.
+
+
+
+\subsection{Resource Cost} \label{section:cost_analysis}
+
+\begin{wraptable}{r}{0.4\textwidth}
+\vspace*{-0.75cm}
+\caption{Computation cost comparison.} \label{table:cost_analysis}
+\resizebox{0.4\textwidth}{!}{%
+\begin{tabular}{@{}c|cc|cc@{}}
+\toprule
+\multirow{2}{*}{\textbf{Model}} & \multicolumn{2}{|c}{\textbf{Training}} & \multicolumn{2}{|c}{\textbf{Inference}} \\ \cmidrule(l){2-5} 
+ & \textbf{Time (s/epoch)} & \textbf{Memory (GB)} & \textbf{Time (ms/sample)} & \textbf{Memory (GB)} \\ \midrule \midrule
+MLP & 0.195 & 0.033 & 0.002 & 0.020 \\ \midrule 
+GCN & 4.867 & 0.058 & 0.017 & 0.040 \\
+GAT & 5.108 & 0.058 & 0.023 & 0.042 \\
+GCN-II & 4.623 & 0.058 & 0.015 & 0.040 \\
+Graph Transformer & 5.372 & 0.087 & 0.023 & 0.060 \\
+Dir-GNN & 4.965 & 0.077 & 0.023 & 0.050 \\
+One For All & 6.140 & 0.038 & 0.018 & 0.038 \\ \midrule
+GPT-4.1 & \multicolumn{2}{c|}{\multirow{3}{*}{\begin{tabular}[|c]{@{}c@{}}N/A\\ (via OpenRouter API)\end{tabular}}} & 2253.333 & \multirow{3}{*}{N/A} \\
+Claude 4 Sonnet & \multicolumn{2}{c|}{} & 1888.333 &  \\
+Gemini 2.5 Flash & \multicolumn{2}{c|}{} & 2606.667 &  \\ \midrule
+\begin{tabular}[c]{@{}c@{}}\emph{\ours{}}\\ (+ pretraining)\end{tabular} & \begin{tabular}[c]{@{}c@{}}4.840\\ (168.104)\end{tabular} & \begin{tabular}[c]{@{}c@{}}2.760\\ (13.520)\end{tabular} & 0.054 & 0.490 \\ 
+\bottomrule
+\end{tabular}%
+}
+\vspace*{-0.3cm}
+\end{wraptable}
+
+
+We further examine the efficiency of \ours{} measured by computation time and memory usage. As shown in \autoref{table:cost_analysis}, our framework remains competitive with standard GNN baselines despite its higher model capacity and richer input features, requiring only 0.054ms and 0.49GB to score a workflow at inference---orders of magnitude faster and cheaper than few-shot LLM predictors. A full run of \ours{} involves a one-time cost of $\approx1.2$ A100 GPU-hours\,(200 supervised epochs plus 20 optional pretraining epochs), with modest memory requirements that fit on a single 16 GB GPU. In contrast, LLM-based scoring costs about \$21 per 1,000 candidates ($\approx$\$0.021 per sample with Gemini 2.5 Flash), implying a break-even point after only 110-120 evaluations assuming a \$2/hr A100 rate. As realistic searches involve thousands of candidates and the trained predictor is reusable across tasks and frameworks, this modest one-time cost is quickly amortized, making \ours{} far more economical than repeated LLM calls while offering near-zero marginal latency and higher accuracy.
+
+
+
+
+Full experimental results on different underlying LLMs, various GNN backbones, LLM classifier comparison, and out-of-distribution test are reported in Tables~\ref{table:llm_backbones} \ref{table:gnn_backbones}, \ref{table:llm_fewshot_results}, \ref{table:ood_aflow}, \ref{table:ood_gd} and \ref{table:cross_domain}, respectively. An additional evaluation of performance predictors used as a reward function for agentic workflow optimization, and case study findings are also provided in \S\ref{section:workflow_results} and \S\ref{section:case_study}.
+
+

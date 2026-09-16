@@ -1,0 +1,228 @@
+\begin{promptbox}{Prompt: Data Analysis Code Generation}
+\textbf{SYSTEM:} 
+
+You are an expert Data Science Architect specializing in automated dataset profiling and meta-learning. Your goal is to write a robust, error-handling Python script that extracts high-level statistical and structural insights from a dataset without performing full model training.
+\newline
+
+\textbf{USER:}
+
+I need you to generate a Python script to analyze a dataset for the following machine learning task.
+
+Context:
+
+Task Description: \textbf{\{task-desc\}}
+
+Data Directory: \textbf{\{data-dir\}}
+
+Requirements for the Python Script:
+
+Data Loading \& Robustness:
+The script must determine the correct data type (Tabular, CV, NLP, or Time-Series) based on the Task Description and file extensions in {data-dir}.
+Implement strictly robust file loading (e.g., using try-except blocks). If files are too large, perform stratified sampling (load max 10k rows or 1000 images).
+
+Key Metric Extraction (Crucial for World Model Prediction):
+Do not just print raw data. Calculate and print meta-features that correlate with model difficulty.
+
+Output Format:
+The script must print the analysis results to stdout in a structured, human-readable text format (or JSON structure) that a downstream LLM can easily parse to write a report.
+Do not generate plots/images. Only generate text logs/stats.
+
+Constraints:
+Use only standard libraries: pandas, numpy, scipy, sklearn, PIL (for images), os, glob.
+Do not attempt to train any machine learning models (e.g., do not run Random Forest).
+
+Response: Provide only the executable Python code block.
+\end{promptbox}
+ % --- End of Prompt Box ---
+
+\captionof{figure}{Prompt used to instruct the LLM for generating data analysis code.} % 图注
+\label{fig:appendix_da_code_prompt} % <--- 这里的 label 用于后续引用
+
+
+\vspace{2em}
+
+
+\begin{promptbox}{Prompt: Data Analysis Report Generation}
+
+You are preparing a structured Data Analysis Report that will be provided to another expert LLM. Your goal is to make the data characteristics and their implications explicit, causal, and model-relevant — so that a model evaluation agent can reason about how the dataset properties interact with model design choices.
+\newline
+
+Follow these instructions carefully:
+
+1. Summarize, don’t just restate numbers.
+
+    - Extract key quantitative trends (e.g., mean intensity, noise variability, contrast, etc.).
+
+    - Highlight patterns, anomalies, and dataset biases.
+
+2. Establish causal implications for modeling.
+
+    - For each key observation, explain why it matters for model training, architecture, or generalization.
+    
+    - Example: “High inter-sample heterogeneity suggests the model should include normalization or data augmentation to handle distribution shift.”
+
+3. Bridge data to model choices.
+
+    - Express potential advantages or risks for different architectures (CNNs, transformers, denoising autoencoders, etc.) given the observed data patterns.
+    
+    - DONT directly suggest which model / method is better. You only need to analyze the potential advantages or risks.
+
+4. Directly suggesting models will strongly result in bias.
+
+    - DONT directly suggest which model / method is better. You only need to analyze the potential advantages or risks.
+
+5. Maintain a clear structure using the following format:
+\begin{verbatim}
+## Data Overview
+    <summary of dataset structure, splits, file composition>
+
+## Key Statistical Findings
+<highlighted numeric findings + what they imply>
+
+## Implications for Model Design
+    <how these data patterns affect likely model performance>
+
+## Summary
+    <concise conclusion connecting data traits to modeling priorities>
+\end{verbatim}
+
+6. Tone and length:
+
+    - Write concisely and analytically (like a scientific data report).
+    
+    - Do not include raw metrics dumps.
+    
+    - Focus on interpretability and causal reasoning.
+\newline
+
+Your output will serve as the \{<data\_analysis>\} section for a reasoning-based model evaluator.
+Ensure every insight has a clear link from data observation $\to$ modeling implication $\to$ evaluation impact.
+
+INPUT CONTEXT:
+
+[Task Name]
+\textbf{\{task\}}
+
+[Task Description]
+\textbf{\{desc-block\}}
+
+[Raw Data Analysis Extraction]
+\textbf{\{analysis-text\}}
+\newline
+
+RESPONSE: Produce the final structured report now. Follow the required headings exactly. Avoid recommending specific models; only analyze potential advantages or risks.
+\end{promptbox}
+% --- End of Prompt Box ---
+\caption{Prompt used to instruct the LLM for generating data analysis report from the code execution result.} % 图注
+\label{fig:appendix_da_report_prompt} % <--- 这里的 label 用于后续引用
+
+
+\vspace{2em}
+
+
+\begin{promptbox}{Prompt: Result Prediction Query}
+     
+\textbf{SYSTEM:}
+
+You are an ML code and data analysis expert tasked with predicting the relative performance of provided ML solutions without executing any code. Base your judgment on the task description and the shown code snippets only. Never assume external ground-truth. You should include brief reasoning before the final answer. End your answer with a single JSON object that strictly matches the specified response format.
+\newline
+
+\textbf{USER:}
+
+Task: 
+
+\textbf{\{task-name\}}
+
+Task description:
+
+\textbf{\{task-desc\}}
+
+Data analysis:
+
+\textbf{\{data-analysis-report\}}
+\newline
+
+Important instructions:
+
+- Predict which solution will perform best (or provide a full ranking) WITHOUT running code.
+
+- Use only the task description, data analysis, and code snippets below.
+
+- Treat the task description and data analysis as equally important to the code; analyze them separately, surface their underlying implications, and provide a balanced, trade-off judgment. 
+
+- Connect data analysis to the following code analysis: If data analysis indicates properties , explain how the architecture addresses them , forming a data→why→method choice causal chain.
+
+- Forbid the “complexity-wins” shortcut: Do not claim “deeper/more complex/with attention is better” as the sole reason. If used, justify why it holds under the current data distribution and training details, and provide a counterexample scenario.
+
+- Response format: \{"predicted\_best\_index": <0 or 1>, "confidence": <optional float>\}
+
+- Indices correspond to the order of the listed solutions (0..n-1).
+
+- You should include brief reasoning before the final JSON. End with a single JSON object matching the response format. Do not write anything after the JSON.
+\newline
+
+Provided solutions:
+
+Solution 0: path=\textbf{\{code-0-path\}}
+
+\textbf{\{code-snippet-0\}}
+
+Solution 1: path=\textbf{\{code-1-path\}}
+
+\textbf{\{code-snippet-1\}}
+
+\end{promptbox}
+% --- End of Prompt Box ---
+\caption{Prompt used to instruct the LLM for predicting the result of the provided materials.} % 图注
+\label{fig:appendix_result_predict_query} % <--- 这里的 label 用于后续引用
+
+
+\vspace{2em}
+
+
+\begin{promptbox}{Prompt: Complexity Scoring Query}
+    
+\textbf{SYSTEM:}
+
+You are an expert Machine Learning Engineer and Researcher.
+Your task is to analyze a Python script for a machine learning task and evaluate its complexity based on three specific dimensions.
+
+You must output a JSON object with three scores (integers from 1 to 10) and a brief reasoning for each.
+\newline
+
+The dimensions are:
+
+1. code\_engineering\_score (1-10): Cyclomatic complexity, custom logic, dependence depth, messy custom loops vs clean API calls.
+
+2. model\_arch\_score (1-10): Parameter count, FLOPs, depth of network, novelty of architecture (e.g., Transformer > Simple CNN).
+
+3. data\_pipeline\_score (1-10): Complexity of preprocessing, data augmentation strategies (Mixup, TTA), custom sampling logic.
+\newline
+
+Output Format:
+
+\texttt{\{}
+
+\hspace{1em} "code\_engineering\_score": <int>,
+
+\hspace{1em} "model\_arch\_score": <int>,
+
+\hspace{1em} "data\_pipeline\_score": <int>,
+
+\hspace{1em} "reasoning": "<short summary>"
+
+\texttt{\}}
+\newline
+
+\textbf{USER:}
+
+Analyze the following Machine Learning code and provide complexity scores.
+
+\textbf{\{code\_snippet\}}
+
+Respond ONLY with the valid JSON.
+
+\end{promptbox}
+% --- End of Prompt Box ---
+\caption{Prompt used to instruct the auxiliary LLM for scoring the complexity of code solutions across three dimensions. This heuristic is used as a baseline to evaluate whether the World Model blindly favors complex code.}
+\label{fig:appendix_complexity_prompt}

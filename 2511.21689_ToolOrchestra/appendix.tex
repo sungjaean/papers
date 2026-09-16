@@ -1,0 +1,498 @@
+\newpage
+\appendix
+
+
+% \section{Prompt Template}
+% \label{sec:app:prompt_template}
+
+\section{Pilot Study}
+\label{sec:app:pilot_study}
+
+To evaluate the effectiveness of simple prompting as a method to configure an off-the-shelf language model to act as an orchestrator, we prompted GPT-5 and Qwen3-8B with a similar setting and the same prompt template we used in Section~\ref{sec:exp_settings}, allowing them to use GPT-5, GPT-5-mini, Qwen3-32B, and Qwen2.5-Coder-32B as tools and instruct the orchestrator to achieve best results while maintaining lowest cost. 
+We then ran the model on a set of 300 HLE problems with max\_tokens=32,000  and temperature T=0 and monitored the average number of times each model referred to one of its model choices. 
+The results are shown in Figure~\ref{fig:imbalanced-tool-calls}.
+When Qwen3-8B serves as the orchestrator, it exhibits a strong tendency to delegate the task to GPT-5 (73\% of the cases).
+We refer to this phenomenon as self-enhancement bias~\citep{zheng2023judging}, where the orchestrator favors its variants.
+In contrast, when GPT-5 serves as the orchestrator, it prefers to call GPT-5 or GPT-5-mini in 98\% of the cases.
+We term this phenomenon other-enhancement bias, where the orchestrator favors stronger models regardless of cost considerations, even though humans instruct them to do so.
+
+Such imbalanced invocation patterns highlight the limitations of using off-the-shelf language models as orchestrators by simple prompting: their decisions are heavily biased rather than balanced across available options, resulting in poor orchestration effectiveness.
+This observation motivates our method {\MethodName} to train a dedicated small orchestrator to decide when and how to invoke more intelligent language models.
+
+
+\section{Evaluation Benchmarks}
+\label{sec:app:evaluation_benchmarks}
+\begin{itemize}
+[leftmargin=*,label=$\bullet$,noitemsep,partopsep=0pt,topsep=0pt,parsep=0pt]
+    \item \textbf{Humanity's Last Exam (HLE)}~\citep{phan2025humanity}. A large-scale benchmark comprising PhD-level questions across mathematics, humanities, natural sciences and more. 
+    It evaluates the model capabilities to perform iterative search and intensive reasoning.
+    % A large multi-modal benchmark of 2,500 questions spanning mathematics, humanities, and natural sciences.  
+    Questions are multiple-choice or short-answer, with 10–14\% requiring images.  
+    We use the text-only subset, designed to be unambiguous and not solvable by simple web search.
+    \item \textbf{FRAMES}~\citep{krishna2024factfetchreasonunified}. 
+    % A dataset to evaluate model capabilities across factuality and reasoning.
+    A dataset for end-to-end evaluation of retrieval-augmented generation (RAG), covering factuality, retrieval accuracy, and reasoning.  
+    It contains 824 multi-hop questions requiring 2–15 Wikipedia articles, spanning numerical, tabular, temporal, and multi-constraint reasoning.
+    \item \textbf{$\tau^2$-Bench}~\citep{barres2025tau}. 
+    A benchmark to evaluate model capabilities to use tools and solve problems in conversations with users. It includes tasks in three domains: telecom, retail and airline.
+    % for conversational agents in dual-control settings, where both agent and user act and use tools.  
+    % Tasks span multiple domains (telecom, retail, airline) with compositional task generation, enabling controlled complexity and analysis of failure modes.
+\end{itemize}
+
+\section{Model description for Qwen3-32B}
+\label{sec:app:model_description}
+The model shows advanced mathematical and quantitative reasoning, often solving complex problems and only faltering on highly specialized or computationally heavy items. 
+Scientific domain knowledge is strong—especially in biology—with solid performance in physics and engineering; chemistry is mixed, with notable weaknesses in exact nomenclature and InChI outputs. 
+Logical problem-solving is high, while humanities knowledge is moderate and uneven, with gaps in niche scholarly details. 
+Coding and function call abilities are moderate, where it makes mistakes in parameters from time to time. 
+Overall, the model has broad knowledge and robust analytic skills, but accuracy drops on narrow, recent, or rote-precision tasks, particularly in chemical informatics.
+
+\section{Tools in training}
+\label{sec:app:tool_train}
+Below is the complete list of tools used in the training. For each example rollout, we randomly sample a subset of them to simulate heterogeneous availability of tools:
+\begin{itemize}
+    \item Query writer: GPT-5~\citep{gpt-5}, GPT-5-mini~\citep{gpt-5}, meta-llama/Llama-3.3-70B-Instruct~\citep{dubey2024llama}, meta-llama/Llama-3.1-8B-Instruct~\citep{dubey2024llama}, deepseek-ai/DeepSeek-R1~\citep{guo2025deepseek}, nvidia/Llama-3\_1-Nemotron-Ultra-253B-v1~\cite{bercovich2025llama}, microsoft/Phi-4-mini-instruct~\citep{abouelenin2025phi}, google/gemma-3-27b-it~\citep{team2025gemma}, Qwen/Qwen3-32B~\citep{yang2025qwen3}
+    \item Web search: We use Tavily search API~\footnote{\url{https://www.tavily.com/}}  to provide orchestrator real-time web access.
+    \item Local search: Faiss index with Qwen/Qwen3-Embedding-8B~\citep{zhang2025qwen3}
+    \item Code writer + interpreter: We use GPT-5~\citep{gpt-5}, GPT-5-mini~\citep{gpt-5}, bigcode/starcoder2-15b~\citep{lozhkov2024starcoder}, and Qwen/Qwen2.5-Coder-32B-Instruct~\citep{hui2024qwen2} as code expert models to write code. We also implemented a Python sandbox to execute the code.
+    \item Math models: Qwen/Qwen2.5-Math-72B~\citep{yang2024qwen2}, Qwen/Qwen2.5-Math-7B~\citep{yang2024qwen2}
+    \item Generalist models: GPT-5~\citep{gpt-5}, GPT-5-mini~\citep{gpt-5}, meta-llama/Llama-3.3-70B-Instruct~\citep{dubey2024llama}, meta-llama/Llama-3.1-8B-Instruct~\citep{dubey2024llama}, deepseek-ai/DeepSeek-R1~\citep{guo2025deepseek}, nvidia/Llama-3\_1-Nemotron-Ultra-253B-v1~\cite{bercovich2025llama}, microsoft/Phi-4-mini-instruct~\citep{abouelenin2025phi}, Qwen/Qwen3-32B~\citep{yang2025qwen3}
+\end{itemize}
+
+\section{Third-party API}
+\label{sec:app:api_pricing}
+Here is a list of third-party APIs. We used pricing configurations for training:
+\begin{itemize}
+    \item TogetherAI: https://www.together.ai/
+    \item Venice AI: https://docs.venice.ai/overview/about-venice
+    \item Chutes: https://chutes.ai/
+    \item NEBIUS: https://nebius.com/
+    \item Lambda: https://lambda.ai/
+    \item Hyperbolic: https://docs.hyperbolic.xyz/docs/welcome-to-hyperbolic
+    \item Cloudflare: https://developers.cloudflare.com/
+    \item Novita: https://novita.ai/
+    \item AIML: https://aimlapi.com/
+    \item Fireworks AI: https://fireworks.ai/
+\end{itemize}
+In the evaluation, we apply the pricing from Together AI for fair comparison.
+
+
+
+\section{Humane preference example}
+\label{sec:app:preference_example}
+\textbf{Tools}; $T$ = $[$ Web search, local search, Qwen/Qwen3-235B-A22B, meta-llama/Llama-3.3-70B-Instruct, o3-mini, o3 $]$ \\
+% \textbf{Features} = $[$ Accuracy, Cost, Latency$]$ \\
+Preference instruction: $PI$ = I am a company employee and there is some confidential information in my server. There are many GPUs in the server, so I can host open-sourced models or retrievers. It would be great if we can avoid API calling as much as possible. \\
+Preference vector: $P$ = [0,1,1,1,0,0,0,0,0]
+Explanation: The first digit in the preference vector corresponds to the first tool in $T$; The second digit in the preference vector corresponds to the second tool in $T$, etc. The last three digits in $P$ corresponds to accuracy, cost and latency, aligned with the definitions in \S\ref{sec:end2endRL}. Therefore, this preference vector means the user prefers to use local search, Qwen/Qwen3-235B-A22B, meta-llama/Llama-3.3-70B-Instruct.
+
+
+\section{Use of LLMs Disclosure}
+We used GPT-5 to polish the writing, primarily in the Abstract, Introduction, Methodology, and Experiments sections, to improve the grammar, clarity, and readability.
+The research ideas, methodology, experiments, and analyses were entirely conducted by the authors. 
+
+
+
+\section{Generalization of pricing configurations}
+\label{sec:app:generalization_pricing}
+In Section~\ref{sec:main:generalization}, we examined Orchestrator-8B’s ability to generalize to unseen tools. 
+Here, we investigate its generalization across heterogeneous pricing regimes, where the same tools are assigned different costs. 
+We evaluate whether the model adapts by adjusting its tool-calling strategy to optimize outcomes, efficiency, and alignment with user preferences—reflecting realistic settings in which tool costs vary across users. 
+We test Orchestrator-8B under a pricing configuration not encountered during training. 
+Specifically, we use the pricing configuration from deepinfra\footnote{https://deepinfra.com}.
+As shown in Table~\ref{tab:generalization_pricing_config}, it consistently delivers superior performance, cost efficiency, and accuracy. These results demonstrate that training with diverse pricing configurations produces a model that is not constrained to a particular tool setup and can robustly generalize across diverse user scenarios.
+
+
+\section{Data Synthesis}
+\label{sec:app:data_synthesis}
+\paragraph{{\DataName}.}
+To enable end-to-end RL training of Orchestrator, we require data involving user-agent-tool interaction trajectories, but such verifiable data is scarce.
+To generate such high-quality data, we devise a two-step process: 
+(1) simulating rich user-agent-tool environments, including creating database schemas and tool APIs; and 
+(2) based on the environment, generating diverse user tasks together with their corresponding ground truth solutions.
+We further ensure quality by carefully verifying that each task is solvable using the provided databases and tool APIs.
+Figure~\ref{fig:data_synthesis} provided an overview of this process.
+Firstly, to simulate real-world user-agent-tool environments scalably, we choose a domain $D$ and then ask an LLM to generate a database which includes schema, major subjects to focus on and database entries (as illustrated in the top-left of Figure~\ref{fig:data_synthesis}).
+% we focus on the scenario to interact with databases.
+% As shown in Algorithm~\ref{alg:data_synthesis}, given a domain $D$, LLM generates database schema, major subjects to focus on, and database entries (line 4-8).
+Each entry is then checked to ensure coherence, adherence to the schema, and consistency across content, logic, and entities.
+Based on the given domain $D$, LLM proposes frequently-used tools.
+% following the format of demonstration functions.
+% To increase the diversity of the task instructions, LLM generates realistic user intents based on a subset of functions $M$, which are then grouped into $nc$ clusters.
+% We sample $ni$ intents from each cluster, and convert each intent to a specific task $t$ based on the detailed database information.
+Secondly, to increase the diversity of the task instructions, LLM first proposes diverse intents frequently seen in domain $D$, which are later converted to specific tasks based on detailed database information.
+Each generated task consists of task instruction $I$, gold function calls $A={a_1, a_2, ..., a_l}$, and short information $o$ that must be mentioned during the process to solve the task.
+To enhance the difficulty of the generated tasks, we leverage an additional LLM to complicate tasks by adding more complexities such as more constraints.
+
+To ensure the quality of the synthesized data, we filter the data to remove a task if: 
+(1) the execution of golden
+% \peter{we should probably define what we mean by ``gold'' or say ``golden (label) function'' } 
+function calls reports an error; 
+(2) LLMs cannot solve it in pass@$8$; and 
+(3) the task can be solved without any actions.
+In Appendix~\ref{sec:app:details_of_toolscale}, we list the statistics of the generated data in each domain.
+More examples and prompts used to synthesize data can be found in Appendix~\ref{sec:app:data_synthesis_prompts}.
+To evaluate whether a trajectory $\tau$ 
+% \jan{define earlier}\peter{done} 
+solves the given task, we define the following criteria: 
+(1) \textit{execution correctness}, namely whether the database content matches after executing the golden function calls $A$ and the trajectory $\tau$;
+(2) \textit{process fidelity}, i.e., whether the predefined information $o$, which is required to be communicated in the process to solve the task, is mentioned in $\tau$; 
+(3) \textit{operation completeness}, that is whether the database entries operated in the ground truth trajectory $A$ are also operated in $\tau$.
+We consider $\tau$ solves the task if all of three criteria are satisfied, or fails otherwise.
+
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{Generalization performance under different a pricing configuration. Orchestrator-8B consistently performs the best in terms of performance, cost and latency, which illustates the robustness of the Orchestrator}
+\label{tab:generalization_pricing_config}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{} c c c c c c @{}}
+\toprule
+& \textbf{HLE ($\uparrow$)} & \textbf{Frames ($\uparrow$)} & \textbf{$\tau^2$-Bench ($\uparrow$)} & \textbf{Cost ($\downarrow$)} & \textbf{Latency ($\downarrow$)} \\
+
+\midrule
+Qwen3-8B                & 29.7  & 68.2  & 71.9  & 27.4 & 17.9  \\
+Nemotron-49B            & 25.6  & 57.8  & 66.3  & 24.3 & 17.2  \\
+Llama-3.3-70B           & 19.6  & 52.2  & 55.4  & 17.9 & 12.0  \\
+Qwen3-235B-A22B         & 32.4  & 74.1  & 75.3  & 27.9 & 20.8 \\
+Claude Opus 4.1         & 34.5  & 72.3  & 76.4  & 52.3 & 25.1 \\
+GPT-5                   & 20.8  & 57.3  & 61.9  & 17.5 & 13.2 \\
+\textbf{Orchestrator-8B} & \textbf{36.9}  & \textbf{76.6}  & \textbf{80.4}  & \textbf{7.5} & \textbf{7.8}   \\
+\bottomrule
+\end{tabular}
+\vspace{-0.2in}
+\end{table*}
+
+
+
+\section{Breakdown of {\DataName}}
+\label{sec:app:details_of_toolscale}
+\begin{table*}[h!]
+\centering
+\caption{Statistics of {\DataName}: the number of tools, database entries, and tasks per domain. 
+}
+\label{tab:data_statistics}
+% \small
+\setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{} c c c c c c c c c c c @{}}
+\toprule
+ & Finanace & Sport & E-commerce & Medicine & Entertainment  & Railway   & Restaurant & Education  & Travel  & Weather \\
+\midrule
+Tools &  22 & 19 & 15 & 19 & 24 & 25 &  23 & 21 & 15 & 14  \\
+DB Entries & 686 & 423 & 577 & 920 & 852 & 790 & 683 & 816 & 752 & 549  \\
+Tasks &  396 & 247 & 343 & 622 & 561 & 414 & 348 & 426 & 331 & 375   \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+
+\section{Data synthesis prompts and examples}
+\label{sec:app:data_synthesis_prompts}
+\begin{table}[ht]
+\caption{Model prompts to generate subjects in a domain}
+\centering
+\begin{tabular}{p{13cm}}
+\toprule
+Generate a list of major subjects in \{domain\}. \\
+Output using the following format: \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+$[$subject1, subject2, ...$]$ \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\bottomrule
+\end{tabular}
+\label{tab:prompt_generate_subject}
+\end{table}
+
+\begin{table}[ht]
+\caption{Model prompts to generate schema in a domain}
+\centering
+\begin{tabular}{p{13cm}}
+\toprule
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{demo\_schema\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+Generate another schema of similar formats for \{domain\}. \\
+\bottomrule
+\end{tabular}
+\label{tab:prompt_generate_schema}
+\end{table}
+
+\begin{table}[ht]
+\caption{Model prompts to generate database entry}
+\centering
+\begin{tabular}{p{13cm}}
+\toprule
+Schema \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{schema\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\bigbreak
+Following the schema, write records in the subject \{subject\}. Make sure that the values align with the definitions in the schema and are consistent in different places. Use the following format to output: \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{ ``...": ..., ``...": ..., \} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+Wrap the dictionary within \texttt{\textasciigrave\textasciigrave\textasciigrave}.\\
+\bottomrule
+\end{tabular}
+\label{tab:prompt_generate_db_entry}
+\end{table}
+
+\begin{table}[ht]
+\caption{Model prompts to validate database entry}
+\centering
+\begin{tabular}{p{13cm}}
+\toprule
+Schema \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{schema\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\bigbreak
+Database entry \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{db\_entry\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\bigbreak
+Please check whether the following conditions are satisfied: \\
+Condition 1. The database entry strictly aligns with the fields and type definitions in the schema. \\
+Condition 2. The values in the database entry are consistent across different places, e.g., id, name, etc. \\
+Condition 3. The database content is logical, natural, and reasonable. \\
+Output using the following format: \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{ ``condition 1": ``satisfied or not satisfied, ``condition 2": ``satisfied or not satisfied, ``condition 3": ``satisfied or not satisfied, \} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\bottomrule
+\end{tabular}
+\label{tab:prompt_validate_db_entry}
+\end{table}
+
+
+
+\begin{table}[ht]
+\caption{Model prompts to generate functions}
+\centering
+\begin{tabular}{p{13cm}}
+\toprule
+Demonstration function \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{demo\_function\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\bigbreak
+Following the formats of demonstration function, write frequently-used functions in \{domain\}. Wrap the functions within \texttt{\textasciigrave\textasciigrave\textasciigrave}.\\
+\bottomrule
+\end{tabular}
+\label{tab:prompt_generate_functions}
+\end{table}
+
+
+\begin{table}[ht]
+\caption{Model prompts to generate intents}
+\centering
+\begin{tabular}{p{13cm}}
+\toprule
+Functions \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{functions\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\bigbreak
+Propose realistic intents in \{domain\} that could be solved by the functions above.
+Use the following format to output: \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave}.\\
+$[$ \\
+    ``purpose 1", \\
+    ``purpose 2", \\
+    ... \\
+$]$ \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave}.\\
+\bottomrule
+\end{tabular}
+\label{tab:prompt_generate_intents}
+\end{table}
+
+
+
+\begin{table}[ht]
+\caption{Model prompts to generate tasks}
+\centering
+\begin{tabular}{p{13cm}}
+\toprule
+Functions \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{functions\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+Database \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{database\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\bigbreak
+Propose a realistic task with the intent: \{intent\}. Use the following format to output: \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave}.\\
+\{task\_template\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave}.\\
+\bottomrule
+\end{tabular}
+\label{tab:prompt_generate_tasks}
+\end{table}
+
+
+\begin{table}[ht]
+\caption{Model prompts to evolve tasks}
+\centering
+\begin{tabular}{p{13cm}}
+\toprule
+Functions \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{functions\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+Database \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+\{database\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave} \\
+Old task: \{task\} \\
+\bigbreak
+Make a new task by adding more complexity to the old task. You can add constraints, involve more entities, make the situation more tricky, etc. Use the following format to output: \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave}.\\
+\{task\_template\} \\
+\texttt{\textasciigrave\textasciigrave\textasciigrave}.\\
+\bottomrule
+\end{tabular}
+\label{tab:prompt_evolve_tasks}
+\end{table}
+
+
+\begin{table}[ht]
+\caption{Database schema example}
+\centering
+\begin{tabular}{p{13cm}}
+\toprule
+\{ \\
+    ``movies": \{ \\
+        ``MMMMMMM": \{    \/\/ movie\_id \\
+            ``movie\_id": "MMMMMMM", \\
+            ``title": "...", \\
+            ``genres": $[$``Action", ``Adventure", ``Comedy", ``Drama", ``Horror", ``Thriller", ``Romance", ``Science Fiction", ``Fantasy", ``Mystery"$]$,\\
+            ``runtime\_minutes": ...,\\
+            ``mpaa\_rating": ``...",\\
+            ``languages\_audio": $[$"..."$]$,\\
+            ``subtitles": $[$"..."$]$,\\
+            ``formats": $[$"2D", "3D", "IMAX", "Dolby"$]$,\\
+            ``release\_date": ``YY-MM-DD",\\
+            ``end\_of\_run\_est": ``YY-MM-DD",\\
+            ``cast": $[$\\
+                \{ ``name": ``...", ``role": ``..." \}\\
+            $]$,\\
+            ``crew": \{ \\
+                ``director": ``...", \\
+                ``writer": ``...", \\
+                ``producer": ``...", \\
+                ``music": ``..." \\
+            \}, \\
+            "synopsis": "..." \\
+        \}, \\
+        ... \\
+    \}, \\
+    ... \\
+\} \\
+\bottomrule
+\end{tabular}
+\label{tab:schema_example}
+\end{table}
+
+\clearpage
+\section{Calculation of rewards for preference-aware benchmark}
+\label{sec:app:preference_reward_test}
+During training, we directly follow the Equation~\ref{eq:final_reward} to calculate rewards.
+In the evaluation, we use the following procedure.
+Following the definition in \S\ref{sec:end2endRL}, we have a tool set $\left\{t_1, t_2, ..., t_n\right\}$ and a rollout trajectory $\tau$, we consider the vector $M^{\tau}=[m^{\tau}_{t_1}, m^{\tau}_{t_2}, \ldots, m^{\tau}_{t_n},r^{\tau}_\text{outcome},r^{\tau}_\text{compute},r^{\tau}_\text{latency}]$, where $m^{\tau}_{t_\bullet}$ is the number of times tool $t_\bullet$ is invoked in $\tau$.
+In the evaluation, we obtain the baseline vector $M_0$ by running the starting checkpoint, e.g., Qwen3-8B.
+For example, if we would like to evaluate a checkpoint $\mathit{CKPT}_s$ that is trained for $s$ steps from a base Qwen3-8B model, then we first run Qwen3-8B on the benchmark and record the vector $M^{\tau(e)}_0$ as the baseline vector for the Qwen3-8B's trajectory $\tau(e)$ for each example $e$ of the benchmark.
+We then obtain $M^{\tau(e)}_s$ by running $\mathit{CKPT}_s$ on the same example $e$.
+$M^{\tau(e)}_s$ is normalized as 
+\begin{equation}
+M^{{\tau(e)}}_{\text{normalized}, s}[k] = 
+\begin{cases}
+M^{\tau(e)}_s[k]/max(1,M^{\tau(e)}_0[k]) & \text{if } 1 \leq k \leq n+1 \\
+M^{\tau(e)}_0[k]/max(1,M^{\tau(e)}_s[k]) & \text{otherwise}.
+\end{cases}
+\label{eq:normalize_reward_eval}
+\end{equation}
+We then proceed to calculate the final preference-aware reward for the example $e$ as:
+\begin{equation}
+\small
+R^e(\tau) = 
+\begin{cases}
+M^{{\tau(e)}}_{\text{normalized}, s}\cdot P & \text{if } r_{\text{outcome}(\tau)} \\
+0 & \text{otherwise}.
+\end{cases}
+\label{eq:final_reward_eval}
+\end{equation}
+
+% We use the generated preference vector $P$ and normalized vector $M$, and follow the Equation~\ref{eq:outcome_reward} to calculate the reward for a given examples.
+The benchmark result is calculated as the sum of $R^e(\tau)$ over the examples $e$ of the benchmark.
+
+
+\begin{table*}[t]
+\centering
+\caption{
+The average number of calls on each tool when various models serve as the orchestrator to solve an instance (averaged across HLE, Frames and $\tau^2$-bench).
+% Instead of excessively invoking strong models and expensive tools, Orchestrator-8B learns to coordinate them more strategically.
+Qwen-32B refers to Qwen/Qwen3-32B~\citep{yang2025qwen3}, Coder-32B refers to Qwen/Qwen2.5-Coder-32B-Instruct~\citep{hui2024qwen2}, Math-7B refers to https://huggingface.co/Qwen/Qwen2.5-Math-7B-Instruct~\citep{yang2024qwen2}, Math-72B refers Qwen/Qwen2.5-Math-72B-Instruct~\citep{yang2024qwen2}, and Llama-70B refers to meta-llama/Llama-3.3-70B-Instruct~\citep{dubey2024llama}.
+Compared to other strong foundation models, Orchestrator-8B achieves better results (Table~\ref{tab:baseline_comparison}) while making few calls to GPT-5.
+}
+\label{tab:tool_analysis_full}
+\small
+\setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{} c c c c c c c c c c c c c c  @{}}
+\toprule
+Model & GPT-5 & GPT-5-mini & Qwen-32B & Coder-32B & Math-72B & Math-7B & Llama-70B & Local search & Web search & Code interpreter \\
+\midrule
+Qwen3-8B & 6.0 & 0.5 & 1.4 & 0.5 & 0.0 & 0.0 & 0.0 & 0.8 & 1.2 & 1.6 \\
+Nemontron-49B & 5.1 & 1.6 & 0.5 & 0.8 & 0.1 & 0.1 & 0.3 & 0.7 & 0.9 & 1.4 \\
+Llama-3.3-70B   & 1.8 & 0.0 & 0.1 & 0.0 & 1.4 & 0.3 & 4.8 & 0.6 & 1.4 & 1.3 \\
+Qwen3-235B-A22B & 6.2 & 0.3 & 0.6 & 1.2 & 0.6 & 0.1 & 1.1 & 1.4 & 1.0 & 2.2 \\
+Claude Opus 4.1 & 6.2 & 0.2 & 0.3 & 0.3 & 0.1 & 0.0 & 0.1 & 1.0 & 1.3 & 1.4   \\
+GPT-5           & 2.7 & 5.6 & 0.0 & 0.2 & 0.0 & 0.0 & 0.0 & 0.5 & 0.7 & 1.0 \\
+Orchestrator-8B & 1.6 & 1.7 & 1.3 & 0.2 & 0.0 & 0.1 & 0.0 & 1.8 & 0.7 & 0.8\\
+% \midrule
+
+\bottomrule
+\end{tabular}
+}
+\end{table*}
+
+
+
+
+\begin{table*}[t]
+\centering
+\scriptsize
+\caption{The cost and latency of LLMs in $\tau^2$-Bench. Orchestrator-8B consistently shows better performance with lower cost and latency.}
+\label{tab:tau2_efficiency}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{} c p{2.7cm} c c c @{}}
+\toprule
+\textbf{Tools} & \textbf{Model(s)} & \textbf{$\tau^2$-Bench ($\uparrow$)} & \textbf{Cost ($\downarrow$)} & \textbf{Latency ($\downarrow$)} \\
+  
+\midrule
+\multirow{6}{7em}{\centering Basic tools}
+  & Qwen3-8B                & 40.7  & 1.6 & 2.3 \\
+  & Llama-Nemotron-49B      & 23.2  & 2.7 & 3.6 \\
+  & Llama-3.3-70B           & 17.6  & 3.1 & 4.5  \\
+  & Qwen3-235B-A22B         & 52.9  & 12.6  & 10.6 \\
+  & Claude Opus 4.1         & 46.0  & 81.2 & 32.8  \\
+  & GPT-5                   & 77.7  & 31.3 & 20.2 \\
+\midrule
+\multirow{7}{8em}{\centering Basic tools, \\ Specialized LLMs \\ Generalist LLMs}
+  & Qwen3-8B                & 72.3  & 27.9 & 18.4  \\
+  & Llama-Nemotron-49B      & 66.7  & 25.8 & 17.5  \\
+  & Llama-3.3-70B           & 55.8  & 20.1 & 14.2  \\
+  & Qwen3-235B-A22B         & 75.6  & 30.0 & 22.6 \\
+  & Claude Opus 4.1         & 76.8  & 52.8 & 24.1 \\
+  & GPT-5                   & 62.3  & 18.2 & 14.5 \\
+  &\textbf{Orchestrator-8B} & \textbf{80.2}  & \textbf{10.3} & \textbf{8.6}   \\
+\bottomrule
+\end{tabular}
+\vspace{-0.2in}
+\end{table*}

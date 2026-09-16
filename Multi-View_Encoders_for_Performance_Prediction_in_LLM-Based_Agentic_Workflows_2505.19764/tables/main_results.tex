@@ -1,0 +1,54 @@
+% \begin{table}[t]
+% \caption{Performance comparison between \ours{} and baselines. The best and second-best results are highlighted in \textbf{bold} and \underline{underlined}, respectively. \revise{GD is G-Designer, and AF is AFlow.}} \label{table:main_results}
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{@{}c|cc|cc|cc|cc|cc|cc|cc@{}}
+% \toprule
+% \textbf{Domain} & \multicolumn{2}{c}{\textbf{CodeGD}} & \multicolumn{2}{|c}{\textbf{CodeAF}} & \multicolumn{2}{|c}{\textbf{MathGD}} & \multicolumn{2}{|c}{\textbf{MathAF}} & \multicolumn{2}{|c}{\textbf{ReasonGD}} & \multicolumn{2}{|c}{\textbf{ReasonAF}} & \multicolumn{2}{|c}{\textbf{Average}} \\ \midrule
+% \textbf{Model} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} \\ \midrule
+% MLP & 83.88 & 76.16 & 78.02 & 73.94 & 63.22 & 64.13 & 73.73 & 69.64 & 71.54 & 62.41 & 78.45 & 88.48 & 74.81 & 72.46 \\
+% GCN & 84.23 & 79.31 & 84.35 & 72.73 & 64.12 & 63.03 & 76.19 & 66.52 & 72.22 & 59.18 & 87.12 & \textbf{91.82} & 78.04 & 72.10 \\
+% GAT & 85.14 & 79.50 & 84.49 & 76.46 & {\ul 64.84} & 62.32 & {\ul 76.44} & 66.51 & 72.16 & 59.44 & 87.07 & 89.40 & {\ul 78.36} & 72.27 \\
+% GCN-II & 83.81 & 78.45 & 83.72 & {\ul 77.75} & 63.56 & 66.02 & 75.04 & 64.33 & 72.29 & 59.10 & {\ul 87.28} & 89.92 & 77.62 & 72.60 \\
+% Graph Transformer & {\ul 85.24} & {\ul 80.20} & {\ul 84.71} & 74.09 & 63.25 & 64.97 & 75.45 & 66.48 & 72.26 & 60.92 & 86.93 & 90.60 & 77.97 & 72.88 \\
+% Dir-GNN & 84.85 & 79.81 & 83.45 & 76.08 & 63.01 & 64.68 & 76.11 & 67.97 & {\ul 74.25} & {\ul 62.64} & 86.66 & 90.07 & 78.05 & {\ul 73.54} \\
+% One For All & 83.74 & 75.93 & 81.05 & 73.42 & 63.17 & {\ul 66.65} & 75.21 & {\ul 69.08} & 72.29 & 60.35 & 82.52 & 87.64 & 76.33 & 72.18 \\ \midrule
+% \emph{\ours{}} & \textbf{85.33} & \textbf{81.42} & \textbf{85.62} & \textbf{80.08} & \textbf{66.20} & \textbf{67.88} & \textbf{79.56} & \textbf{74.08} & \textbf{75.13} & \textbf{63.06} & \textbf{87.96} & {\ul 91.47} & \textbf{79.97} & \textbf{76.33} \\ \midrule
+% \% Improvement (Up to) & 1.90\% & 7.23\% & 9.74\% & 10.11\% & 5.06\% & 8.92\% & 7.91\% & 15.16\% & 5.02\% & 6.70\% & 12.12\% & 4.37\% & 6.90\% & 5.87\% \\ \bottomrule
+% \end{tabular}%
+% }
+% \vspace*{-0.5cm}
+% \end{table}
+
+
+\begin{table}[t]
+\centering
+\caption{Performance comparison between \ours{} and baselines. The best and second-best results are highlighted in \textbf{bold} and \underline{underlined}, respectively. GD is G-Designer, and AF is AFlow.}
+\label{table:main_results}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}c|cc|cc|cc|cc|cc|cc|cc@{}}
+\toprule
+\textbf{Domain} & \multicolumn{2}{c}{\textbf{CodeGD}} & \multicolumn{2}{|c}{\textbf{CodeAF}} & \multicolumn{2}{|c}{\textbf{MathGD}} & \multicolumn{2}{|c}{\textbf{MathAF}} & \multicolumn{2}{|c}{\textbf{ReasonGD}} & \multicolumn{2}{|c}{\textbf{ReasonAF}} & \multicolumn{2}{|c}{\textbf{Average}} \\ \midrule
+\textbf{Model} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} \\ \midrule \midrule
+\multirow{2}{*}{MLP} & 83.88 & 76.16 & 78.02 & 73.94 & 63.22 & 64.13 & 73.73 & 69.64 & 71.54 & 62.41 & 78.45 & 88.48 & 74.81 & 72.46 \\
+ & (±0.04) & (±0.03) & (±0.59) & (±1.35) & (±0.30) & (±0.44) & (±0.31) & (±0.29) & (±0.09) & (±1.67) & (±0.08) & (±0.63) & (±0.24) & (±0.74) \\
+\multirow{2}{*}{GCN} & 84.23 & 79.31 & 84.35 & 72.73 & 64.12 & 63.03 & 76.19 & 66.52 & 72.22 & 59.18 & 87.12 & \textbf{91.82} & 78.04 & 72.10 \\
+ & (±0.04) & (±0.10) & (±0.34) & (±1.18) & (±0.17) & (±0.59) & (±0.42) & (±1.66) & (±0.03) & (±0.85) & (±0.14) & (±0.46) & (±0.19) & (±0.81) \\
+\multirow{2}{*}{GAT} & 85.14 & 79.50 & 84.49 & 76.46 & {\ul 64.84} & 62.32 & {\ul 76.44} & 66.51 & 72.16 & 59.44 & 87.07 & 89.40 & {\ul 78.36} & 72.27 \\
+ & (±0.25) & (±0.14) & (±0.56) & (±0.91) & (±0.96) & (±0.93) & (±0.61) & (±1.28) & (±0.03) & (±1.06) & (±0.08) & (±0.68) & (±0.42) & (±0.83) \\
+\multirow{2}{*}{GCN-II} & 83.81 & 78.45 & 83.72 & {\ul 77.75} & 63.56 & 66.02 & 75.04 & 64.33 & 72.29 & 59.10 & {\ul 87.28} & 89.92 & 77.62 & 72.60 \\
+ & (±0.07) & (±0.74) & (±0.40) & (±0.98) & (±0.74) & (±0.10) & (±0.31) & (±0.47) & (±0.09) & (±1.02) & (±0.14) & (±1.90) & (±0.29) & (±0.87) \\
+\multirow{2}{*}{Graph Transformer} & {\ul 85.24} & {\ul 80.20} & {\ul 84.71} & 74.09 & 63.25 & 64.97 & 75.45 & 66.48 & 72.26 & 60.92 & 86.93 & 90.60 & 77.97 & 72.88 \\
+ & (±0.19) & (±0.64) & (±0.45) & (±0.35) & (±0.70) & (±0.36) & (±0.23) & (±0.96) & (±0.08) & (±1.79) & (±0.27) & (±1.97) & (±0.32) & (±1.01) \\
+\multirow{2}{*}{Dir-GNN} & 84.85 & 79.81 & 83.45 & 76.08 & 63.01 & 64.68 & 76.11 & 67.97 & {\ul 74.25} & {\ul 62.64} & 86.66 & 90.07 & 78.05 & {\ul 73.54} \\
+ & (±0.11) & (±0.69) & (±0.41) & (±0.92) & (±0.54) & (±1.66) & (±0.65) & (±0.16) & (±0.12) & (±0.92) & (±0.13) & (±1.68) & (±0.33) & (±1.01) \\
+\multirow{2}{*}{One For All} & 83.74 & 75.93 & 81.05 & 73.42 & 63.17 & {\ul 66.65} & 75.21 & {\ul 69.08} & 72.29 & 60.35 & 82.52 & 87.64 & 76.33 & 72.18 \\
+ & (±0.09) & (±0.12) & (±0.34) & (±1.39) & (±0.21) & (±0.82) & (±0.23) & (±0.64) & (±0.12) & (±1.25) & (±0.13) & (±1.98) & (±0.19) & (±1.03) \\ \midrule
+\multirow{2}{*}{\emph{\ours{}}} & \textbf{85.33} & \textbf{81.42} & \textbf{85.62} & \textbf{80.08} & \textbf{66.20} & \textbf{67.88} & \textbf{79.56} & \textbf{74.08} & \textbf{75.13} & \textbf{63.06} & \textbf{87.96} & {\ul 91.47} & \textbf{79.97} & \textbf{76.33} \\
+ & (±0.05) & (±0.26) & (±0.47) & (±0.46) & (±0.17) & (±0.21) & (±0.25) & (±0.47) & (±0.01) & (±0.45) & (±0.02) & (±0.44) & (±0.16) & (±0.38) \\ \midrule
+\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}$\Delta$ vs. best baseline\\ (\% Improvement)\end{tabular}} & +0.09 & +1.22 & +0.91 & +2.33 & +1.36 & +1.23 & +3.12 & +4.44 & +0.88 & +0.42 & +0.68 & -0.35 & +1.61 & +2.79 \\
+ & (0.11\%) & (1.52\%) & (1.07\%) & (3.00\%) & (2.09\%) & (1.85\%) & (4.08\%) & (6.38\%) & (1.19\%) & (0.67\%) & (0.78\%) & -(0.38\%) & (2.05\%) & (3.79\%) \\ 
+ \bottomrule
+\end{tabular}%
+}
+\vspace*{-0.4cm}
+\end{table}

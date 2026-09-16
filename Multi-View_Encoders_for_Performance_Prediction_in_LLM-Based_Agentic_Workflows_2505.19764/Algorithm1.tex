@@ -1,0 +1,43 @@
+\renewcommand{\algorithmiccomment}[1]{\textcolor{gray}{$\triangleright$ #1}}
+\renewcommand{\algorithmicrequire}{\textbf{Initialization:}}
+\renewcommand{\algorithmicensure}{\textbf{Input:}}
+
+\begin{algorithm}[hbt]
+\caption{Overall Procedure of \ours{}} \label{alg:pseudo_code}
+\begin{algorithmic}[1]
+\Require Multi-View Encoder $\mathrm{Enc(\cdot)}$ and Performance Predictor Model $\mathcal{M}_{\Theta}$
+\Ensure User Instruction (or Task Description) $T \in \mathcal{T}$ and Training Data $D^{\text{train}}$
+
+\State \Comment{Multi-View Graph Construction (\S\ref{section:multiview_encoding})}
+\State Construct a node-aligned view set $\mathcal{G} = \{\mathcal{G}_v =(\mathcal{V}, \mathcal{E}, X_v )~\vert~ v\in \{\text{prompt}, \text{code}, \text{operator}\}\}$ where $X_v$ is the view-specific node features.
+\State \Comment{Cross-Domain Unsupervised Pretraining (\S\ref{section:pretraining}, \emph{Optional})}
+\State Sample $M$ unlabeled workflows $\mathcal{W}_1, \mathcal{W}_2, ..., \mathcal{W}_M$ from multiple domains
+\For{each $\mathcal{W}_i = (\mathcal{G}_i, \mathcal{C}_i, \mathcal{P}_i)$}
+    \State $\mathbf{Z}_i \gets \mathrm{Enc}(\mathcal{G}_i, \mathcal{C}_i, \mathcal{P}_i)$ \hfill\Comment{Encode multiview graph, code, and prompts}
+    \State $(\hat{\mathcal{G}}_i, \hat{\mathcal{C}}_i, \hat{\mathcal{P}}_i) \gets \mathrm{Dec}(\mathbf{Z}_i)$ \hfill\Comment{Decode reconstructions}
+\EndFor
+\State $\mathcal{L}_{enc} = \mathcal{L}_{rec} + \mathcal{L}_{con}$ \hfill\Comment{Minimize total pretraining loss}
+
+\State \Comment{Training Performance Predictor (\S\ref{section:predictor_search})}
+\State Obtain (small) labeled dataset $\{(\mathcal{W}_j, T_j, e_j)\}_{j=1}^N$ from $D^{\text{train}}$
+\For{each $(\mathcal{W}_j, T_j)$}
+    \State $\mathbf{Z}_j \gets \mathrm{Enc}(\mathcal{W}_j)$ \hfill\Comment{Encode workflow}
+    \State $\mathbf{T}_j \gets \text{TaskEncoder}(T_j)$ \hfill\Comment{Encode task description}
+    \State $\mathcal{F}_j \gets \mathrm{MLP}([\mathbf{Z}_j, \mathbf{T}_j])$ \hfill\Comment{Form joint representation}
+    \State $\hat{e}_j \gets \mathcal{M}_{\Theta}(\mathcal{F}_j)$ \hfill\Comment{Predict performance}
+\EndFor
+\State Train $\mathcal{M}_{\Theta}$ using binary cross-entropy loss $\mathcal{L}_{pred}(e_j, \hat{e}_j)$, where $\{e_j\}_{j=1}^N$
+
+\State \Comment{Predictor-Guided Candidate Ranking}
+\State Sample $K$ candidate workflows $\{\mathcal{W}_k\}_{k=1}^K$
+\For{each $\mathcal{W}_k$}
+    \State $\mathbf{Z}_k \gets \mathrm{Enc}(\mathcal{W}_k)$ \hfill\Comment{Encode workflow}
+    \State $\mathcal{F}_k \gets \mathrm{MLP}([\mathbf{Z}_k, \mathbf{T}])$ \hfill\Comment{Encode task}
+    \State $\hat{e}_k \gets \mathcal{M}_{\Theta}(\mathcal{F}_k)$ \hfill\Comment{Predict score}
+\EndFor
+\State Rank all $\{\mathcal{W}_k\}$ by predicted scores $\hat{e}_k$
+\State \Return top-$k$ ranked workflows for final evaluation
+
+
+\end{algorithmic}
+\end{algorithm}

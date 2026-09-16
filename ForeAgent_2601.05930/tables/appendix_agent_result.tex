@@ -1,0 +1,71 @@
+\begin{table*}
+    \centering
+    % 稍微增加行高，保持美观
+    \renewcommand{\arraystretch}{1.2}
+    \setlength{\tabcolsep}{8pt} % 调整列间距
+    \footnotesize % 使用脚注字号，如果是放在正文也可以改用 \small
+    
+    \begin{tabular}{l l c c c}
+    \toprule
+    \textbf{Task Name} & \textbf{Domain} & \textbf{Status} & \textbf{AIDE} (Baseline) & \textbf{ForeAgent} (Ours) \\
+    \midrule
+    
+    % --- Seen Tasks ---
+    \multicolumn{5}{l}{\cellcolor{gray!15}\textbf{\textit{Seen Tasks (In-Distribution)}}} \\
+    \midrule
+    Stanford COVID Vaccine & Biology & Seen & \bres{1.000}{0.000} & \bres{1.000}{0.000} \\
+    Statoil Iceberg Classifier & Geoscience & Seen & \res{0.475}{0.161} & \bres{0.531}{0.134} \\
+    Ventilator Pressure Prediction & Physics & Seen & \bres{0.308}{0.041} & \res{0.295}{0.056} \\
+    
+    % --- Unseen Tasks ---
+    \multicolumn{5}{l}{\cellcolor{gray!15}\textbf{\textit{Unseen Tasks (Out-of-Distribution)}}} \\
+    \midrule
+    Aerial Cactus Identification* & Ecology & Unseen & \res{0.698}{0.157} & \bres{0.877}{0.000} \\
+    Histopathologic Cancer Detection* & Medicine & Unseen & \res{0.992}{0.000} & \bres{0.992}{0.001} \\
+    
+    \midrule
+    % --- Average Row (我帮你算了一下平均值) ---
+    \textbf{Average Beat Ratio} & \multicolumn{2}{c}{\textit{Across 5 AI4Science Tasks}} & \res{0.695}{0.298} & \bres{0.739}{0.295} \\
+    \bottomrule
+    \end{tabular}
+
+    % Caption 放在底部
+    \caption{Main results on the MLE-bench AI4Science subset. We report the \textbf{Beat Ratio} (percentage of human contestants outperformed) averaged over 3 independent runs. The ``*'' denotes tasks outside the main evaluation distribution. \textbf{Bold} indicates the best performance.}
+    \label{tab:main_results_aide_vs_foreagent}
+\end{table*}
+
+
+\begin{table*}
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Metric} & \textbf{AIDE (Execution only)} & \textbf{\ours (Ours)} \\
+\midrule
+Test Improve Rate & 30.39\% $\pm$ 11.93\% & \textbf{53.49\% $\pm$ 14.70\%} \\
+Test Non degrade Rate & 30.50\% $\pm$ 11.75\% & \textbf{53.97\% $\pm$ 15.00\%} \\
+Val vs Test Agreement (Local) & \textbf{78.87\% $\pm$ 10.19\%} & 75.23\% $\pm$ 13.01\% \\
+\bottomrule
+\end{tabular}
+\caption{Decision Reliability in Local Iterations. We report the mean and standard deviation across runs.}
+\label{tab:decision_reliability}
+\end{table*}
+
+
+\begin{table*}
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} & \textbf{Mean Score} & \textbf{Node Count} & \textbf{Val Test Agreement} & \textbf{Test Improve Rate} \\
+\midrule
+AIDE (No WM) & 0.695 $\pm$ 0.298 & 44.00 $\pm$ 33.95 & \textbf{78.87\% $\pm$ 10.19\%} & 30.39\% $\pm$ 11.93\% \\
+ForeAgent ($k=1$) & \textbf{0.739 $\pm$ 0.295} & 99.60 $\pm$ 71.49 & 75.23\% $\pm$ 13.01\% & \textbf{53.49\% $\pm$ 14.70\%} \\
+ForeAgent ($k=2$) & 0.642 $\pm$ 0.353 & \textbf{157.87 $\pm$ 107.11} & 64.15\% $\pm$ 26.57\% & 35.47\% $\pm$ 23.00\% \\
+\bottomrule
+\end{tabular}
+\caption{Ablation Results on Top $k$ Selection}
+\label{tab:ablation_k}
+\end{table*}

@@ -1,0 +1,267 @@
+\begin{figure*}
+    \centering
+    
+    % 调用外层框架
+    \begin{CaseStudyFrame}{Case Study: Human Intuition v.s. World Model Inference}{fig:case_study_quest}
+        
+        % 1. 上下文
+        \ContextBar{
+            \textbf{Task:} Google Quest Challenge (Multi-label Subjective QA Regression). \\
+            \textbf{Data Profile:} Small scale ($N_{train} \approx 5.5k$) with 30 \textit{heavily discretized} and \textit{skewed} targets. \\
+            \textbf{Data Report Insight:} Strong Question-Group structure (85\% of target variance is explained by Q-means) creates high \textbf{Leakage Risk} in random splits.
+        }
+        
+        % 2. 左右分栏结构
+        % --- 左栏：Solution 0 (Deep Learning) ---
+        \begin{minipage}[t]{0.49\linewidth}
+            \begin{SolutionColumn}{myblue!50!black!80}{red!10}{Solution 0: Deep Learning w/ Cross-Attention}{A}
+                \small % 整体字体变大
+                % Stack 去掉 texttt，使用默认字体
+                \textbf{Stack:} SentenceTransformer + MultiHead-CrossAttn + AdamW \\
+                \textbf{Setup:} Holdout Validation (Random Split), MSE Loss.
+                \par\vspace{2pt}
+                \textbf{Actual Score:} \textcolor{red!60!black}{\textbf{0.2961} \ding{116}} (Spearman $\rho$)
+                
+                \vspace{0.2cm} \hrule \vspace{0.2cm}
+                
+                % Human View (Gray)
+                % Human 预测它是 Favorite (赢)，实际输了 -> 错误 (Cross)
+                \HumanView{Neural Network with Cross-Attention explicitly models QA interaction. Pre-trained embeddings capture superior semantics compared to statistical features.}{Strong Favorite \textcolor{red}{\faTimes}}
+                \vspace{-2pt}
+                
+                % WM View (Blue)
+                % WM 批评它有过拟合风险 (输)，实际输了 -> 正确 (Check)
+                \WMView{Critique}{Model is underconstrained for small data ($5.5k$). Random split ignores question groups, causing leakage. High overfitting risk.}{Overfitting Risk \textcolor{green!60!black}{\faCheck}}
+            \end{SolutionColumn}
+        \end{minipage}%
+        \hfill
+        % --- 右栏：Solution 1 (LightGBM) ---
+        \begin{minipage}[t]{0.49\linewidth}
+            \begin{SolutionColumn}{myblue!50!black!80}{green!10}{Solution 1: LightGBM Ensemble}{A}
+                \small % 整体字体变大
+                % Stack 去掉 texttt
+                \textbf{Stack:} TF-IDF + TruncatedSVD + LightGBM \\
+                \textbf{Setup:} 5-Fold Cross Validation + Weighted Ensemble Optimization.
+                \par\vspace{2pt}
+                \textbf{Actual Score:} \textcolor{green!40!black}{\textbf{0.3145} \ding{115}} (Spearman $\rho$)
+                
+                \vspace{0.2cm} \hrule \vspace{0.2cm}
+                
+                % Human View (Gray)
+                % Human 认为它是 Weak (输)，实际赢了 -> 错误 (Cross)
+                \HumanView{TF-IDF is outdated. LightGBM is typically for tabular data, not text. The method is too simple, likely to underfit complex modern natural language processing tasks.}{Weak Baseline \textcolor{red}{\faTimes}}
+                \vspace{-2pt}
+                
+                % WM View (Blue)
+                % WM 认为它是 Optimal (赢)，实际赢了 -> 正确 (Check)
+                \WMView{Insight}{Robust choice. 5-Fold CV provides honest estimates. SVD captures global label families. Sample-efficient given data scarcity.}{Optimal Fit \textcolor{green!60!black}{\faCheck}}
+            \end{SolutionColumn}
+        \end{minipage}
+        
+        % 3. 底部总结
+        \OutcomeFooter{Solution 1 outperformed Solution 0. The World Model correctly prioritized \textbf{Validation Rigor} and \textbf{Sample Efficiency} over Architectural Sophistication.}
+        
+    \end{CaseStudyFrame}
+    
+    \caption{\textbf{Case Study: Human Intuition vs. World Model Inference.} This example illustrates a \textbf{hidden logical conflict} where architectural sophistication (favored by humans) clashes with data constraints. By leveraging the generated \textbf{Data Report}, the World Model detects a critical mismatch between the small dataset size ($N \approx 5.5k$) and the complex neural network (Solution 0). It correctly prioritizes the robust LightGBM ensemble (Solution 1), demonstrating the ability to weigh \textit{Data-Model Fit} over pure algorithmic complexity.}
+
+    \label{fig:case_study_quest}
+\end{figure*}
+
+
+
+
+
+\begin{figure*}[b]
+    \centering
+    
+    % 调用外层框架
+    \begin{CaseStudyFrame}{Case Study: Prioritizing Domain Fit over SOTA Architecture}{fig:case_study_tgs}
+        
+        % 1. 上下文
+        \ContextBar{
+            \textbf{Task:} TGS Salt Identification (Pixel-level Segmentation). \\
+            \textbf{Data Profile:} Small scale ($101 \times 101$) grayscale seismic images with weak intensity contrast and high variability in mask coverage. \\
+            \textbf{Data Report Insight:} High sensitivity to spatial artifacts; resizing introduces interpolation noise that destroys local salt boundary details. Depth data is unavailable (NaN).
+        }
+        
+        % 2. 左右分栏结构
+        % --- 左栏：Solution 0 (ViT) ---
+        \begin{minipage}[t]{0.49\linewidth}
+            \begin{SolutionColumn}{myblue!50!black!80}{red!10}{Solution 0: Vision Transformer}{A}
+                \small
+                \textbf{Stack:} ViT-B/16 (Pre-trained on ImageNet) \\
+                \textbf{Setup:} Resize to $224 \times 224$, BCE + Dice Loss, attempts to use depth channel.
+                \par\vspace{2pt}
+                \textbf{Actual Score:} \textcolor{red!60!black}{\textbf{0.1301} \ding{116}} (mAP)
+                
+                \vspace{0.2cm} \hrule \vspace{0.2cm}
+                
+                % Human View (Gray)
+                \HumanView{ViT is a top-tier SOTA model offering global context modeling. Pre-training on ImageNet guarantees strong feature extraction capabilities.}{Strong Favorite \textcolor{red}{\faTimes}}
+                \vspace{-2pt}
+                
+                % WM View (Blue)
+                \WMView{Critique}{Resizing $101 \times 101$ inputs to $224 \times 224$ risks losing fine details. Domain gap between ImageNet (RGB) and seismic data (grayscale) is severe. Incorrectly relies on missing depth data.}{Resolution Mismatch \textcolor{green!60!black}{\faCheck}}
+            \end{SolutionColumn}
+        \end{minipage}%
+        \hfill
+        % --- 右栏：Solution 1 (U-Net) ---
+        \begin{minipage}[t]{0.49\linewidth}
+            \begin{SolutionColumn}{myblue!50!black!80}{green!10}{Solution 1: Standard U-Net}{A}
+                \small
+                \textbf{Stack:} Custom U-Net with Hybrid Attention \\
+                \textbf{Setup:} Native $101 \times 101$ resolution, BCE Loss, Test Time Augmentation (TTA).
+                \par\vspace{2pt}
+                \textbf{Actual Score:} \textcolor{green!40!black}{\textbf{0.6396} \ding{115}} (mAP)
+                
+                \vspace{0.2cm} \hrule \vspace{0.2cm}
+                
+                % Human View (Gray)
+                \HumanView{Standard U-Net is an older, basic baseline. It lacks the global receptive field and advanced attention mechanisms of modern transformers.}{Weak Baseline \textcolor{red}{\faTimes}}
+                \vspace{-2pt}
+                
+                % WM View (Blue)
+                \WMView{Insight}{Preserves native spatial resolution without interpolation noise. Attention mechanisms efficiently capture multi-scale features and spatial dependencies crucial for weak-contrast segmentation.}{Optimal Fit \textcolor{green!60!black}{\faCheck}}
+            \end{SolutionColumn}
+        \end{minipage}
+        
+        % 3. 底部总结
+        \OutcomeFooter{Solution 1 outperformed Solution 0. The World Model was not swayed by the ``SOTA'' status, correctly prioritizing \textbf{Native Spatial Resolution} and \textbf{Domain Fit} over superficial architectural complexity.}
+        
+    \end{CaseStudyFrame}
+    
+    \caption{\textbf{Case Study: Domain Fit vs. Architectural Sophistication.} This example highlights a ``square peg in a round hole'' scenario. While human intuition might favor the SOTA Vision Transformer (Solution 0), the World Model detects that forcing small $101 \times 101$ seismic images into ViT's required resolution introduces destructive interpolation noise. It rejects the complex model in favor of a U-Net (Solution 1) that preserves native spatial details and avoids relying on missing depth data, demonstrating skepticism towards superficially sophisticated but methodologically flawed approaches.}
+    \label{fig:case_study_tgs}
+\end{figure*}
+
+
+
+
+\begin{figure*}
+    \centering
+
+\begin{ReportFrame}{Case Study: Verbal Data Report ($D_{rep}$) Sample for Task ``US Patent Matching''}{fig:long_report_content_1}
+
+\#\# Data Overview
+
+Train: 32,825 pairs; Test: 3,648 pairs. Columns: id, anchor... score (train only; in \{0.0... 1.0\}). No missing values...
+
+106 unique 4-character CPC contexts; coverage across major sections... broad and similar in train/test.
+
+Anchors: 733 unique; heavily reused (mean \textasciitilde 45 pairs per anchor...). Targets: 26,850 unique...
+
+Test anchors: 100\% seen... Test targets: \textasciitilde 29\% seen... Test OOV rate \textasciitilde 12.5\%.
+\newline
+
+Why this structure matters:
+
+The evaluation setting is anchor-centric... rewards learning anchor-specific decision boundaries and context-conditioned mappings...
+\newline
+
+\#\# Key Statistical Findings
+
+Discrete labels concentrated at 0.25 and 0.5... Implication: strong class imbalance toward moderate similarity...
+
+Correlation with score: char 3-5gram TF-IDF cosine \textasciitilde 0.46... Implication: surface overlap explains much variance but not all...
+
+Phrases are very short (mean \textasciitilde 2 tokens...)... Implication: models will rely on token/subword and character patterns...
+
+Context means vary... Implication: the mapping from lexical similarity to score is context-dependent...
+
+Anchors average \textasciitilde 45 target pairs... Implication: each anchor induces a nontrivial local decision boundary...
+
+Distributions are stable... Implication: generalization hinges on handling unseen targets...
+\newline
+
+\#\# Implications for Model Design
+
+(Linking observation → modeling implication → evaluation impact)
+
+Loss functions that ignore ordinality may mis-penalize near misses... Rank-sensitive metrics will reward monotonic mappings...
+
+Architectures emphasizing character/subword patterns... align with dominant signal... Performance differences will emerge in tail cases...
+
+Pairwise encoders that allow rich anchor-target interactions can learn... Approaches that exploit anchor identity will likely score well...
+
+Models benefit from mechanisms that allow interaction between context and similarity features... Per-context performance may vary...
+
+High-capacity sequence models may be underutilized on such short inputs... Efficiency-capacity trade-offs skew toward models effective on short spans...
+
+Representations that degrade gracefully on unseen words... have an advantage... Robust handling of OOV will particularly improve performance...
+
+Simple identity detection captures some easy gains... however, near-identical forms can still have scores <1.0...
+
+Character CNNs... Token-level transformers... Independent encoders... Joint encoders... Denoising pretraining...
+\newline
+
+\#\# Summary
+
+The dataset is anchor-centric... Surface-form similarity explains a large portion... Evaluation emphasizes generalization to new targets...
+
+Capture strong character/subword overlap signals... Maintain robustness to unseen target tokens... Avoid over-reliance on identity heuristics... Account for label ordinality...
+    
+\end{ReportFrame}
+    
+\captionof{figure}{\textbf{Case Study: Verbal Data Report ($D_{rep}$) Sample for ``US Patent Matching''.} Generated via the \textit{Code-Execution-Verbalization} protocol, this artifact bridges the gap between raw data statistics and semantic reasoning.}
+\label{fig:report_patent}
+
+\end{figure*}
+
+
+
+
+\begin{figure*}
+    \centering
+
+\begin{ReportFrame}{Case Study: Task Instruction ($I$) for Task ``Denoising Dirty Docs''}{fig:long_report_content_0}
+
+\# Overview
+
+\#\# Description
+
+Optical Character Recognition (OCR) is the process of converting typed or handwritten documents into a digitized format. OCR makes previously static content editable, searchable, and easier to share.
+
+This task focuses on improving OCR performance for degraded scanned documents. Given a dataset of noisy text images, the goal is to develop a model that removes visual noise such as stains, fading, and wrinkles, producing cleaner text images suitable for further processing and digitization.
+
+\#\# Evaluation
+
+Submissions are evaluated using the root mean squared error (RMSE) between the predicted cleaned pixel intensities and the ground truth grayscale pixel intensities.
+
+\#\#\# Submission Format
+
+Each image is represented as a list of pixel values with identifiers in the form 'image\_row\_col' (e.g. '1\_2\_1' for image 1, row 2, column 1). Intensity values range from 0 (black) to 1 (white).
+
+\verb|```|
+
+id,value
+1\_1\_1,1
+1\_2\_1,1
+1\_3\_1,1
+...
+
+\verb|```|
+
+\#\# Data
+
+\#\#\# Dataset Description
+
+The dataset contains two sets of images: 'train' and 'test'.  
+- The 'train' set includes noisy text images and their corresponding cleaned versions ('train\_cleaned').
+- The 'test' set contains only noisy images that need to be denoised.
+
+The noise simulates real-world artifacts commonly seen in scanned documents, such as blur, stains, and faded ink. The task is to build a model that restores the test images to a clean, readable form.
+
+\#\#\# File Description
+
+- There are three directory corresponding to the data description above: 'train', 'train\_cleaned' and 'test'.
+- The sample submission is stored in sampleSubmission.csv.
+    
+\end{ReportFrame}
+    
+\captionof{figure}{\textbf{Case Study: Task Instruction ($I$) for Task ``Denoising Dirty Docs''.} 
+This example illustrates the raw natural language input $I$ as defined in Section~\ref{sec:agent_paradigm}. 
+It outlines the problem context, dataset specifications, and evaluation criteria, serving as the foundational prompt that initiates the agent's solution generation process.}
+\label{fig:task_instruction_denoising}
+
+\end{figure*}

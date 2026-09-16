@@ -1,0 +1,132 @@
+All the LLMs we use to construct the planning errors are Gemini-3-pro-preview (i.e., \texttt{gemini-3-pro-preview}) due to its strong long-context understanding and processing ability.
+
+\subsection{Construction}
+We randomly select 50 hard-level data samples from the HotpotQA \citep{yang2018hotpotqa} training set and 50 samples from the MuSiQue \citep{trivedi2022musique} training set as our seed tasks. By repeatedly running the base agent (i.e., Smolagents with GPT-4.1) on these tasks to collect three trajectories per task, we obtain 300 trajectories in total. However, we only particularly retain tasks involving both successful and failure trajectories as mentioned in Section~\ref{subsubsec:plan_error}. This results in a final candidate subset of 32 tasks, including 18 from HotpotQA and 14 from MuSiQue.
+
+
+\begin{tcolorbox}[
+    colback=gray!5,
+    colframe=gray!50!black,
+    title=\textbf{Example Diagnosis from HotpotQA},
+    fonttitle=\bfseries,
+    breakable
+]
+
+\textbf{Task:} What character did this actor, who also played a supporting role in Sleepy Hollow, play in the final six Harry Potter films?
+
+\tcbline
+
+\textbf{Diagnosis:}
+\vspace{-8pt}
+
+% 使用 description 环境，并定制样式
+\begin{description}[
+    leftmargin=0.0em, 
+    % style=nextline,   
+    font=\bfseries\itshape, 
+    itemsep=-0.5em        
+]
+    \resultitem{Error Type:}{\texttt{\textcolor{red!70!black}{inadequate cross verification of constraints}}}
+    
+    \resultitem{Description:}{The agent identifies a candidate answer but fails to rigorously verify if it meets all the specific constraints defined in the task (e.g., `final six films').}
+    
+    \resultitem{Evidence:}{TRAJ 2, Step 19: ... ``There is no evidence ... of any other Sleepy Hollow supporting actor being present in the last six Harry Potter films. The consistent answer is Richard Griffiths as Vernon Dursley.''}
+    
+    \resultitem{Impact:}{In Trajectory 2, the agent identifies Richard Griffiths but fails to verify if he is in \textit{all} of the `final six' films. In contrast, Trajectory 1 and Trajectory 3 correctly identify Michael Gambon, who ..., fitting the constraint.}
+
+\end{description}
+
+\end{tcolorbox}
+
+
+
+\begin{tcolorbox}[
+    colback=gray!5,
+    colframe=gray!50!black,
+    title=\textbf{Example Diagnosis from MuSiQue},
+    fonttitle=\bfseries,
+    breakable
+]
+
+\textbf{Task:} When did the torch arrive in the region where Irreversi takes place?
+
+\tcbline
+
+\textbf{Diagnosis:}
+\vspace{-8pt}
+
+\begin{description}[
+    leftmargin=0.0em,      
+    font=\bfseries\itshape, 
+    itemsep=-0.5em    
+]
+
+    \resultitem{Error Type:}{\texttt{\textcolor{red!70!black}{tool selection inflexibility}}}
+    
+    \resultitem{Description:}{The agent continues to use a specific tool (e.g., `visit\_webpage') on a specific domain (e.g., Wikipedia) despite repeated failures (403 Forbidden), instead of switching to alternative tools or alternative sources immediately.}
+    
+    \resultitem{Evidence:}{TRAJ 2, Step 13: The agent attempts to use `visit\_webpage' on the Wikipedia URL ... despite knowing from Step 4 that Wikipedia blocks this tool.}
+    
+    \resultitem{Impact:}{This error prevents TRAJ 2 from accessing the definitive source of the schedule. TRAJ 1 encounters the same 403 error initially but later correctly switches to `inspect\_file\_as\_text' (TRAJ 1, Step 22) to read the Wikipedia page and successfully retrieves the date. TRAJ 3 avoids Wikipedia entirely for the date confirmation and successfully uses a news site (CNN).}
+
+\end{description}
+
+\end{tcolorbox}
+
+\subsection{Final Planning Errors} 
+
+We prompt an LLM to generate diagnoses by comparing and analyzing the trajectories. The 32 tasks eventually lead to 68 diagnoses in total, with various identified error types and detailed analyses. However, most of these errors have similar essences and therefore can be merged together. As mentioned in Section~\ref{subsubsec:plan_error}, we also perform a manual filter to drop the errors that are not related to long-term planning or too specific to tasks. Specifically, after LLM aggregation, the planning errors contain four error types: insufficient constraint verification, shallow content verification, ineffective tool selection, and ineffective search query. Among these error types, the ``ineffective search query'' is too specific to action-level reasoning instead of high-level planning. During the planning stage, the agent tends to propose a general guideline rather than every detailed action to take. Therefore, we remove the ineffective search query error from the planning errors and end up with three error types covering aspects of constraint, tool, and content understanding.
+
+Particularly, the planning error construction is an \textbf{offline} process which is separated from the major agent reflection and working process. We sample various trajectories from basic Smolagents with GPT-4.1 as the backbone to build up planning errors and directly reuse them with \method powered by either GPT-4.1 or Gemini-2.5-pro. The performance boosts across different backbone LLMs reflect the generalizability of the experiential prior, further validating the effectiveness of the grounded guidance in detecting potential risks in planning stage.
+
+
+For error identification, we use the error types, descriptions, and 2 failure examples as the experiential prior to help the reflector perform a more structured and precise diagnosis. As for plan revision, we provide the reflector with all the success and failure examples corresponding to the identified error so that the reflector accesses more high-quality references extracted from the agent's own experience.
+
+
+\newtcolorbox{TaxonomyBox}[1]{
+    colback=white, 
+    colframe=gray!60, 
+    fonttitle=\bfseries,
+    colbacktitle=gray!15,
+    coltitle=black,
+    enhanced,
+    attach boxed title to top left={yshift=-3mm, xshift=3mm},
+    boxed title style={colframe=gray!60, sharp corners},
+    title=#1,
+    arc=0mm,
+    breakable,
+    before skip=15pt,
+    after skip=15pt
+}
+
+% 定义错误示例的微缩样式
+\newcommand{\failureexample}[2]{
+    \begin{quote}
+        \small\color{gray!80!black}
+        \textbf{Failure #1:} #2
+    \end{quote}
+}
+
+\begin{TaxonomyBox}{Planning Error Details}
+\begin{description}[style=nextline, leftmargin=1em, font=\bfseries\ttfamily\color{blue!70!black}]
+
+    \item[insufficient\_constraint\_verification] 
+    The plan identifies a potential answer but fails to rigorously verify it against all specific constraints or conditions in the prompt (e.g., timeframes, specific subsets, exclusions). It relies on partial matches, ambiguous snippets, or initial findings without including steps to explicitly confirm that the candidate satisfies every requirement using authoritative sources before concluding.
+    
+    \failureexample{Example 1}{In a task identifying an actor who appeared in `Sleepy Hollow' and the `final six' Harry Potter films, the agent identified Richard Griffiths (Vernon Dursley) because he appeared in both franchises. However, the plan failed to verify his presence in *each* of the final six films (he is absent from some), leading to an incorrect answer based on a partial match.}
+    \failureexample{Example 2}{In a task identifying the 2004 sporting event participated in by the star of `Uyirodu Uyiraga' (Ajith Kumar), the agent relied on a single ambiguous news snippet mentioning `Formula Asia BMW F3 Championships' and ignored a previous snippet mentioning `British Formula 3'. It failed to visit a dedicated database to resolve the conflict or verify the specific year, leading to an incorrect answer.}
+
+    \item[shallow\_content\_verification] 
+    The agent relies solely on search snippets or broad summaries without visiting the actual webpages, or extracts data from visited pages without verifying if the specific data definitions (e.g., geographic scope, units) match the task constraints. It fails to recognize that generic pages often serve as navigation hubs or that specific labels in the text might contradict its assumptions.
+    
+    \failureexample{Example 1}{The agent repeatedly searched for `2008 Olympic torch relay Hong Kong date' but dismissed the search snippets as `general year summaries' without visiting the pages to find the specific date within the text}
+    \failureexample{Example 2}{The agent relied too heavily on the \texttt{web\_search} text output or a blocked Wikipedia page, missing the opportunity to extract the answer from other accessible sources (like a Daily Mail article) visible in the search results.}
+
+    \item[ineffective\_tool\_selection] 
+    The agent persists in using a specific tool or approach despite known limitations or repeated failures (e.g., using a web scraper on blocked sites, or repeatedly searching for a direct answer when results are noisy), failing to switch to alternative tools or sources (e.g., visiting a homepage to navigate manually).
+    
+    \failureexample{Example 1}{The agent attempted to use \texttt{visit\_webpage} on a Wikipedia URL to find the torch relay schedule, despite receiving a 403 Forbidden error, and did not attempt to use \texttt{inspect\_file\_as\_text} which can handle such URLs.}
+    \failureexample{Example 2}{The agent repeatedly attempted to visit a Wikipedia page despite receiving 403 Forbidden errors, and even tried to inspect a non-existent local path derived from the URL, rather than pivoting to other accessible news articles found in search results.}
+
+\end{description}
+\end{TaxonomyBox}

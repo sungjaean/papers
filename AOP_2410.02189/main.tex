@@ -1,0 +1,84 @@
+\UseRawInputEncoding
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2025_conference,times}
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{xspace}
+\usepackage{xcolor}
+\usepackage{graphicx} 
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{textcomp,mathcomp}
+\usepackage{float}
+\usepackage{authblk}
+
+\newcommand{\name}{AOP\xspace}
+
+\title{Agent-Oriented Planning in Multi-Agent Systems}
+
+\setlength{\affilsep}{0.5em} 
+
+
+\makeatletter
+\renewcommand\@maketitle{%
+  \begin{flushleft}
+    {\LARGE\bfseries \@title \par}
+    \vskip 1em
+    {\normalsize \@author}
+  \end{flushleft}
+}
+\makeatother
+
+
+
+\author{\textbf{Ao Li}$^{1,2,}$\thanks{Work done as an intern at Alibaba Group.}~~~\textbf{Yuexiang Xie}$^{3}$~~\textbf{Songze Li}$^{4,5}$~~\textbf{Fugee Tsung}$^{1,2}$~~\textbf{Bolin Ding}$^{3}$~~ \textbf{Yaliang Li}$^{3,}$\thanks{Corresponding author.}\\
+$^{1}$The Hong Kong University of Science and Technology (Guangzhou)\\
+$^{2}$The Hong Kong University of Science and Technology $^{3}$Alibaba Group $^{4}$Southeast University \\
+$^{5}$Engineering Research Center of Blockchain Application, Supervision and Management (Southeast University), Ministry of Education\\
+\texttt{aliat@connect.ust.hk,} 
+\texttt{songzeli@seu.edu.cn,}
+\texttt{season@ust.hk,}
+\texttt{\{yuexiang.xyx,bolin.ding,yaliang.li\}@alibaba-inc.com}
+}
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+\newcommand{\revision}[1]{\textcolor{blue}{#1}}
+
+
+\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+Through the collaboration of multiple LLM-empowered agents possessing diverse expertise and tools, multi-agent systems achieve impressive progress in solving real-world problems. Given the user queries, the meta-agents, serving as the brain within multi-agent systems, are required to decompose the queries into multiple sub-tasks that can be allocated to suitable agents capable of solving them, so-called agent-oriented planning. In this study, we identify three critical design principles of agent-oriented planning, including solvability, completeness, and non-redundancy, to ensure that each sub-task can be effectively resolved, resulting in satisfactory responses to user queries. These principles further inspire us to propose \name, a novel framework for agent-oriented planning in multi-agent systems, leveraging a fast task decomposition and allocation process followed by an effective and efficient evaluation via a reward model. According to the evaluation results, the meta-agent is also responsible for promptly making necessary adjustments to sub-tasks and scheduling. Besides, we integrate a feedback loop into \name to further enhance the effectiveness and robustness of such a problem-solving process. Extensive experiments demonstrate the advancement of \name in solving real-world problems compared to both single-agent systems and existing planning strategies for multi-agent systems. The source code is available at \href{https://github.com/lalaliat/Agent-Oriented-Planning}{https://github.com/lalaliat/Agent-Oriented-Planning}.
+
+
+
+
+\end{abstract}
+
+\input{section/introduction}
+\input{section/related_work}
+\input{section/preliminary}
+\input{section/method}
+\input{section/experiment}
+\input{section/conclusion}
+
+
+\bibliography{agent_planning}
+\bibliographystyle{agent_planning}
+
+\clearpage
+\appendix
+\input{section/appendix}
+
+
+\end{document}

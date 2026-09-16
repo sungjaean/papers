@@ -1,0 +1,24 @@
+\section{Introduction}
+
+In recent years, large language models (LLMs) \citep{achiam2023gpt, chowdhery2023palm, touvron2023llama} have achieved impressive breakthroughs in natural language understanding and generation, marking a critical advancement in the exploration of artificial general intelligence (AGI). 
+As the capabilities of LLMs progress, LLM-empowered agents~\citep{qin2023toolllm, dong2024self, wang2024survey} emerge as key components for integrating expertise and tools to effectively translate these advancements into practical applications.
+Advancing this paradigm, multi-agent systems~\citep{shen2024hugginggpt, agentscope, wu2023autogen}, which involve multiple diverse agents, provide great flexibility and adaptability by leveraging and collaborating on the strengths of various agents, promoting comprehensive solutions to complex real-world problems.
+
+Previous studies~\citep{cai2023low, qian2023communicative} propose to define suitable standard operating procedures (SOPs) based on the insights and experiences of human professionals for solving specific tasks, such as software development \citep{hong2023metagpt} and simulating personality traits \citep{serapio2023personality}. In these scenarios, multiple agents are assigned to execute tasks following the predefined SOPs, resulting in remarkable successes. However, for multi-agent systems designed to tackle a diverse range of complex real-world problems, there is a critical need for a central entity that can automatically generate task-specific operating procedures and coordinate the activities of various agents \citep{wang2024survey}.
+
+This central entity, typically referred to as a meta-agent (a.k.a. a controller or planner), carries two primary responsibilities. Firstly, the meta-agent needs to comprehend user queries and decompose them into several sub-tasks, ensuring that each sub-task can be adequately addressed by a single agent. Secondly, the meta-agent is also expected to assign these sub-tasks to the appropriate agents for execution, enabling the solutions of these sub-tasks to collectively provide comprehensive answers to the original user queries.
+
+
+However, since the meta-agent cannot effectively associate sub-tasks with agents based on the provided agents descriptions \citep{liu2024dynamic, hong2023metagpt}, the performance of task decomposition and allocations might be sub-optional. To tackle these challenges, we identify three design principles for an agent-oriented planning framework, including solvability, completeness, and non-redundancy. These principles further inspire us to propose {\bf \name}, a novel framework for {\bf A}gent-{\bf O}riented {\bf P}lanning in multi-agent systems.
+
+
+Specifically, to resolve a user query, the meta-agent first performs fast task decomposition and allocation, serving as intermediate results that can be further modified and revised. The proposed \name incorporates a reward model designed to efficiently evaluate the solvability of sub-tasks without requiring actual agent calls.
+According to the evaluation results, some sub-tasks may be executed by the assigned agents, others may be deemed inappropriate and require re-planning, while the remaining sub-tasks are further assessed using the representative works mechanism, which helps determine whether they should be planned in detail or re-described for better aligning the ability of agents.
+Meanwhile, a detector is utilized to identify the missing key information or redundant content in the decomposed sub-tasks, and to provide suggestions to the meta-agent for enhancing the completeness and non-redundancy.
+Besides, a feedback loop is integrated into \name to promote ongoing enhancements for the problem-solving process.
+
+Extensive experiments are conducted based on several reasoning datasets that require collaboration among multiple LLM-empowered agents. Comparisons between \name and baseline methods demonstrate the remarkable advancements achieved by the proposed framework. 
+Furthermore, we conduct an ablation study to show the contributions of different components in \name, and provide discussions on the potential for further enhancing agent-oriented planning within multi-agent systems.
+
+
+

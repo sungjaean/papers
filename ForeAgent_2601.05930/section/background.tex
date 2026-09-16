@@ -1,0 +1,96 @@
+% 你这个数据 我感觉可以作为一个任务定义 后续人刷这个数据集 也就是都可以当预测performance 效果 的bench  你琢磨下应该是可行的吧  也就是后面的人如何用你的数据 你可以定一套评测手段  指标
+
+
+% [zjt]: 第二章感觉需要先介绍一下ML Agent具体是怎么做的，比如说给定一个问题和数据，agent会被要求用代码对数据进行建模，期望
+%
+
+% \section{Background}
+% \label{sec:background}
+
+% \subsection{The Execution Bottleneck in ML Agents}
+% \label{sec:standard_paradigm}
+
+% Mainstream data science agents~\cite{jiang2025aideaidrivenexplorationspace, ou2025automindadaptiveknowledgeableagent} operate under an \textit{Generate-Execute-Feedback} paradigm~\cite{yao2023reactsynergizingreasoningacting, zhu2025surveydataagentsemerging}.
+% Formally, the update of the solution code $c_t$ relies strictly on the feedback $R_t$ obtained from executing it on the dataset $\mathcal{D}$: % <--- Modified
+% \begin{equation}
+%     c_{t+1} \leftarrow \text{LLM}(c_t, \underbrace{\text{Execute}(c_t, \mathcal{D})}_{R_t})
+% \end{equation}
+% This dependence on $\text{Execute}(\cdot)$ creates a severe bottleneck.
+% Unlike symbolic tasks, training deep models is computationally expensive, frequently leading to timeout failures under strict constraints~\cite{chan2025mlebenchevaluatingmachinelearning}.
+% This efficiency gap \textbf{necessitates compressing hours of physical execution into seconds of logical inference.}
+% Such acceleration enables exploring thousands of hypotheses in the time required to verify one.
+
+
+% \subsection{Problem Formulation}
+% \label{sec:formulation}
+
+% We investigate whether LLMs function as an \textbf{Implicit World Model}, capable of evaluating efficacy via reasoning~\cite{ha2018worldmodels, hafner2024masteringdiversedomainsworld}.
+% To operationalize the previous \textbf{Data-centric Code Result Prediction} task, we instantiate the evaluation as a \textbf{Pairwise Preference} problem (Figure~\ref{fig:main}(d)).
+% Formally, given the task instruction $I$, verified data report $D_{rep}$, and a candidate code pair $(c_A, c_B)$, we model the preference probability:
+% \begin{equation}
+%     P_\theta(y \mid I, D_{rep}, c_A, c_B)
+% \end{equation}
+% where $y = \mathbb{I}[M(c_A, \mathcal{D}) > M(c_B, \mathcal{D})]$ denotes the binary ground-truth label derived from the execution metric $M$ on dataset $\mathcal{D}$.
+% This formulation establishes a rigorous testbed to quantify how well models disentangle algorithmic logic from data characteristics without physical execution.
+
+
+% \subsection{Complexity of the Solution Space}
+% \label{sec:solution_space}
+
+% The prediction task is rendered non-trivial by the extreme \textbf{heterogeneity} of the solution space $\mathcal{C}$.
+% These candidates represent complete \textbf{end-to-end} pipelines rather than isolated snippets, requiring causal reasoning over data-algorithm interactions rather than syntactic memorization.
+
+
+
+
+\section{Background}
+\label{sec:background}
+
+\subsection{The Paradigm of Autonomous ML Agents}
+\label{sec:agent_paradigm}
+
+An autonomous Machine Learning (ML) task aims to generate an optimal solution code $C^*$ from the code space $C$ that maximizes a metric $M$ on a dataset $\mathcal{D}$, given a natural language instruction $I$ (see Appendix Figure~\ref{fig:task_instruction_denoising}):
+\begin{equation}
+    C^* = \operatorname*{arg\,max}_{C} M(I, C, \mathcal{D})
+\end{equation}
+Current agents typically follow a \textit{Generate-Execute-Feedback} paradigm~\cite{zhu2025surveydataagentsemerging}.
+For instance, \textbf{AIDE}~\cite{jiang2025aideaidrivenexplorationspace} organizes solution exploration as a tree search process involving sequential drafting, debugging, and iterative improvement via execution feedback.
+Building upon this, \textbf{AutoMind}~\cite{ou2025automindadaptiveknowledgeableagent} integrates a curated expert knowledge base with a self-adaptive coding strategy to tackle more intricate problems (see Appendix~\ref{app:extended_related_work} for details).
+
+\input{tables/secdata_tasks_solutions_statistics}
+
+% \subsection{The Execution Bottleneck and Implicit Evaluation}
+% \label{sec:motivation}
+
+% However, the reliance of these frameworks on physical execution creates a severe scalability bottleneck.
+% Formally, the update of solution $C_{t+1}$ relies on the feedback $R_t$ obtained from execution on $\mathcal{D}$:
+% \begin{equation}
+%     C_{t+1} \leftarrow \text{LLM}(C_t, \underbrace{\text{Execute}(C_t, \mathcal{D})}_{R_t})
+% \end{equation}
+% Unlike symbolic tasks, training deep learning models is computationally expensive, frequently leading to timeout failures under strict constraints~\cite{chan2025mlebenchevaluatingmachinelearning}.
+% This efficiency gap \textbf{necessitates compressing hours of physical execution into seconds of logical inference}.
+% Just as human experts discard sub-optimal algorithms via mental simulation, we investigate whether LLMs can function as an \textit{Implicit World Model}~\cite{ha2018worldmodels, hafner2024masteringdiversedomainsworld}.
+% While recent works explore this direction across diverse symbolic and interactive domains~\cite{li2025wordworldlargelanguage, faircodegenteam2025cwmopenweightsllmresearch}, our \textbf{Data-centric Solution Preference} task is distinct:
+% unlike tracking explicit states, the model must anticipate the \textit{invisible coupling} of algorithmic logic and stochastic data.
+% Thus, we formulate the problem as a \textit{Pairwise Preference} task~\cite{Shen2024towardsdatacentricrlhf}, determining the superior solution purely via reasoning to identify promising candidates prior to execution.
+
+
+\subsection{The Execution Bottleneck}
+\label{sec:motivation}
+
+The primary constraint in current agents is the reliance on physical execution for feedback.
+Formally, the update of solution $C_{t+1}$ depends on the result $R_t$ from executing on dataset $\mathcal{D}$:
+\begin{equation}
+    C_{t+1} \leftarrow \text{Agent}(I, C_t, \underbrace{\text{Execute}(C_t, \mathcal{D})}_{R_t})
+\end{equation}
+Unlike symbolic tasks with instantaneous verification, training deep learning models involves heavy computation, frequently leading to timeout failures~\cite{chan2025mlebenchevaluatingmachinelearning}.
+This efficiency gap \textbf{necessitates compressing hours of physical execution into seconds of logical inference}, mirroring how human experts utilize mental simulation to discard sub-optimal algorithms prior to implementation.
+
+
+\subsection{Implicit World Modeling in Data Domains}
+\label{sec:implicit_modeling}
+
+We investigate whether LLMs can function as an \textit{Implicit World Model}~\cite{ha2018worldmodels, hafner2024masteringdiversedomainsworld}.
+While recent works explore this direction across diverse symbolic and interactive domains~\cite{li2025wordworldlargelanguage, faircodegenteam2025cwmopenweightsllmresearch, Just2024datacentrichuman}, our \textbf{Data-centric Solution Preference} task is distinct:
+unlike tracking explicit states, the model must anticipate the invisible coupling of algorithmic logic and stochastic data.
+Thus, we formulate the problem as a \textit{Pairwise Preference} task~\cite{Shen2024towardsdatacentricrlhf}, determining the superior solution purely via reasoning to identify promising candidates prior to execution.

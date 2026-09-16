@@ -1,0 +1,927 @@
+% Background Research
+@inproceedings{CAP_IJCAI_24,
+  title={CAP: a context-aware neural predictor for NAS},
+  author={Ji, Han and Feng, Yuqi and Sun, Yanan},
+  booktitle={Proceedings of the Thirty-Third International Joint Conference on Artificial Intelligence},
+  pages={4219--4227},
+  year={2024}
+}
+
+@inproceedings{CATE_ICML_21,
+  title={CATE: Computation-aware neural architecture encoding with transformers},
+  author={Yan, Shen and Song, Kaiqiang and Liu, Fei and Zhang, Mi},
+  booktitle={International Conference on Machine Learning},
+  pages={11670--11681},
+  year={2021},
+  organization={PMLR}
+}
+
+@inproceedings{PRENAS_GECCO_22,
+author = {Peng, Yameng and Song, Andy and Ciesielski, Vic and Fayek, Haytham M. and Chang, Xiaojun},
+title = {PRE-NAS: predictor-assisted evolutionary neural architecture search},
+year = {2022},
+booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference},
+pages = {1066–1074},
+}
+
+@inproceedings{FLAN_ICML_24,
+title={Encodings for Prediction-based Neural Architecture Search},
+author={Yash Akhauri and Mohamed S Abdelfattah},
+booktitle={Forty-first International Conference on Machine Learning},
+year={2024},
+}
+
+@inproceedings{EncodingNAS_NeurIPS_20,
+  title={A study on encodings for neural architecture search},
+  author={White, Colin and Neiswanger, Willie and Nolen, Sam and Savani, Yash},
+  booktitle={NeurIPS},
+  pages={20309--20319},
+  year={2020}
+}
+
+@inproceedings{FlowerFormer_CVPR_24,
+  title={FlowerFormer: Empowering Neural Architecture Encoding using a Flow-aware Graph Transformer},
+  author={Hwang, Dongyeong and Kim, Hyunju and Kim, Sunwoo and Shin, Kijung},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={6128--6137},
+  year={2024}
+}
+
+@inproceedings{BRPNAS_NeurIPS_20,
+  title={BRP-NAS: Prediction-based NAS using GCNs},
+  author={Dudziak, Lukasz and Chau, Thomas and Abdelfattah, Mohamed and Lee, Royson and Kim, Hyeji and Lane, Nicholas},
+  booktitle={Advances in neural information processing systems},
+  pages={10480--10490},
+  year={2020}
+}
+
+@article{ALLM_Survey_25,
+  title={Agentic Large Language Models, a survey},
+  author={Plaat, Aske and van Duijn, Max and van Stein, Niki and Preuss, Mike and van der Putten, Peter and Batenburg, Kees Joost},
+  journal={arXiv preprint arXiv:2503.23037},
+  year={2025}
+}
+
+@article{LLMReasoning_Survey_25,
+  title={A Survey of Frontiers in LLM Reasoning: Inference Scaling, Learning to Reason, and Agentic Systems},
+  author={Ke, Zixuan and Jiao, Fangkai and Ming, Yifei and Nguyen, Xuan-Phi and Xu, Austin and Long, Do Xuan and Li, Minzhi and Qin, Chengwei and Wang, Peifeng and Savarese, Silvio and others},
+  journal={arXiv preprint arXiv:2504.09037},
+  year={2025}
+}
+
+@article{AgenticAI_Survey_25,
+  title={Agentic AI for Scientific Discovery: A Survey of Progress, Challenges, and Future Directions},
+  author={Gridach, Mourad and Nanavati, Jay and Abidine, Khaldoun Zine El and Mendes, Lenon and Mack, Christina},
+  journal={arXiv preprint arXiv:2503.08979},
+  year={2025}
+}
+% Related Work
+
+@inproceedings{OPRO_ICLR_24,
+    title={Large Language Models as Optimizers},
+    author={Chengrun Yang and Xuezhi Wang and Yifeng Lu and Hanxiao Liu and Quoc V Le and Denny Zhou and Xinyun Chen},
+    booktitle={The Twelfth International Conference on Learning Representations},
+    year={2024},
+}
+
+@inproceedings{LLMDebate_ICML_24,
+title={Improving Factuality and Reasoning in Language Models through Multiagent Debate},
+author={Yilun Du and Shuang Li and Antonio Torralba and Joshua B. Tenenbaum and Igor Mordatch},
+booktitle={Forty-first International Conference on Machine Learning},
+year={2024}
+}
+
+@inproceedings{ReAct_ICLR_23,
+    title={{ReAct}: Synergizing Reasoning and Acting in Language Models},
+    author={Shunyu Yao and Jeffrey Zhao and Dian Yu and Nan Du and Izhak Shafran and Karthik R Narasimhan and Yuan Cao},
+    booktitle={The Eleventh International Conference on Learning Representations },
+    year={2023}
+}
+
+@inproceedings{CoT_NeurIPS_22,
+    title={Chain of Thought Prompting Elicits Reasoning in Large Language Models},
+    author={Jason Wei and Xuezhi Wang and Dale Schuurmans and Maarten Bosma and brian ichter and Fei Xia and Ed H. Chi and Quoc V Le and Denny Zhou},
+    booktitle={Advances in Neural Information Processing Systems},
+    year={2022},
+}
+
+@inproceedings{CoTSC_ICLR_23,
+    title={Self-Consistency Improves Chain of Thought Reasoning in Language Models},
+    author={Xuezhi Wang and Jason Wei and Dale Schuurmans and Quoc V Le and Ed H. Chi and Sharan Narang and Aakanksha Chowdhery and Denny Zhou},
+    booktitle={The Eleventh International Conference on Learning Representations },
+    year={2023}
+}
+
+@inproceedings{SelfRefine_NeurIPS_23,
+    title={Self-Refine: Iterative Refinement with Self-Feedback},
+    author={Aman Madaan and Niket Tandon and Prakhar Gupta and Skyler Hallinan and Luyu Gao and Sarah Wiegreffe and Uri Alon and Nouha Dziri and Shrimai Prabhumoye and Yiming Yang and Shashank Gupta and Bodhisattwa Prasad Majumder and Katherine Hermann and Sean Welleck and Amir Yazdanbakhsh and Peter Clark},
+    booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+    year={2023}
+}
+
+@inproceedings{ToT_NeurIPS_23,
+    title={Tree of Thoughts: Deliberate Problem Solving with Large Language Models},
+    author={Shunyu Yao and Dian Yu and Jeffrey Zhao and Izhak Shafran and Thomas L. Griffiths and Yuan Cao and Karthik R Narasimhan},
+    booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+    year={2023},
+}
+
+@inproceedings{GPTSwarm_ICML24,
+    title={{GPTS}warm: Language Agents as Optimizable Graphs},
+    author={Mingchen Zhuge and Wenyi Wang and Louis Kirsch and Francesco Faccio and Dmitrii Khizbullin and J{\"u}rgen Schmidhuber},
+    booktitle={Forty-first International Conference on Machine Learning},
+    year={2024},
+}
+
+
+@inproceedings{GDesigner_ICML_25,
+    title={G-Designer: Architecting Multi-agent Communication Topologies via Graph Neural Networks},
+    author={Guibin Zhang and Yanwei Yue and Xiangguo Sun and Guancheng Wan and Miao Yu and Junfeng Fang and Kun Wang and Tianlong Chen and Dawei Cheng},
+    booktitle={ICML},
+    year={2025},
+}
+
+@inproceedings{AutoAgents_IJCAI24,
+  title     = {AutoAgents: A Framework for Automatic Agent Generation},
+  author    = {Chen, Guangyao and Dong, Siwei and Shu, Yu and Zhang, Ge and Sesay, Jaward and Karlsson, Börje and Fu, Jie and Shi, Yemin},
+  booktitle = {Proceedings of the Thirty-Third International Joint Conference on
+               Artificial Intelligence, {IJCAI-24}},
+  publisher = {International Joint Conferences on Artificial Intelligence Organization},
+  pages     = {22--30},
+  year      = {2024},
+  month     = {8},
+}
+
+@article{LLM_PP,
+  title={LLM Performance Predictors are good initializers for Architecture Search},
+  author={Jawahar, Ganesh and Abdul-Mageed, Muhammad and Lakshmanan, Laks VS and Ding, Dujian},
+  journal={arXiv preprint arXiv:2310.16712},
+  year={2023}
+}
+
+@inproceedings{DirGNN_2024,
+  title={Edge directionality improves learning on heterophilic graphs},
+  author={Rossi, Emanuele and Charpentier, Bertrand and Di Giovanni, Francesco and Frasca, Fabrizio and G{\"u}nnemann, Stephan and Bronstein, Michael M},
+  booktitle={Learning on graphs conference},
+  pages={25--1},
+  year={2024},
+  organization={PMLR}
+}
+
+@inproceedings{MONAQ_EMNLP_25,
+title={{MONAQ}: Multi-Objective Neural Architecture Querying for Time-Series Analysis on Resource-Constrained Devices},
+author={Patara Trirat and Jae-Gil Lee},
+booktitle={Findings of EMNLP},
+year={2025},
+}
+
+@inproceedings{DyLAN_COLM_24,
+    title={A Dynamic {LLM}-Powered Agent Network for Task-Oriented Agent Collaboration},
+    author={Zijun Liu and Yanzhe Zhang and Peng Li and Yang Liu and Diyi Yang},
+    booktitle={First Conference on Language Modeling},
+    year={2024},
+}
+
+@inproceedings{ADAS_ICLR_25,
+  title={Automated design of agentic systems},
+  author={Hu, Shengran and Lu, Cong and Clune, Jeff},
+  booktitle={The Thirteenth International Conference on Learning Representations},
+  year={2025}
+}
+
+@inproceedings{AutoMLAgent_ICML_25,
+    title={Auto{ML}-Agent: A Multi-Agent {LLM} Framework for Full-Pipeline Auto{ML}},
+  author={Trirat, Patara and Jeong, Wonyong and Hwang, Sung Ju},
+    booktitle={Forty-second International Conference on Machine Learning},
+    year={2025},
+}
+
+@inproceedings{MetaGPT_ICLR_24,
+title={Meta{GPT}: Meta Programming for A Multi-Agent Collaborative Framework},
+author={Sirui Hong and Mingchen Zhuge and Jonathan Chen and Xiawu Zheng and Yuheng Cheng and Jinlin Wang and Ceyao Zhang and Zili Wang and Steven Ka Shing Yau and Zijuan Lin and Liyang Zhou and Chenyu Ran and Lingfeng Xiao and Chenglin Wu and J{\"u}rgen Schmidhuber},
+booktitle={The Twelfth International Conference on Learning Representations},
+year={2024},
+}
+
+@inproceedings{EvoMAC_ICLR_25,
+  title={Self-Evolving Multi-Agent Networks for Software Development},
+  author={Hu, Yue and Cai, Yuzhu and Du, Yaxin and Zhu, Xinyu and Liu, Xiangrui and Yu, Zijie and Hou, Yuchen and Tang, Shuo and Chen, Siheng},
+  booktitle={The Thirteenth International Conference on Learning Representations},
+  year={2025}
+}
+
+@inproceedings{SPP_NAACL_24,
+  title={Unleashing the Emergent Cognitive Synergy in Large Language Models: A Task-Solving Agent through Multi-Persona Self-Collaboration},
+  author={Wang, Zhenhailong and Mao, Shaoguang and Wu, Wenshan and Ge, Tao and Wei, Furu and Ji, Heng},
+  booktitle={Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies},
+  pages={257--279},
+  year={2024}
+}
+
+@inproceedings{ChatDev_ACL_24,
+    title = "{C}hat{D}ev: Communicative Agents for Software Development",
+    author = "Qian, Chen  and
+      Liu, Wei  and
+      Liu, Hongzhang  and
+      Chen, Nuo  and
+      Dang, Yufan  and
+      Li, Jiahao  and
+      Yang, Cheng  and
+      Chen, Weize  and
+      Su, Yusheng  and
+      Cong, Xin  and
+      Xu, Juyuan  and
+      Li, Dahai  and
+      Liu, Zhiyuan  and
+      Sun, Maosong",
+    editor = "Ku, Lun-Wei  and
+      Martins, Andre  and
+      Srikumar, Vivek",
+    booktitle = "Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    year = "2024",
+    pages = "15174--15186"
+}
+
+@article{DataInterpreter_2024,
+  title={Data Interpreter: An LLM Agent For Data Science},
+  author={Hong, Sirui and Lin, Yizhang and Liu, Bangbang and Wu, Binhao and Li, Danyang and Chen, Jiaqi and Zhang, Jiayi and Wang, Jinlin and Zhang, Lingyao and Zhuge, Mingchen and others},
+  journal={arXiv preprint arXiv:2402.18679},
+  year={2024}
+}
+
+@inproceedings{DSAgent_ICML_24,
+  title={DS-Agent: Automated Data Science by Empowering Large Language Models with Case-Based Reasoning},
+  author={Guo, Siyuan and Deng, Cheng and Wen, Ying and Chen, Hechang and Chang, Yi and Wang, Jun},
+  booktitle={International Conference on Machine Learning},
+  year={2024}
+}
+
+
+@inproceedings{LLM_MultiAgents_Survey_IJCAI_24,
+  title={Large language model based multi-agents: a survey of progress and challenges},
+  author={Guo, Taicheng and Chen, Xiuying and Wang, Yaqi and Chang, Ruidi and Pei, Shichao and Chawla, Nitesh V and Wiest, Olaf and Zhang, Xiangliang},
+  booktitle={Proceedings of the Thirty-Third International Joint Conference on Artificial Intelligence},
+  pages={8048--8057},
+  year={2024}
+}
+
+@inproceedings{Flow_ICLR_25,
+title={Flow: Modularized Agentic Workflow Automation},
+author={Boye Niu and Yiliao Song and Kai Lian and Yifan Shen and Yu Yao and Kun Zhang and Tongliang Liu},
+booktitle={The Thirteenth International Conference on Learning Representations},
+year={2025},
+}
+
+@inproceedings{AgentVerse_ICLR_24,
+    title={AgentVerse: Facilitating Multi-Agent Collaboration and Exploring Emergent Behaviors},
+    author={Weize Chen and Yusheng Su and Jingwei Zuo and Cheng Yang and Chenfei Yuan and Chi-Min Chan and Heyang Yu and Yaxi Lu and Yi-Hsin Hung and Chen Qian and Yujia Qin and Xin Cong and Ruobing Xie and Zhiyuan Liu and Maosong Sun and Jie Zhou},
+    booktitle={The Twelfth International Conference on Learning Representations},
+    year={2024}
+}
+
+@inproceedings{AgentSquare_ICLR_25,
+  title={AgentSquare: Automatic LLM Agent Search in Modular Design Space},
+  author={Shang, Yu and Li, Yu and Zhao, Keyu and Ma, Likai and Liu, Jiahe and Xu, Fengli and Li, Yong},
+  booktitle={The Thirteenth International Conference on Learning Representations},
+  year={2025}
+}
+
+@inproceedings{AFlow_ICLR_25,
+    title={{AFlow}: Automating Agentic Workflow Generation}, 
+    author={Jiayi Zhang and Jinyu Xiang and Zhaoyang Yu and Fengwei Teng and Xionghui Chen and Jiaqi Chen and Mingchen Zhuge and Xin Cheng and Sirui Hong and Jinlin Wang and Bingnan Zheng and Bang Liu and Yuyu Luo and Chenglin Wu},
+    booktitle={The Thirteenth International Conference on Learning Representations},
+    year={2025}
+}
+
+@inproceedings{EvoAgent_NAACL_25,
+  title={EvoAgent: Towards Automatic Multi-Agent Generation via Evolutionary Algorithms},
+  author={Yuan, Siyu and Song, Kaitao and Chen, Jiangjie and Tan, Xu and Li, Dongsheng and Yang, Deqing},
+    booktitle={NAACL},
+  year={2025}
+}
+
+@inproceedings{AutoGen_COLM_24,
+    title={{AutoGen}: Enabling Next-Gen {LLM} Applications via Multi-Agent Conversations},
+    author={Qingyun Wu and Gagan Bansal and Jieyu Zhang and Yiran Wu and Beibin Li and Erkang Zhu and Li Jiang and Xiaoyun Zhang and Shaokun Zhang and Jiale Liu and Ahmed Hassan Awadallah and Ryen W White and Doug Burger and Chi Wang},
+    booktitle={First Conference on Language Modeling},
+    year={2024}
+}
+
+@inproceedings{MASGPT_25,
+    title={{MAS}-{GPT}: Training {LLM}s to Build {LLM}-based Multi-Agent Systems},
+    author={Rui Ye and Shuo Tang and Rui Ge and Yaxin Du and Zhenfei Yin and Siheng Chen and Jing Shao},
+    booktitle={Forty-second International Conference on Machine Learning},
+    year={2025},
+}
+
+@inproceedings{MaAS_ICML_25,
+  title={Multi-agent Architecture Search via Agentic Supernet},
+  author={Zhang, Guibin and Niu, Luyang and Fang, Junfeng and Wang, Kun and Bai, Lei and Wang, Xiang},
+  booktitle={ICML},
+  year={2025}
+}
+
+@article{Mass_25,
+  title={Multi-Agent Design: Optimizing Agents with Better Prompts and Topologies},
+  author={Zhou, Han and Wan, Xingchen and Sun, Ruoxi and Palangi, Hamid and Iqbal, Shariq and Vuli{\'c}, Ivan and Korhonen, Anna and Ar{\i}k, Sercan {\"O}},
+  journal={arXiv preprint arXiv:2502.02533},
+  year={2025}
+}
+
+@article{AgentR_25,
+  title={Agent-R: Training Language Model Agents to Reflect via Iterative Self-Training},
+  author={Yuan, Siyu and Chen, Zehui and Xi, Zhiheng and Ye, Junjie and Du, Zhengyin and Chen, Jiecao},
+  journal={arXiv preprint arXiv:2501.11425},
+  year={2025}
+}
+
+@article{MindEvolution_25,
+  title={Evolving Deeper LLM Thinking},
+  author={Lee, Kuang-Huei and Fischer, Ian and Wu, Yueh-Hua and Marwood, Dave and Baluja, Shumeet and Schuurmans, Dale and Chen, Xinyun},
+  journal={arXiv preprint arXiv:2501.09891},
+  year={2025}
+}
+
+@misc{MorphAgent_24,
+      title={MorphAgent: Empowering Agents through Self-Evolving Profiles and Decentralized Collaboration}, 
+      author={Siyuan Lu and Jiaqi Shao and Bing Luo and Tao Lin},
+      year={2024},
+      eprint={2410.15048},
+}
+
+@misc{GodelAgent_24,
+      title={G\"odel Agent: A Self-Referential Agent Framework for Recursive Self-Improvement}, 
+      author={Xunjian Yin and Xinyi Wang and Liangming Pan and Xiaojun Wan and William Yang Wang},
+      year={2024},
+      eprint={2410.04444}
+}
+
+% Benchmarks
+
+@inproceedings{WorFBench_ICLR_25,
+    title={Benchmarking Agentic Workflow Generation}, 
+    author={Shuofei Qiao and Runnan Fang and Zhisong Qiu and Xiaobin Wang and Ningyu Zhang and Yong Jiang and Pengjun Xie and Fei Huang and Huajun Chen},
+    booktitle={The Thirteenth International Conference on Learning Representations},
+    year={2025}
+}
+
+@inproceedings{DSBench_ICLR_25,
+    title={{DSBench}: How Far Are Data Science Agents to Becoming Data Science Experts?}, 
+    author={Liqiang Jing and Zhehui Huang and Xiaoyang Wang and Wenlin Yao and Wenhao Yu and Kaixin Ma and Hongming Zhang and Xinya Du and Dong Yu},
+    booktitle={The Thirteenth International Conference on Learning Representations},
+    year={2025}
+}
+
+@inproceedings{CSBench_ICLR_25,
+    title={{CS-Bench}: A Comprehensive Benchmark for Large Language Models towards Computer Science Mastery},
+    author={Song, Xiaoshuai and Diao, Muxi and Dong, Guanting and Wang, Zhengyang and Fu, Yujia and Qiao, Runqi and Wang, Zhexu and Fu, Dayuan and Wu, Huangxuan and Liang, Bin and others},
+    booktitle={The Thirteenth International Conference on Learning Representations},
+    year={2025}
+}
+
+@inproceedings{MLEBench_ICLR_25,
+    title={{MLE-Bench}: Evaluating Machine Learning Agents on Machine Learning Engineering}, 
+    author={Jun Shern Chan and Neil Chowdhury and Oliver Jaffe and James Aung and Dane Sherburn and Evan Mays and Giulio Starace and Kevin Liu and Leon Maksin and Tejal Patwardhan and Lilian Weng and Aleksander Mądry},
+    booktitle={The Thirteenth International Conference on Learning Representations},
+    year={2025}
+}
+
+@inproceedings{ForecastBench_ICLR_25,
+    title={{ForecastBench}: A Dynamic Benchmark of AI Forecasting Capabilities}, 
+    author={Ezra Karger and Houtan Bastani and Chen Yueh-Han and Zachary Jacobs and Danny Halawi and Fred Zhang and Philip E. Tetlock},
+    booktitle={The Thirteenth International Conference on Learning Representations},
+    year={2025}
+}
+
+@misc{MLBench_24,
+      title={{ML-Bench}: Evaluating Large Language Models and Agents for Machine Learning Tasks on Repository-Level Code}, 
+      author={Xiangru Tang and Yuliang Liu and Zefan Cai and Yanjun Shao and Junjie Lu and Yichi Zhang and Zexuan Deng and Helan Hu and Kaikai An and Ruijun Huang and Shuzheng Si and Sheng Chen and Haozhe Zhao and Liang Chen and Yan Wang and Tianyu Liu and Zhiwei Jiang and Baobao Chang and Yin Fang and Yujia Qin and Wangchunshu Zhou and Yilun Zhao and Arman Cohan and Mark Gerstein},
+      year={2024},
+      eprint={2311.09835}
+}
+
+@misc{AgentGym_24,
+      title={{AgentGym}: Evolving Large Language Model-based Agents across Diverse Environments}, 
+      author={Zhiheng Xi and Yiwen Ding and Wenxiang Chen and Boyang Hong and Honglin Guo and Junzhe Wang and Dingwen Yang and Chenyang Liao and Xin Guo and Wei He and Songyang Gao and Lu Chen and Rui Zheng and Yicheng Zou and Tao Gui and Qi Zhang and Xipeng Qiu and Xuanjing Huang and Zuxuan Wu and Yu-Gang Jiang},
+      year={2024},
+      eprint={2406.04151}
+}
+
+@inproceedings{GAIA_ICLR_24,
+    title={{GAIA}: a benchmark for General {AI} Assistants},
+    author={Gr{\'e}goire Mialon and Cl{\'e}mentine Fourrier and Thomas Wolf and Yann LeCun and Thomas Scialom},
+    booktitle={The Twelfth International Conference on Learning Representations},
+    year={2024}
+}
+
+@misc{TheAgentCompany_24,
+      title={{TheAgentCompany}: Benchmarking LLM Agents on Consequential Real World Tasks}, 
+      author={Frank F. Xu and Yufan Song and Boxuan Li and Yuxuan Tang and Kritanjali Jain and Mengxue Bao and Zora Z. Wang and Xuhui Zhou and Zhitong Guo and Murong Cao and Mingyang Yang and Hao Yang Lu and Amaad Martin and Zhe Su and Leander Maben and Raj Mehta and Wayne Chi and Lawrence Jang and Yiqing Xie and Shuyan Zhou and Graham Neubig},
+      year={2024},
+      eprint={2412.14161}
+}
+
+@inproceedings{Spider2V_NeurIPS_24,
+    title={{Spider2-V}: How Far Are Multimodal Agents From Automating Data Science and Engineering Workflows?},
+    author={Ruisheng Cao and Fangyu Lei and Haoyuan Wu and Jixuan Chen and Yeqiao Fu and Hongcheng Gao and Xiong Xinzhuang and Hanchong Zhang and Wenjing Hu and Yuchen Mao and Tianbao Xie and Hongshen Xu and Danyang Zhang and Sida Wang and Ruoxi Sun and Pengcheng Yin and Caiming Xiong and Ansong Ni and Qian Liu and Victor Zhong and Lu Chen and Kai Yu and Tao Yu},
+    booktitle={The Thirty-eight Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+    year={2024}
+}
+
+@inproceedings{WhodunitBench_NeurIPS_24,
+    title={{WhodunitBench}: Evaluating Large Multimodal Agents via Murder Mystery Games},
+    author={Junlin Xie and Ruifei Zhang and Zhihong Chen and Xiang Wan and Guanbin Li},
+    booktitle={The Thirty-eight Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+    year={2024},
+}
+
+@article{AgentClinic_24,
+  title={{AgentClinic}: a multimodal agent benchmark to evaluate AI in simulated clinical environments},
+  author={Schmidgall, Samuel and Ziaei, Rojin and Harris, Carl and Reis, Eduardo and Jopling, Jeffrey and Moor, Michael},
+  journal={arXiv preprint arXiv:2405.07960},
+  year={2024}
+}
+
+@InProceedings{DABench_ICML_24,
+  title = 	 {{I}nfi{A}gent-{DAB}ench: Evaluating Agents on Data Analysis Tasks},
+  author =       {Hu, Xueyu and Zhao, Ziyu and Wei, Shuang and Chai, Ziwei and Ma, Qianli and Wang, Guoyin and Wang, Xuwu and Su, Jing and Xu, Jingjing and Zhu, Ming and Cheng, Yao and Yuan, Jianbo and Li, Jiwei and Kuang, Kun and Yang, Yang and Yang, Hongxia and Wu, Fei},
+  booktitle = 	 {Proceedings of the 41st International Conference on Machine Learning},
+  pages = 	 {19544--19572},
+  year = 	 {2024},
+}
+
+@inproceedings{DACode_EMNLP_24,
+    title = "{DA}-Code: Agent Data Science Code Generation Benchmark for Large Language Models",
+    author = "Huang, Yiming  and
+      Luo, Jianwen  and
+      Yu, Yan  and
+      Zhang, Yitong  and
+      Lei, Fangyu  and
+      Wei, Yifan  and
+      He, Shizhu  and
+      Huang, Lifu  and
+      Liu, Xiao  and
+      Zhao, Jun  and
+      Liu, Kang",
+    booktitle = "Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing",
+    year = "2024",
+    pages = "13487--13521",
+}
+
+@inproceedings{LLMArena_ACL_24,
+    title = "{LLMA}rena: Assessing Capabilities of Large Language Models in Dynamic Multi-Agent Environments",
+    author = "Chen, Junzhe  and
+      Hu, Xuming  and
+      Liu, Shuodi  and
+      Huang, Shiyu  and
+      Tu, Wei-Wei  and
+      He, Zhaofeng  and
+      Wen, Lijie",
+    booktitle = "Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics",
+    year = "2024",
+    pages = "13055--13077"
+}
+
+@article{LegalAgentBench_24,
+  title={{LegalAgentBench}: Evaluating LLM Agents in Legal Domain},
+  author={Li, Haitao and Chen, Junjie and Yang, Jingli and Ai, Qingyao and Jia, Wei and Liu, Youfeng and Lin, Kai and Wu, Yueyue and Yuan, Guozhi and Hu, Yiran and others},
+  journal={arXiv preprint arXiv:2412.17259},
+  year={2024}
+}
+
+@inproceedings{LawBench_EMNLP_24,
+    title = "{L}aw{B}ench: Benchmarking Legal Knowledge of Large Language Models",
+    author = "Fei, Zhiwei  and
+      Shen, Xiaoyu  and
+      Zhu, Dawei  and
+      Zhou, Fengzhe  and
+      Han, Zhuo  and
+      Huang, Alan  and
+      Zhang, Songyang  and
+      Chen, Kai  and
+      Yin, Zhixin  and
+      Shen, Zongwen  and
+      Ge, Jidong  and
+      Ng, Vincent",
+    editor = "Al-Onaizan, Yaser  and
+      Bansal, Mohit  and
+      Chen, Yun-Nung",
+    booktitle = "Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing",
+    year = "2024",
+    pages = "7933--7962",
+}
+
+@inproceedings{DSEval_ACL_24,
+    title = "Benchmarking Data Science Agents",
+    author = "Zhang, Yuge  and
+      Jiang, Qiyang  and
+      XingyuHan, XingyuHan  and
+      Chen, Nan  and
+      Yang, Yuqing  and
+      Ren, Kan",
+    booktitle = "Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics",
+    year = "2024",
+    pages = "5677--5700"
+}
+
+@article{FinTruthQA_24,
+  title={{FinTruthQA}: A Benchmark Dataset for Evaluating the Quality of Financial Information Disclosure},
+  author={Xu, Ziyue and Zhou, Peilin and Shi, Xinyu and Wu, Jiageng and Jiang, Yikang and Ke, Bin and Yang, Jie},
+  journal={arXiv preprint arXiv:2406.12009},
+  year={2024}
+}
+
+@article{CityBench_24,
+  title={{CityBench}: Evaluating the Capabilities of Large Language Model as World Model},
+  author={Feng, Jie and Zhang, Jun and Yan, Junbo and Zhang, Xin and Ouyang, Tianjian and Liu, Tianhui and Du, Yuwei and Guo, Siqi and Li, Yong},
+  journal={arXiv preprint arXiv:2406.13945},
+  year={2024}
+}
+
+@inproceedings{TravelPlanner_ICML_24,
+    title={{TravelPlanner}: A Benchmark for Real-World Planning with Language Agents},
+    author={Jian Xie and Kai Zhang and Jiangjie Chen and Tinghui Zhu and Renze Lou and Yuandong Tian and Yanghua Xiao and Yu Su},
+    booktitle={Forty-first International Conference on Machine Learning},
+    year={2024},
+}
+
+@misc{MedAgentBench_25,
+      title={{MedAgentBench}: Dataset for Benchmarking LLMs as Agents in Medical Applications}, 
+      author={Yixing Jiang and Kameron C. Black and Gloria Geng and Danny Park and Andrew Y. Ng and Jonathan H. Chen},
+      year={2025},
+      eprint={2501.14654},
+}
+
+@inproceedings{MTUBench_ICLR_25,
+    title={{MTU-Bench}: A Multi-granularity Tool-Use Benchmark for Large Language Models},
+    author={Wang, Pei and Wu, Yanan and Wang, Zekun and Liu, Jiaheng and Song, Xiaoshuai and Peng, Zhongyuan and Deng, Ken and Zhang, Chenchen and Wang, Jiakai and Peng, Junran and others},
+    booktitle={The Thirteenth International Conference on Learning Representations},
+    year={2025}
+}
+
+@inproceedings{GTA_NeurIPS_24,
+    title={{GTA}: A Benchmark for General Tool Agents},
+    author={Jize Wang and Ma Zerun and Yining Li and Songyang Zhang and Cailian Chen and Kai Chen and Xinyi Le},
+    booktitle={The Thirty-eight Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+    year={2024},
+}
+
+@inproceedings{EconLogicQA_EMNLP_24,
+    title = "{E}con{L}ogic{QA}: A Question-Answering Benchmark for Evaluating Large Language Models in Economic Sequential Reasoning",
+    author = "Quan, Yinzhu  and
+      Liu, Zefang",
+    editor = "Al-Onaizan, Yaser  and
+      Bansal, Mohit  and
+      Chen, Yun-Nung",
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2024",
+    year = "2024",
+    pages = "2273--2282",
+}
+
+@article{TimeSeriesExam_24,
+  title={{TimeSeriesExam}: A time series understanding exam},
+  author={Cai, Yifu and Choudhry, Arjun and Goswami, Mononito and Dubrawski, Artur},
+  journal={arXiv preprint arXiv:2410.14752},
+  year={2024}
+}
+
+@inproceedings{TimeBench_ACL_24,
+    title = "{T}ime{B}ench: A Comprehensive Evaluation of Temporal Reasoning Abilities in Large Language Models",
+    author = "Chu, Zheng  and
+      Chen, Jingchang  and
+      Chen, Qianglong  and
+      Yu, Weijiang  and
+      Wang, Haotian  and
+      Liu, Ming  and
+      Qin, Bing",
+    booktitle = "Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics",
+    year = "2024",
+    pages = "1204--1228",
+}
+
+@inproceedings{AgentBench_ICLR_24,
+    title={{AgentBench}: Evaluating {LLM}s as Agents},
+    author={Xiao Liu and Hao Yu and Hanchen Zhang and Yifan Xu and Xuanyu Lei and Hanyu Lai and Yu Gu and Hangliang Ding and Kaiwen Men and Kejuan Yang and Shudan Zhang and Xiang Deng and Aohan Zeng and Zhengxiao Du and Chenhui Zhang and Sheng Shen and Tianjun Zhang and Yu Su and Huan Sun and Minlie Huang and Yuxiao Dong and Jie Tang},
+    booktitle={The Twelfth International Conference on Learning Representations},
+    year={2024},
+}
+
+@misc{HLE_25,
+      title={Humanity's Last Exam}, 
+      author={Long Phan and Alice Gatti and Ziwen Han and Nathaniel Li and Josephina Hu and Hugh Zhang and Sean Shi and Michael Choi and Anish Agrawal and Arnav Chopra and Adam Khoja and Ryan Kim and Jason Hausenloy and Oliver Zhang and Mantas Mazeika and Daron Anderson and Tung Nguyen and Mobeen Mahmood and Fiona Feng and Steven Y. Feng and Haoran Zhao and Michael Yu and Varun Gangal and Chelsea Zou and Zihan Wang and Jessica P. Wang and Pawan Kumar and Oleksandr Pokutnyi and Robert Gerbicz and Serguei Popov and John-Clark Levin and Mstyslav Kazakov and Johannes Schmitt and Geoff Galgon and Alvaro Sanchez and Yongki Lee and Will Yeadon and Scott Sauers and Marc Roth and Chidozie Agu and Søren Riis and Fabian Giska and Saiteja Utpala and Zachary Giboney and Gashaw M. Goshu and Joan of Arc Xavier and Sarah-Jane Crowson and Mohinder Maheshbhai Naiya and Noah Burns and Lennart Finke and Zerui Cheng and Hyunwoo Park and Francesco Fournier-Facio and John Wydallis and Mark Nandor and Ankit Singh and Tim Gehrunger and Jiaqi Cai and Ben McCarty and Darling Duclosel and Jungbae Nam and Jennifer Zampese and Ryan G. Hoerr and Aras Bacho and Gautier Abou Loume and Abdallah Galal and Hangrui Cao and Alexis C Garretson and Damien Sileo and Qiuyu Ren and Doru Cojoc and Pavel Arkhipov and Usman Qazi and Lianghui Li and Sumeet Motwani and Christian Schroeder de Witt and Edwin Taylor and Johannes Veith and Eric Singer and Taylor D. Hartman and Paolo Rissone and Jaehyeok Jin and Jack Wei Lun Shi and Chris G. Willcocks and Joshua Robinson and Aleksandar Mikov and Ameya Prabhu and Longke Tang and Xavier Alapont and Justine Leon Uro and Kevin Zhou and Emily de Oliveira Santos and Andrey Pupasov Maksimov and Edward Vendrow and Kengo Zenitani and Julien Guillod and Yuqi Li and Joshua Vendrow and Vladyslav Kuchkin and Ng Ze-An and Pierre Marion and Denis Efremov and Jayson Lynch and Kaiqu Liang and Andrew Gritsevskiy and Dakotah Martinez and Ben Pageler and Nick Crispino and Dimitri Zvonkine and Natanael Wildner Fraga and Saeed Soori and Ori Press and Henry Tang and Julian Salazar and Sean R. Green and Lina Brüssel and Moon Twayana and Aymeric Dieuleveut and T. Ryan Rogers and Wenjin Zhang and Bikun Li and Jinzhou Yang and Arun Rao and Gabriel Loiseau and Mikhail Kalinin and Marco Lukas and Ciprian Manolescu and Subrata Mishra and Ariel Ghislain Kemogne Kamdoum and Tobias Kreiman and Tad Hogg and Alvin Jin and Carlo Bosio and Gongbo Sun and Brian P Coppola and Tim Tarver and Haline Heidinger and Rafael Sayous and Stefan Ivanov and Joseph M Cavanagh and Jiawei Shen and Joseph Marvin Imperial and Philippe Schwaller and Shaipranesh Senthilkuma and Andres M Bran and Ali Dehghan and Andres Algaba and Brecht Verbeken and David Noever and Ragavendran P V and Lisa Schut and Ilia Sucholutsky and Evgenii Zheltonozhskii and Derek Lim and Richard Stanley and Shankar Sivarajan and Tong Yang and John Maar and Julian Wykowski and Martí Oller and Jennifer Sandlin and Anmol Sahu and Yuzheng Hu and Sara Fish and Nasser Heydari and Archimedes Apronti and Kaivalya Rawal and Tobias Garcia Vilchis and Yuexuan Zu and Martin Lackner and James Koppel and Jeremy Nguyen and Daniil S. Antonenko and Steffi Chern and Bingchen Zhao and Pierrot Arsene and Alan Goldfarb and Sergey Ivanov and Rafał Poświata and Chenguang Wang and Daofeng Li and Donato Crisostomi and Andrea Achilleos and Benjamin Myklebust and Archan Sen and David Perrella and Nurdin Kaparov and Mark H Inlow and Allen Zang and Elliott Thornley and Daniil Orel and Vladislav Poritski and Shalev Ben-David and Zachary Berger and Parker Whitfill and Michael Foster and Daniel Munro and Linh Ho and Dan Bar Hava and Aleksey Kuchkin and Robert Lauff and David Holmes and Frank Sommerhage and Keith Schneider and Zakayo Kazibwe and Nate Stambaugh and Mukhwinder Singh and Ilias Magoulas and Don Clarke and Dae Hyun Kim and Felipe Meneguitti Dias and Veit Elser and Kanu Priya Agarwal and Victor Efren Guadarrama Vilchis and Immo Klose and Christoph Demian and Ujjwala Anantheswaran and Adam Zweiger and Guglielmo Albani and Jeffery Li and Nicolas Daans and Maksim Radionov and Václav Rozhoň and Ziqiao Ma and Christian Stump and Mohammed Berkani and Jacob Platnick and Volodymyr Nevirkovets and Luke Basler and Marco Piccardo and Ferenc Jeanplong and Niv Cohen and Josef Tkadlec and Paul Rosu and Piotr Padlewski and Stanislaw Barzowski and Kyle Montgomery and Aline Menezes and Arkil Patel and Zixuan Wang and Jamie Tucker-Foltz and Jack Stade and Tom Goertzen and Fereshteh Kazemi and Jeremiah Milbauer and John Arnold Ambay and Abhishek Shukla and Yan Carlos Leyva Labrador and Alan Givré and Hew Wolff and Vivien Rossbach and Muhammad Fayez Aziz and Younesse Kaddar and Yanxu Chen and Robin Zhang and Jiayi Pan and Antonio Terpin and Niklas Muennighoff and Hailey Schoelkopf and Eric Zheng and Avishy Carmi and Adam Jones and Jainam Shah and Ethan D. L. Brown and Kelin Zhu and Max Bartolo and Richard Wheeler and Andrew Ho and Shaul Barkan and Jiaqi Wang and Martin Stehberger and Egor Kretov and Kaustubh Sridhar and Zienab EL-Wasif and Anji Zhang and Daniel Pyda and Joanna Tam and David M. Cunningham and Vladimir Goryachev and Demosthenes Patramanis and Michael Krause and Andrew Redenti and Daniel Bugas and David Aldous and Jesyin Lai and Shannon Coleman and Mohsen Bahaloo and Jiangnan Xu and Sangwon Lee and Sandy Zhao and Ning Tang and Michael K. Cohen and Micah Carroll and Orr Paradise and Jan Hendrik Kirchner and Stefan Steinerberger and Maksym Ovchynnikov and Jason O. Matos and Adithya Shenoy and Benedito Alves de Oliveira Junior and Michael Wang and Yuzhou Nie and Paolo Giordano and Philipp Petersen and Anna Sztyber-Betley and Priti Shukla and Jonathan Crozier and Antonella Pinto and Shreyas Verma and Prashant Joshi and Zheng-Xin Yong and Allison Tee and Jérémy Andréoletti and Orion Weller and Raghav Singhal and Gang Zhang and Alexander Ivanov and Seri Khoury and Hamid Mostaghimi and Kunvar Thaman and Qijia Chen and Tran Quoc Khánh and Jacob Loader and Stefano Cavalleri and Hannah Szlyk and Zachary Brown and Jonathan Roberts and William Alley and Kunyang Sun and Ryan Stendall and Max Lamparth and Anka Reuel and Ting Wang and Hanmeng Xu and Sreenivas Goud Raparthi and Pablo Hernández-Cámara and Freddie Martin and Dmitry Malishev and Thomas Preu and Tomek Korbak and Marcus Abramovitch and Dominic Williamson and Ziye Chen and Biró Bálint and M Saiful Bari and Peyman Kassani and Zihao Wang and Behzad Ansarinejad and Laxman Prasad Goswami and Yewen Sun and Hossam Elgnainy and Daniel Tordera and George Balabanian and Earth Anderson and Lynna Kvistad and Alejandro José Moyano and Rajat Maheshwari and Ahmad Sakor and Murat Eron and Isaac C. McAlister and Javier Gimenez and Innocent Enyekwe and Andrew Favre D. O. and Shailesh Shah and Xiaoxiang Zhou and Firuz Kamalov and Ronald Clark and Sherwin Abdoli and Tim Santens and Khalida Meer and Harrison K Wang and Kalyan Ramakrishnan and Evan Chen and Alessandro Tomasiello and G. Bruno De Luca and Shi-Zhuo Looi and Vinh-Kha Le and Noam Kolt and Niels Mündler and Avi Semler and Emma Rodman and Jacob Drori and Carl J Fossum and Milind Jagota and Ronak Pradeep and Honglu Fan and Tej Shah and Jonathan Eicher and Michael Chen and Kushal Thaman and William Merrill and Carter Harris and Jason Gross and Ilya Gusev and Asankhaya Sharma and Shashank Agnihotri and Pavel Zhelnov and Siranut Usawasutsakorn and Mohammadreza Mofayezi and Sergei Bogdanov and Alexander Piperski and Marc Carauleanu and David K. Zhang and Dylan Ler and Roman Leventov and Ignat Soroko and Thorben Jansen and Pascal Lauer and Joshua Duersch and Vage Taamazyan and Wiktor Morak and Wenjie Ma and William Held and Tran Đuc Huy and Ruicheng Xian and Armel Randy Zebaze and Mohanad Mohamed and Julian Noah Leser and Michelle X Yuan and Laila Yacar and Johannes Lengler and Hossein Shahrtash and Edson Oliveira and Joseph W. Jackson and Daniel Espinosa Gonzalez and Andy Zou and Muthu Chidambaram and Timothy Manik and Hector Haffenden and Dashiell Stander and Ali Dasouqi and Alexander Shen and Emilien Duc and Bita Golshani and David Stap and Mikalai Uzhou and Alina Borisovna Zhidkovskaya and Lukas Lewark and Mátyás Vincze and Dustin Wehr and Colin Tang and Zaki Hossain and Shaun Phillips and Jiang Muzhen and Fredrik Ekström and Angela Hammon and Oam Patel and Nicolas Remy and Faraz Farhidi and George Medley and Forough Mohammadzadeh and Madellene Peñaflor and Haile Kassahun and Alena Friedrich and Claire Sparrow and Taom Sakal and Omkar Dhamane and Ali Khajegili Mirabadi and Eric Hallman and Mike Battaglia and Mohammad Maghsoudimehrabani and Hieu Hoang and Alon Amit and Dave Hulbert and Roberto Pereira and Simon Weber and Stephen Mensah and Nathan Andre and Anton Peristyy and Chris Harjadi and Himanshu Gupta and Stephen Malina and Samuel Albanie and Will Cai and Mustafa Mehkary and Frank Reidegeld and Anna-Katharina Dick and Cary Friday and Jasdeep Sidhu and Wanyoung Kim and Mariana Costa and Hubeyb Gurdogan and Brian Weber and Harsh Kumar and Tong Jiang and Arunim Agarwal and Chiara Ceconello and Warren S. Vaz and Chao Zhuang and Haon Park and Andrew R. Tawfeek and Daattavya Aggarwal and Michael Kirchhof and Linjie Dai and Evan Kim and Johan Ferret and Yuzhou Wang and Minghao Yan and Krzysztof Burdzy and Lixin Zhang and Antonio Franca and Diana T. Pham and Kang Yong Loh and Joshua Robinson and Shreen Gul and Gunjan Chhablani and Zhehang Du and Adrian Cosma and Colin White and Robin Riblet and Prajvi Saxena and Jacob Votava and Vladimir Vinnikov and Ethan Delaney and Shiv Halasyamani and Syed M. Shahid and Jean-Christophe Mourrat and Lavr Vetoshkin and Renas Bacho and Vincent Ginis and Aleksandr Maksapetyan and Florencia de la Rosa and Xiuyu Li and Guillaume Malod and Leon Lang and Julien Laurendeau and Fatimah Adesanya and Julien Portier and Lawrence Hollom and Victor Souza and Yuchen Anna Zhou and Yiğit Yalın and Gbenga Daniel Obikoya and Luca Arnaboldi and Rai and Filippo Bigi and Kaniuar Bacho and Pierre Clavier and Gabriel Recchia and Mara Popescu and Nikita Shulga and Ngefor Mildred Tanwie and Thomas C. H. Lux and Ben Rank and Colin Ni and Alesia Yakimchyk and Huanxu and Liu and Olle Häggström and Emil Verkama and Himanshu Narayan and Hans Gundlach and Leonor Brito-Santana and Brian Amaro and Vivek Vajipey and Rynaa Grover and Yiyang Fan and Gabriel Poesia Reis e Silva and Linwei Xin and Yosi Kratish and Jakub Łucki and Wen-Ding Li and Justin Xu and Kevin Joseph Scaria and Freddie Vargus and Farzad Habibi and Long and Lian and Emanuele Rodolà and Jules Robins and Vincent Cheng and Declan Grabb and Ida Bosio and Tony Fruhauff and Ido Akov and Eve J. Y. Lo and Hao Qi and Xi Jiang and Ben Segev and Jingxuan Fan and Sarah Martinson and Erik Y. Wang and Kaylie Hausknecht and Michael P. Brenner and Mao Mao and Yibo Jiang and Xinyu Zhang and David Avagian and Eshawn Jessica Scipio and Muhammad Rehan Siddiqi and Alon Ragoler and Justin Tan and Deepakkumar Patil and Rebeka Plecnik and Aaron Kirtland and Roselynn Grace Montecillo and Stephane Durand and Omer Faruk Bodur and Zahra Adoul and Mohamed Zekry and Guillaume Douville and Ali Karakoc and Tania C. B. Santos and Samir Shamseldeen and Loukmane Karim and Anna Liakhovitskaia and Nate Resman and Nicholas Farina and Juan Carlos Gonzalez and Gabe Maayan and Sarah Hoback and Rodrigo De Oliveira Pena and Glen Sherman and Hodjat Mariji and Rasoul Pouriamanesh and Wentao Wu and Gözdenur Demir and Sandra Mendoza and Ismail Alarab and Joshua Cole and Danyelle Ferreira and Bryan Johnson and Hsiaoyun Milliron and Mohammad Safdari and Liangti Dai and Siriphan Arthornthurasuk and Alexey Pronin and Jing Fan and Angel Ramirez-Trinidad and Ashley Cartwright and Daphiny Pottmaier and Omid Taheri and David Outevsky and Stanley Stepanic and Samuel Perry and Luke Askew and Raúl Adrián Huerta Rodríguez and Abdelkader Dendane and Sam Ali and Ricardo Lorena and Krishnamurthy Iyer and Sk Md Salauddin and Murat Islam and Juan Gonzalez and Josh Ducey and Russell Campbell and Maja Somrak and Vasilios Mavroudis and Eric Vergo and Juehang Qin and Benjámin Borbás and Eric Chu and Jack Lindsey and Anil Radhakrishnan and Antoine Jallon and I. M. J. McInnis and Alex Hoover and Sören Möller and Song Bian and John Lai and Tejal Patwardhan and Summer Yue and Alexandr Wang and Dan Hendrycks},
+      year={2025},
+      eprint={2501.14249}
+}
+
+@inproceedings{MacNet_ICLR_25,
+title={Scaling Large Language Model-based Multi-Agent Collaboration},
+author={Chen Qian and Zihao Xie and YiFei Wang and Wei Liu and Kunlun Zhu and Hanchen Xia and Yufan Dang and Zhuoyun Du and Weize Chen and Cheng Yang and Zhiyuan Liu and Maosong Sun},
+booktitle={The Thirteenth International Conference on Learning Representations},
+year={2025},
+}
+
+
+% BENCHMARK DATASETS
+@article{MATH_NeurIPS_21,
+  title={Measuring Mathematical Problem Solving With the MATH Dataset},
+  author={Dan Hendrycks and Collin Burns and Saurav Kadavath and Akul Arora and Steven Basart and Eric Tang and Dawn Song and Jacob Steinhardt},
+  journal={NeurIPS},
+  year={2021}
+}
+
+@article{GSM8K,
+  title={Training verifiers to solve math word problems},
+  author={Cobbe, Karl and Kosaraju, Vineet and Bavarian, Mohammad and Chen, Mark and Jun, Heewoo and Kaiser, Lukasz and Plappert, Matthias and Tworek, Jerry and Hilton, Jacob and Nakano, Reiichiro and others},
+  journal={arXiv preprint arXiv:2110.14168},
+  year={2021}
+}
+
+@inproceedings{MGSM,
+    title={Language models are multilingual chain-of-thought reasoners},
+    author={Freda Shi and Mirac Suzgun and Markus Freitag and Xuezhi Wang and Suraj Srivats and Soroush Vosoughi and Hyung Won Chung and Yi Tay and Sebastian Ruder and Denny Zhou and Dipanjan Das and Jason Wei},
+    booktitle={The Eleventh International Conference on Learning Representations },
+    year={2023},
+}
+
+@article{MBPP,
+  title={Program synthesis with large language models},
+  author={Austin, Jacob and Odena, Augustus and Nye, Maxwell and Bosma, Maarten and Michalewski, Henryk and Dohan, David and Jiang, Ellen and Cai, Carrie and Terry, Michael and Le, Quoc and others},
+  journal={arXiv preprint arXiv:2108.07732},
+  year={2021}
+}
+
+@article{HumanEval,
+  title={Evaluating large language models trained on code},
+  author={Chen, Mark and Tworek, Jerry and Jun, Heewoo and Yuan, Qiming and Pinto, Henrique Ponde De Oliveira and Kaplan, Jared and Edwards, Harri and Burda, Yuri and Joseph, Nicholas and Brockman, Greg and others},
+  journal={arXiv preprint arXiv:2107.03374},
+  year={2021}
+}
+
+@inproceedings{LiveCodeBench,
+    title={LiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code},
+    author={Naman Jain and King Han and Alex Gu and Wen-Ding Li and Fanjia Yan and Tianjun Zhang and Sida Wang and Armando Solar-Lezama and Koushik Sen and Ion Stoica},
+    booktitle={The Thirteenth International Conference on Learning Representations},
+    year={2025},
+}
+
+@inproceedings{MMLU,
+    title={Measuring Massive Multitask Language Understanding},
+    author={Dan Hendrycks and Collin Burns and Steven Basart and Andy Zou and Mantas Mazeika and Dawn Song and Jacob Steinhardt},
+    booktitle={International Conference on Learning Representations},
+    year={2021},
+}
+
+@inproceedings{DROP,
+    title = "{DROP}: A Reading Comprehension Benchmark Requiring Discrete Reasoning Over Paragraphs",
+    author = "Dua, Dheeru  and
+      Wang, Yizhong  and
+      Dasigi, Pradeep  and
+      Stanovsky, Gabriel  and
+      Singh, Sameer  and
+      Gardner, Matt",
+    booktitle = "Proceedings of the 2019 Conference of the North {A}merican Chapter of the Association for Computational Linguistics: Human Language Technologies, Volume 1 (Long and Short Papers)",
+    year = "2019",
+    pages = "2368--2378"
+}
+
+@inproceedings{HotpotQA,
+    title = "{H}otpot{QA}: A Dataset for Diverse, Explainable Multi-hop Question Answering",
+    author = "Yang, Zhilin  and
+      Qi, Peng  and
+      Zhang, Saizheng  and
+      Bengio, Yoshua  and
+      Cohen, William  and
+      Salakhutdinov, Ruslan  and
+      Manning, Christopher D.",
+    booktitle = "Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing",
+    year = "2018",
+    pages = "2369--2380",
+}
+
+@inproceedings{SciQ,
+    title = "Crowdsourcing Multiple Choice Science Questions",
+    author = "Welbl, Johannes  and
+      Liu, Nelson F.  and
+      Gardner, Matt",
+    booktitle = "Proceedings of the 3rd Workshop on Noisy User-generated Text",
+    year = "2017",
+    pages = "94--106"
+}
+
+@inproceedings{GPQA,
+    title={{GPQA}: A Graduate-Level Google-Proof Q\&A Benchmark},
+    author={David Rein and Betty Li Hou and Asa Cooper Stickland and Jackson Petty and Richard Yuanzhe Pang and Julien Dirani and Julian Michael and Samuel R. Bowman},
+    booktitle={First Conference on Language Modeling},
+    year={2024},
+}
+
+@inproceedings{PubMedQA,
+    title = "{P}ub{M}ed{QA}: A Dataset for Biomedical Research Question Answering",
+    author = "Jin, Qiao  and
+      Dhingra, Bhuwan  and
+      Liu, Zhengping  and
+      Cohen, William  and
+      Lu, Xinghua",
+    booktitle = "Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)",
+    year = "2019",
+    pages = "2567--2577",
+}
+
+
+@inproceedings{AgentBench,
+title={AgentBench: Evaluating {LLM}s as Agents},
+author={Xiao Liu and Hao Yu and Hanchen Zhang and Yifan Xu and Xuanyu Lei and Hanyu Lai and Yu Gu and Hangliang Ding and Kaiwen Men and Kejuan Yang and Shudan Zhang and Xiang Deng and Aohan Zeng and Zhengxiao Du and Chenhui Zhang and Sheng Shen and Tianjun Zhang and Yu Su and Huan Sun and Minlie Huang and Yuxiao Dong and Jie Tang},
+booktitle={The Twelfth International Conference on Learning Representations},
+year={2024},
+}
+
+
+@InProceedings{TravelPlanner,
+  title = 	 {{T}ravel{P}lanner: A Benchmark for Real-World Planning with Language Agents},
+  author =       {Xie, Jian and Zhang, Kai and Chen, Jiangjie and Zhu, Tinghui and Lou, Renze and Tian, Yuandong and Xiao, Yanghua and Su, Yu},
+  booktitle = 	 {Proceedings of the 41st International Conference on Machine Learning},
+  pages = 	 {54590--54613},
+  year = 	 {2024},
+  volume = 	 {235},
+}
+
+@inproceedings{LegalBench,
+title={LegalBench: A Collaboratively Built Benchmark for Measuring Legal Reasoning in Large Language Models},
+author={Neel Guha and Julian Nyarko and Daniel E. Ho and Christopher Re and Adam Chilton and Aditya Narayana and Alex Chohlas-Wood and Austin Peters and Brandon Waldon and Daniel Rockmore and Diego Zambrano and Dmitry Talisman and Enam Hoque and Faiz Surani and Frank Fagan and Galit Sarfaty and Gregory M. Dickinson and Haggai Porat and Jason Hegland and Jessica Wu and Joe Nudell and Joel Niklaus and John J Nay and Jonathan H. Choi and Kevin Tobia and Margaret Hagan and Megan Ma and Michael Livermore and Nikon Rasumov-Rahe and Nils Holzenberger and Noam Kolt and Peter Henderson and Sean Rehaag and Sharad Goel and Shang Gao and Spencer Williams and Sunny Gandhi and Tom Zur and Varun Iyer and Zehua Li},
+booktitle={Thirty-seventh Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+year={2023},
+}
+
+@inproceedings{LBox,
+title={A Multi-Task Benchmark for Korean Legal Language Understanding and Judgement Prediction},
+author={Wonseok Hwang and Dongjun Lee and Kyoungyeon Cho and Hanuhl Lee and Minjoon Seo},
+booktitle={Thirty-sixth Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+year={2022},
+}
+
+@article{LegalAgentBench,
+  title={LegalAgentBench: Evaluating LLM Agents in Legal Domain},
+  author={Li, Haitao and Chen, Junjie and Yang, Jingli and Ai, Qingyao and Jia, Wei and Liu, Youfeng and Lin, Kai and Wu, Yueyue and Yuan, Guozhi and Hu, Yiran and others},
+  journal={arXiv preprint arXiv:2412.17259},
+  year={2024}
+}
+
+@article{FinTruthQA,
+  title={FinTruthQA: A benchmark dataset for evaluating the quality of financial information disclosure},
+  author={Xu, Ziyue and Zhou, Peilin and Shi, Xinyu and Wu, Jiageng and Jiang, Yikang and Chong, Dading and Ke, Bin and Yang, Jie},
+  journal={arXiv preprint arXiv:2406.12009},
+  year={2024}
+}
+
+@inproceedings{FinBen,
+title={FinBen: An Holistic Financial Benchmark for Large Language Models},
+author={Qianqian Xie and Weiguang Han and Zhengyu Chen and Ruoyu Xiang and Xiao Zhang and Yueru He and Mengxi Xiao and Dong Li and Yongfu Dai and Duanyu Feng and Yijing Xu and Haoqiang Kang and Ziyan Kuang and Chenhan Yuan and Kailai Yang and Zheheng Luo and Tianlin Zhang and Zhiwei Liu and GUOJUN XIONG and Zhiyang Deng and Yuechen Jiang and Zhiyuan Yao and Haohang Li and Yangyang Yu and Gang Hu and Huang Jiajia and Xiao-Yang Liu and Alejandro Lopez-Lira and Benyou Wang and Yanzhao Lai and Hao Wang and Min Peng and Sophia Ananiadou and Jimin Huang},
+booktitle={The Thirty-eight Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+year={2024},
+}
+
+@inproceedings{EconLogicQA,
+    title = "{E}con{L}ogic{QA}: A Question-Answering Benchmark for Evaluating Large Language Models in Economic Sequential Reasoning",
+    author = "Quan, Yinzhu  and
+      Liu, Zefang",
+    booktitle = "Findings of the Association for Computational Linguistics: EMNLP 2024",
+    year = "2024",
+    pages = "2273--2282",
+}
+
+@inproceedings{FLORA_Bench_25,
+    title={{FLORA}: {GNN}s as Predictors of Agentic Workflow Performances},
+    author={Yuanshuo Zhang and Yuchen Hou and Bohan Tang and Shuo Chen and Muhan Zhang and Xiaowen Dong and Siheng Chen},
+    booktitle={The Fourth Learning on Graphs Conference},
+    year={2025},
+}
+
+@article{W4S_25,
+  title={Weak-for-Strong: Training Weak Meta-Agent to Harness Strong Executors},
+  author={Nie, Fan and Feng, Lan and Ye, Haotian and Liang, Weixin and Lu, Pan and Yao, Huaxiu and Alahi, Alexandre and Zou, James},
+  journal={arXiv preprint arXiv:2504.04785},
+  year={2025}
+}
+
+@article{PASTA_TETCI_24,
+  author={Trirat, Patara and Lee, Jae-Gil},
+  journal={IEEE Transactions on Emerging Topics in Computational Intelligence}, 
+  title={PASTA: Neural Architecture Search for Anomaly Detection in Multivariate Time Series}, 
+  year={2025},
+  volume={9},
+  number={4},
+  pages={2924-2939},
+}
+
+
+@article{arch2vec_NeurIPS_20,
+  title={Does unsupervised architecture representation learning help neural architecture search?},
+  author={Yan, Shen and Zheng, Yu and Ao, Wei and Zeng, Xiao and Zhang, Mi},
+  journal={Advances in neural information processing systems},
+  volume={33},
+  pages={12486--12498},
+  year={2020}
+}
+
+@article{NAS1000_23,
+  title={Neural architecture search: Insights from 1000 papers},
+  author={White, Colin and Safari, Mahmoud and Sukthanker, Rhea and Ru, Binxin and Elsken, Thomas and Zela, Arber and Dey, Debadeepta and Hutter, Frank},
+  journal={arXiv preprint arXiv:2301.08727},
+  year={2023}
+}
+
+@inproceedings{NNFormer_CVPR_25,
+title={{NN}-Former: Rethinking Graph Structure in Neural Architecture Representation},
+author={Ruihan Xu and Haokui Zhang and Yaowei Wang and Wei Zeng and Shiliang Zhang},
+booktitle={CVPR},
+year={2025},
+}
+
+@article{rise_agent_survey_25,
+  title={The rise and potential of large language model based agents: A survey},
+  author={Xi, Zhiheng and Chen, Wenxiang and Guo, Xin and He, Wei and Ding, Yiwen and Hong, Boyang and Zhang, Ming and Wang, Junzhe and Jin, Senjie and Zhou, Enyu and others},
+  journal={Science China Information Sciences},
+  volume={68},
+  number={2},
+  pages={121101},
+  year={2025},
+}
+
+@inproceedings{powerful_nas_predictor_NeurIPS_21,
+title={How Powerful are Performance Predictors in Neural Architecture Search?},
+author={Colin White and Arber Zela and Binxin Ru and Yang Liu and Frank Hutter},
+booktitle={Advances in Neural Information Processing Systems},
+year={2021},
+}
+
+@inproceedings{CoRNStack_ICLR_25,
+title={Co{RNS}tack: High-Quality Contrastive Data for Better Code Retrieval and Reranking},
+author={Tarun Suresh and Revanth Gangi Reddy and Yifei Xu and Zach Nussbaum and Andriy Mulyar and Brandon Duderstadt and Heng Ji},
+booktitle={The Thirteenth International Conference on Learning Representations},
+year={2025},
+}
+
+@inproceedings{GCN_ICLR_17,
+title={Semi-Supervised Classification with Graph Convolutional Networks},
+author={Thomas N. Kipf and Max Welling},
+booktitle={International Conference on Learning Representations},
+year={2017},
+}
+
+@inproceedings{GAT_ICLR_18,
+title={Graph Attention Networks},
+author={Petar Veličković and Guillem Cucurull and Arantxa Casanova and Adriana Romero and Pietro Liò and Yoshua Bengio},
+booktitle={International Conference on Learning Representations},
+year={2018},
+}
+
+
+@InProceedings{GCNII_ICML_20,
+  title = 	 {Simple and Deep Graph Convolutional Networks},
+  author =       {Chen, Ming and Wei, Zhewei and Huang, Zengfeng and Ding, Bolin and Li, Yaliang},
+  booktitle = 	 {Proceedings of the 37th International Conference on Machine Learning},
+  pages = 	 {1725--1735},
+  year = 	 {2020},
+}
+
+
+@inproceedings{GT_IJCAI_21,
+  title     = {Masked Label Prediction: Unified Message Passing Model for Semi-Supervised Classification},
+  author    = {Shi, Yunsheng and Huang, Zhengjie and Feng, Shikun and Zhong, Hui and Wang, Wenjing and Sun, Yu},
+  booktitle = {Proceedings of the Thirtieth International Joint Conference on
+               Artificial Intelligence, {IJCAI-21}},
+  pages     = {1548--1554},
+  year      = {2021},
+  month     = {8},
+}
+
+@inproceedings{OFA_ICLR_24,
+title={One For All: Towards Training One Graph Model For All Classification Tasks},
+author={Hao Liu and Jiarui Feng and Lecheng Kong and Ningyue Liang and Dacheng Tao and Yixin Chen and Muhan Zhang},
+booktitle={The Twelfth International Conference on Learning Representations},
+year={2024},
+}
+
+@article{adam,
+  title={Adam: A method for stochastic optimization},
+  author={Kingma, Diederik P and Ba, Jimmy},
+  journal={arXiv preprint arXiv:1412.6980},
+  year={2014}
+}
+
+@article{Minilm_NeurIPS_20,
+  title={Minilm: Deep self-attention distillation for task-agnostic compression of pre-trained transformers},
+  author={Wang, Wenhui and Wei, Furu and Dong, Li and Bao, Hangbo and Yang, Nan and Zhou, Ming},
+  journal={Advances in neural information processing systems},
+  volume={33},
+  pages={5776--5788},
+  year={2020}
+}
+
+@inproceedings{reimers-2019-sentence-bert,
+  title = "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
+  author = "Reimers, Nils and Gurevych, Iryna",
+  booktitle = "Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing",
+  month = "11",
+  year = "2019",
+}

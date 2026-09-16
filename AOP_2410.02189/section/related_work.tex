@@ -1,0 +1,15 @@
+\section{Related Work}
+
+Large language models (LLMs)~\citep{gpts, achiam2023gpt, chowdhery2023palm, touvron2023llama, le2023bloom, zhang2022opt} have demonstrated remarkable capabilities in understanding and generating human language~\citep{zhao2023survey}. To enhance LLMs' ability to solve complex problems, some research focuses on improving the internal reasoning capabilities of LLMs, typically involving decomposing complex questions into sequential intermediate steps before generating the final responses, as exemplified by Chain-of-Thought (CoT) prompting~\citep{wei2022chain} and its variants~\citep{kojima2022large, wang2022self, zhou2022least, li2023camel}. For further improvements, recent studies propose to adopt multi-agent systems~\citep{wu2023autogen, hong2023metagpt, wu2025talkrightspecialistsrouting} which leverage the collective intelligence and specialized skills of multiple LLM-empowered agents to solve tasks collaboratively.
+
+
+Traditional cooperative multi-agent planning methods mainly rely on symbolic methods or reinforcement learning-based methods \citep{r8, r9}, with MA-PDDL \citep{r6} being a key example, establishing a standard specification language for multi-agent planning.
+However, these methods can be limited by their complexity and heavy reliance on human experts~\citep{huang2024understandingplanningllmagents}. Recently, the development of LLMs helps to simplify and optimize the planning process through the creation of meta-agents, which serve as controllers that manage the flow of operations, to perform task decomposition \citep{huang2024understandingplanningllmagents}. There are mainly two technical approaches: interleaved decomposition and decomposition-first. 
+Regarding the first kind of approach, React~\citep{yao2022react} generates reasoning and action in an interleaved manner, where reasoning helps the meta-agent update action plans and action enables interaction with agents. 
+HUSKY~\citep{kim2024husky} trains an action model to iterate between two stages: generating the next action to take and executing the action using expert models and updating the current solution state.
+Given that the excessively long trajectories might bring hallucinations in interleaved decomposition, HuggingGPT~\citep{shen2024hugginggpt} addresses this issue by carefully designing prompts to instruct ChatGPT to decompose tasks, selecting models in HuggingFace and summarizing the generated responses. Chameleon~\citep{lu2024chameleon} prompts the meta-agent with tool descriptions and usage examples to infer a program composed of a sequence of tools to execute for generating the final response.
+
+Although remarkable progress has been made, plans generated solely through prompt-based methods often fall short of meeting the principles of solvability, completeness, and non-redundancy issues that have largely been overlooked in previous studies,
+which motivates us to propose a novel agent-oriented planning framework for multi-agent systems.
+
+

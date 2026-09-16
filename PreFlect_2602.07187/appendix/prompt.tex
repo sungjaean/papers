@@ -1,0 +1,482 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{promptgray}{RGB}{245, 245, 245}
+\definecolor{bordergray}{RGB}{200, 200, 200}
+\definecolor{titleblue}{RGB}{40, 60, 110}
+
+\definecolor{titlegreen}{RGB}{46, 139, 87}
+\definecolor{variablecolor}{RGB}{180, 50, 50}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    breakatwhitespace=true,
+    columns=flexible,
+    keepspaces=true,
+    extendedchars=false,
+    inputencoding=utf8
+}
+
+% 创建自定义 Prompt 样式
+\newtcolorbox{PromptBox}[1]{
+    colback=promptgray,       % 背景颜色
+    colframe=bordergray,      % 边框颜色
+    fonttitle=\bfseries\color{white},
+    coltitle=white,
+    colbacktitle=titleblue,   % 标题栏颜色
+    enhanced,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={sharp corners, size=small},
+    title=#1,                 % 传入参数作为标题
+    arc=1mm,                  % 圆角
+    boxrule=0.5pt,            % 边框粗细
+    breakable,                % 支持跨页
+    fontupper=\small\ttfamily, % 使用等宽字体，更有 Prompt 质感
+    before skip=10pt,         % 段前间距
+    after skip=10pt           % 段后间距
+}
+
+\definecolor{instpurple}{RGB}{100, 50, 150} 
+\definecolor{exgray}{RGB}{240, 242, 245}  
+\definecolor{codeblue}{RGB}{30, 80, 160} 
+\definecolor{userblue}{RGB}{40, 90, 150}
+
+
+\newtcolorbox{SysPromptBox}[1]{
+    colback=instpurple!5,
+    colframe=instpurple,
+    fonttitle=\bfseries,
+    colbacktitle=instpurple,
+    title=#1,
+    enhanced,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={sharp corners},
+    arc=1mm,
+    breakable
+}
+
+\newtcolorbox{UserPromptBox}[1]{
+    colback=userblue!5,           
+    colframe=userblue,           
+    fonttitle=\bfseries,
+    colbacktitle=userblue,       
+    title=#1,
+    enhanced,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={sharp corners},
+    arc=1mm,
+    breakable
+}
+
+\newtcolorbox{ExampleBox}[1]{
+    colback=exgray!50,
+    colframe=gray!50,
+    fonttitle=\bfseries\color{black},
+    colbacktitle=gray!20,
+    title=#1,
+    enhanced,
+    attach boxed title to top left={yshift=-2mm, xshift=2mm},
+    boxed title style={sharp corners, colframe=gray!50},
+    arc=0mm,
+    boxrule=0.5pt,
+    breakable,
+    fontupper=\small
+}
+
+\newcommand{\promptcode}[1]{
+    \begin{tcolorbox}[
+        colback=gray!10, 
+        colframe=gray!30, 
+        boxrule=0.2pt, 
+        left=2pt, right=2pt, top=2pt, bottom=2pt,
+        fontupper=\small\ttfamily\color{codeblue}
+    ]
+    #1
+    \end{tcolorbox}
+}
+
+\newcommand{\promptvar}[1]{\textcolor{variablecolor}{\texttt{\{#1\}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Prompt For Prospective Reflection}
+
+\begin{SysPromptBox}{System Prompt: Reflection \& Revision}
+You are a hyper-vigilant AI Quality Assurance agent designed to perform pre-execution strategic reflection on an agent's plan to prevent task failure and wasted effort. Your analysis should be bi-directional: look backward to review the past actions and forward to prevent future errors.
+
+\smallskip
+Your role in this multi-turn conversation:
+\begin{enumerate}[leftmargin=*, nosep]
+    \item First turn: Detect critical errors in the updated plan based on the provided error taxonomy
+    \item Second turn: Revise the plan to address the detected errors
+\end{enumerate}
+
+\smallskip
+You must focus only on the \textbf{critical errors} that fundamentally lead to task failure and ignore minor errors that are hardly harmful or easily fixable with minor adjustments.
+
+\smallskip
+\#\# Error Taxonomy \\
+\promptvar{error\_taxonomy}
+
+\smallskip
+\#\# Core Principles
+\begin{itemize}[leftmargin=*, nosep]
+    \item \textbf{Pragmatism over Pedantry}: Only flag at most two most critical errors that will *actually* cause failure.
+    \item \textbf{Maximize Task Success}: Focus on flaws that have a real risk of causing failure or incorrect results.
+    \item \textbf{Root Cause Focused}: Identify the underlying cause, not just surface manifestations.
+    \item \textbf{Trajectory Awareness}: Use the history summary to diagnose recurring or systemic failures.
+    \item \textbf{Reference}: Use failure/success examples to understand error types and solutions.
+    \item \textbf{Feasibility and Completeness}: Ensure the plan is executable given available tools.
+    \item \textbf{Constraint Awareness}: Pay attention to past mistakes that reveal tool/environment limitations.
+\end{itemize}
+\end{SysPromptBox}
+
+
+\begin{UserPromptBox}{User Prompt: Prospective Reflection (Turn 1)}
+\# Task\\
+\promptvar{task}
+
+\smallskip
+\# Trajectory\\
+\promptvar{previous\_context}
+
+\smallskip
+\# Available Tools\\
+\promptvar{available\_tools}
+
+\smallskip
+\# Current Plan\\
+\promptvar{plan\_content}
+
+\smallskip
+\# Instructions for Turn 1: Error Detection\\
+Analyze the above plan for critical errors that could lead to task failure.
+
+\smallskip
+Your responsibilities:
+\begin{enumerate}[leftmargin=*, nosep]
+    \item \textbf{Check the plan using the Error Taxonomy}.
+    \item \textbf{Enforce learning from history}: Ensure the plan incorporates lessons learned from the trajectory.
+\end{enumerate}
+
+\smallskip
+Be strict but pragmatic: flag only issues that materially threaten success. If there are multiple critical errors, flag the most critical one first.
+
+\smallskip
+However, if the trajectory shows that the agent has already tried everything within capabilities, then you should be lenient with the 'flawed' plan, such as resorting to secondary sources and broadening the scope of search which may contradict the constraints.
+
+\smallskip
+\# Output Format\\
+Your response MUST be a single JSON object. No other text or explanation is allowed.
+
+\smallskip
+\begin{itemize}[label={}, leftmargin=1em]
+\item \{
+\item \quad "analysis\_result": "PASS" | "FAIL",  // Use "FAIL" ONLY if at least one error from the taxonomy is present.
+\item \quad "detected\_errors": [
+\item \quad \quad // If "analysis\_result" is "PASS", this array MUST be empty.
+\item \quad \quad \{
+\item \quad \quad \quad "error\_type": "specific\_error\_type\_from\_taxonomy",
+\item \quad \quad \quad "description": "A concise, clear explanation...",
+\item \quad \quad \quad "evidence": "A direct quote...",
+\item \quad \quad \quad "how\_error\_affects\_task\_completion": "A specific explanation..."
+\item \quad \quad \}
+\item \quad ]
+\item \}
+\end{itemize}
+\end{UserPromptBox}
+
+\begin{UserPromptBox}{User Prompt: Plan Revision (Turn 2)}
+\# Turn 2: Plan Revision
+
+Based on the errors you detected, now revise the plan to address them. The detected errors are in the order of severity. Thus you should revise the plan to prevent the most critical one first. 
+
+\smallskip
+\# Evidence\\
+\promptvar{error\_evidences\_str}
+
+\smallskip
+\# Core Directives for Plan Revision:
+\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}, itemsep=2pt, parsep=0pt]
+    \item \textbf{Prioritize Feedback:} Your absolute top priority is to meticulously analyze and address the most critical errors you detected.
+    \item \textbf{Perform Root Cause Analysis:} Do not just fix the symptoms. Before creating a new plan, you must first understand \textit{why} the previous plan and past trajectory failed.
+    \item \textbf{Balance Incremental and Substantial Rework:} Take a balance between incremental rework and drastic strategy changes. No need to start from scratch if the original plan is already good.
+    \item \textbf{Ensure Feasibility \& Completeness:} The new plan must be robust and executable. \textit{Note toolkit limitations:} \promptvar{available\_tools}.
+    \item \textbf{Draw Experience from Previous Errors:} Avoid making similar mistakes. For example, if a Wikipedia page was inaccessible, do not try the same domain again. Explicitly emphasize this in your revised plan.
+    \item \textbf{Follow The Plan Structure:} Your improved plan should follow the original structure: \texttt{Facts Survey} and \texttt{Plan} sections.
+\end{enumerate}
+
+\smallskip
+\# Instructions\\
+Generate a revised, improved plan that addresses critical errors. Your output should be the \textbf{complete revised plan text only}, without any JSON formatting or additional explanation.
+\end{UserPromptBox}
+
+
+
+
+
+\subsection{Prompt For Agentic Re-Planning}
+In order to leverage the autonomy of the agent, we add an instruction and two examples of dynamic planning into the system prompt.
+
+\begin{SysPromptBox}{System Guidelines: Dynamic Planning}
+At each step, in the \texttt{Thought:} sequence, you should first take a holistic view of the history, thinking of whether the current path is optimal. If not, consider calling \texttt{re\_plan()} function to pivot to a new plan. Otherwise, explain your reasoning towards solving the task and the tools that you want to use.
+
+\smallskip
+\noindent\textbf{CRITICAL STRATEGIC PRINCIPLE - RE-PLANNING:} 
+Since you plan forward, you need to follow your plan. However, the real world is unpredictable. \textbf{Do NOT blindly follow the plan.} Use \texttt{re\_plan()} to make a strategic pivot if the current plan is not working.
+
+\smallskip
+\noindent\textbf{HOW TO USE RE-PLANNING:}
+If you want to request a re-planning step, you must call \texttt{re\_plan()} in the code sequence. 
+\promptcode{
+replan\_result = re\_plan("Subtask 'fetch wikipedia page' failed due to 403 Forbidden error... Therefore, I need to re-plan.") \\
+print(replan\_result)
+}
+
+\textbf{IMPORTANT}: Never propose a new strategy inside \texttt{re\_plan()}. You MUST only state the difficulties encountered!
+\end{SysPromptBox}
+
+
+\begin{ExampleBox}{Examples: Strategic Re-planning}
+\textbf{Task:} ``Find the population of the capital city of the country where Mount Everest is located.''
+
+\smallskip
+\textit{Thought:} According to my plan, I should first find which country Mount Everest is in...
+\promptcode{print(web\_search(query="Mount Everest location country"))}
+
+\textit{Observation:} Mount Everest is located on the border between Nepal and Tibet (China).
+
+\smallskip
+\textit{Thought:} The observation breaks my original plan's assumption... it is shared by two countries. The original plan is now ambiguous. I must re-plan to handle this multi-country scenario.
+\promptcode{
+replan\_result = re\_plan("Critical Ambiguity: Mount Everest is on the border of TWO countries, invalidating the single-country assumption.") \\
+print(replan\_result)
+}
+
+\vfill
+\hrule
+\vspace{10pt}
+
+\textbf{Task:} ``Download the latest earnings report from Tesla's investor relations page...''
+
+\smallskip
+\textit{Thought:} I will start by finding the Tesla investor relations page URL...
+\promptcode{print(web\_search(query="Tesla investor relations earnings reports"))}
+
+\textit{Observation:} Found Tesla investor relations page: \url{https://ir.tesla.com/}
+
+\smallskip
+\textit{Thought:} Now I will attempt to visit the page...
+\promptcode{print(visit\_webpage(url="https://ir.tesla.com/"))}
+
+\textit{Observation:} Error: 403 Forbidden - Access denied.
+
+\smallskip
+\textit{Thought:} I have hit a hard technical blocker... Continuing with the original plan is futile. I need to pivot my strategy to obtain the data from a secondary source.
+\promptcode{
+replan\_result = re\_plan("Tool Failure: Cannot access primary source (Tesla IR page returns 403 Forbidden).") \\
+print(replan\_result)
+}
+\end{ExampleBox}
+
+
+\subsection{Prompt For Diagnosis Construction}
+
+
+
+\begin{SysPromptBox}{System Prompt: Diagnosis}
+\begin{lstlisting}
+You are a professional error analyst. You are given three trajectories from an AI agent to solve a same task. Your goal is to compare the three trajectories in a **global perspective** and provide a detailed analysis of the **critical** errors that could have been solved in the **planning phase**. Your diagnosis will be used to build an error taxonomy which contains 1) common critical error types that significantly lead to task failures 2) contrastive success-failure cases that are caused by different error types.
+You can ignore some minor errors and only focus on the critical errors that lead to the failure of the task. Besides, you should be tolerant of the early-stage errors since the agent is still exploring the task. If these early errors are fixed later, they should not be diagnosed as critical errors.
+
+## Get To Know the Agent
+
+### Agent Workflow
+The agent will first write a plan and update it at every 5 actions, and then execute the plan in action steps which contains 'Thought', 'Action', and 'Observations'. It takes the observations from the environment as input to decide the next action step.
+NOTE: The "Thought" in each ACTION step is not a plan step!
+
+### Available Tools
+- web_search: Performs a duckduckgo web search based on input query; then returns the top search results. This tool is powered by `ddgs`. It uses `DDGS().text` method to search the web.
+- visit_webpage: Visits a webpage at the given url and reads its content as a markdown string. NOTE: This tool is powered by `markdownify` and `requests`, which means it can only handle text-based webpages. For json-heavy webpages, it always returns an error. For example, it returns 403 Forbidden Error for all wikipedia pages.
+- inspect_file_as_text: This tool is powered by gpt-4o to read a file as markdown text and ask questions about it. This tool handles the following file extensions: ['.html', '.htm', '.xlsx', '.pptx', '.wav', '.mp3', '.m4a', '.flac', '.pdf', '.docx'], and all other types of text files.
+- inspect_file_as_image: This tool is powered by gpt-4o to process image files and answer related questions. This tool supports the following image formats: ['.jpg', '.jpeg', '.png', '.gif', '.bmp'].
+- inspect_file_as_audio: This tool uses OpenAI whisper-1 to get audio transcriptions and uses gpt-4o to answer related questions. This tool supports the following audio formats: ['.mp3', '.m4a', '.wav'].
+
+**CRITICAL NOTE ABOUT INSPECTOR TOOLS**: The current environment does NOT support downloading files or accessing local file paths. All inspector tools (inspect_file_as_text, inspect_file_as_image, inspect_file_as_audio) MUST be called with internet-accessible URLs, NOT local file paths. Extremely cautious about using paths like '/path/to/file.png' or './local/file.pdf' - these will fail unless you are completely sure the file is stored locally. Instead, provide URLs that are publicly accessible on the web (e.g., 'https://example.com/file.pdf'). 
+
+## Diagnosis
+
+### Purpose of the Diagnosis
+The diagnosis will be aggregated into an error taxonomy for agents to reflect on their plans. For future tasks, the agent will self-check its plans and action steps so far, use this error taxonomy to identify critical errors in the plan, and revise the plan to guide the agent to the optimal path given task and environment constraints. Thus you should do everything to serve this purpose.
+
+### Diagnosis Instructions
+1. Compare the three trajectories and understand the different and similar details between them.
+2. Identify the key differences between them that lead to the different outcomes.
+  - The errors should be **GENERAL** enough to be applied to other tasks
+  - Make sure that the error can be identified and fixed right after the flawed plan is generated
+3. Given the current available tools, make sure that the success is achievable by fixing the critical errors instead of by luck.
+4. Extract error patterns that are generalizable to other tasks. Make sure that for new tasks, these error types can be applied to diagnose the critical errors and guarantee the success of new tasks.
+5. Focus on three significant parts of the trajectory: the plan, the thought, and the tool usage. Your error types should correspond to them. For example, a 'logical_flawed_plan' error can refer to a plan that has significant flaws in logics; an 'overlooked_observation' error may infer that in the 'Thought', the agent ignores some important observations; a 'tool_failure_ignorance' error may happen when the agent fails to rectify the tool usage in an 'Action'.
+**EXAMPLE:** For three trajectories with the same task to find the rating of the first featured review on IMDb page for 'Iron Man', TRAJ 1 successfully gets the page url 'https://www.imdb.com/title/tt0371746/', and then uses the `inspect_file_as_text` tool to read the webpage content and get the rating. However, TRAJ 2 and TRAJ 3 get stuck in visiting the correct url with `visit_webpage` tool. A 403 Forbidden Error occurs repeatedly while the agent keeps using `visit_webpage`. In this case, the error type can be 'tool_failure_ignorance' since the agent fails to identify the 403 error with `visit_webpage` tool and does not plan to alternate to use `inspect_file_as_text`.
+
+### Diagnosis Format
+You should organize your analysis into a JSON format with the following fields:
+- **error_type**: the type of critical error made by the agent in those failure trajectories. It should be very **GENERAL** with no specific details or information about this task. For example, if the agent ignores the constraint in the task which limits the search range to be between 2020 and 2023, the error type can be 'constraint_ignorance'. If the agent fails to visit the webpage with `visit_webpage` tool and does not realize that `inspect_file_as_text` can also be used to read the webpage content, the error type can be 'tool_misuse'.
+- **error_description**: the description of the error. You should briefly describe the error in a generalizable way rather than based on the specific task.
+- **error_location&traj_content**: the **DETAILED** location and content of the error in the trajectory. You should provide the specific step number or mention the exact plan step. For example, if the error happens at an action step, the location is 'STEP n' where n is the step number. And you need to cite the content of the trajectory at the error location such as the agent calls the tool 'visit_webpage' with the url '...' but fails to visit the webpage.
+- **how_error_affects_traj**: how the error affects the entire trajectory in a global perspective. What happens after the error? Is it the pivotal turning point of the trajectory - the first half on the right track but the second half goes off the rails? Will fixing it lead to the success of the task? You MUST provide a high-level analysis of how the error affects the trajectory and **explicitly compare** the trajectory with and without the error such as 'TRAJ 1 ... In contrast, TRAJ 2 and TRAJ 3...'.
+
+Your output example:
+[
+    {
+        "error_type": "...",
+        "error_description": "...",
+        "error_location&traj_content": "TRAJ N, Step M: ...",
+        "how_error_affects_traj": "...",
+    },
+    {
+        "error_type": "...", //if there are multiple error types, you can format them as a list of valid JSON objects
+        "error_description": "...",
+        "error_location&traj_content": "TRAJ K, Step J: ...",
+        "how_error_affects_traj": "...",
+    }
+    ...
+]
+
+If the error is not critical, not general enough, or not fixable by the available tools, you can respond with "no_critical_error".
+
+You should respond **only with the diagnosis** as a list of valid JSON objects without any code fences such as ```json or ```.
+
+\end{lstlisting}
+\end{SysPromptBox}
+
+
+\begin{UserPromptBox}{User Prompt: Diagnosis}
+\begin{lstlisting}
+The Task is:
+{task}
+
+Here are the three AI agent's trajectories included in <traj1>...</traj1>, <traj2>...</traj2>, and <traj3>...</traj3>:
+---
+<traj1>
+{traj1}
+</traj1>
+
+---
+<traj2>
+{traj2}
+</traj2>
+
+---
+<traj3>
+{traj3}
+</traj3>
+
+**Now provide your diagnosis in the JSON format without any code fences such as ```json or ```:**
+\end{lstlisting}
+\end{UserPromptBox}
+
+
+
+
+\subsection{Prompt For Error Aggregation}
+
+\begin{SysPromptBox}{System Prompt: Aggregation}
+\begin{lstlisting}
+You are a helpful AI assistant to maintain an error taxonomy. You will get a diagnosis based on comparing three trajectories - some correct and some incorrect - generated by an AI agent for the same task. Your goal is to analyze the diagnosis and decide how to integrate it into the existing error taxonomy.
+    
+## Purpose of the Error Taxonomy
+For future tasks, the agent will self-check its plans and action steps so far, use this error taxonomy to identify critical errors in the plan, and revise the plan to guide the agent to the optimal path given task and environment constraints. Thus you should do everything to serve this purpose.
+
+## Get To Know the Agent
+### Available Tools
+- web_search: This tool is powered by `ddgs`. It uses `DDGS().text` method to search the web.
+- visit_webpage: This tool is powered by `markdownify` and `requests`, which means it can only handle text-based webpages. For json-heavy webpages, it always returns an error. For example, it returns 403 Forbidden Error for all wikipedia pages.
+- inspect_file_as_text: This tool is powered by a strong multi-modal LLM (such as gpt-4o) to read a file as markdown text and ask questions about it. This tool handles the following file extensions: ['.html', '.htm', '.xlsx', '.pptx', '.wav', '.mp3', '.m4a', '.flac', '.pdf', '.docx'], and all other types of text files.
+- inspect_file_as_image: This tool is powered by a strong multi-modal LLM (such as gpt-4o) to process image files and answer related questions. This tool supports the following image formats: ['.jpg', '.jpeg', '.png', '.gif', '.bmp'].
+- inspect_file_as_audio: This tool uses OpenAI whisper-1 to get audio transcriptions and uses a strong multi-modal LLM (such as gpt-4o) to answer related questions. This tool supports the following audio formats: ['.mp3', '.m4a', '.wav'].
+
+**CRITICAL NOTE ABOUT INSPECTOR TOOLS**: The current environment does NOT support downloading files. All inspector tools (inspect_file_as_text, inspect_file_as_image, inspect_file_as_audio) MUST be called with internet-accessible URLs or existing local file paths. If the task requires accessing local file paths, you must make sure the files are indeed stored locally. Otherwise, provide URLs that are publicly accessible on the web (e.g., 'https://example.com/file.pdf'). Note that all the file paths provided by the task are locally available! Implementation details: (1) inspect_file_as_image downloads from the URL using requests.get(), saves to a temporary local file, then encodes it as base64 for GPT-4o vision API; (2) inspect_file_as_audio and inspect_file_as_text use MarkdownConverter/OpenAI APIs which expect to open files with open(), so they require the URL to be downloadable; (3) If a file is not publicly accessible via URL, these tools cannot be used.
+
+## Instructions for Error Taxonomy Maintenance
+For each error in the diagnosis, you should:
+1. **Understand the error:**
+   - Whether it is truly a critical error in the planning phase instead of other phases such as execution or observation.
+   - Whether and how it can be identified and fixed right after the flawed plan is generated
+   - Whether and how it can be generalized to other tasks.
+
+2. **Determine if it fits an existing error type:**
+   - Review each existing error type carefully
+   - Check if the error's core planning problem matches an existing type
+   - Consider whether the error pattern and the root cause align with an existing type
+
+3. **Make a decision:**
+   - **SKIP:** If the error is not critical, not general enough, not fixable by the available tools, not related to the planning phase, or not identifiable by just looking back on the past action steps as well as the current plan, you should skip it.
+   - **MERGE:** If the error generally fits an existing type, output that error type with enrichments:
+     * **Examples**: ALWAYS add the specific case(s) from this diagnosis as concrete example(s). 
+       - If the diagnosis contains COMPARISONS between successful and failed trajectories (e.g., "In TRAJ 1... succeeded" vs "In TRAJ 2... failed"), extract BOTH parts:
+         • Add the successful trajectory description to success_examples
+         • Add the failed trajectory description to failure_examples
+       - If the diagnosis describes only a failure (no comparison), add it to failure_examples
+       - If the diagnosis describes only a success (no comparison), add it to success_examples
+     * Optionally refine the description to be more comprehensive
+   - **NEW:** If the error represents a truly distinct planning problem not covered by any existing type, create a new error type with a **short, high-level, and generalizable** error name.
+
+4. **Guidelines:**
+   - **Error type names and descriptions** should be **GENERALIZABLE** across different tasks
+   - **Examples** should be specific and concrete, better mention the tool calls or other details:
+     * When the diagnosis contains comparisons (e.g., "TRAJ 1 succeeded... In contrast, TRAJ 2 failed..."), split into two examples: one for success_examples describing the successful approach, and one for failure_examples describing the failed approach
+     * When the diagnosis describes only failures or only successes, add to the appropriate list
+     * ALWAYS add examples since each diagnosis is from a different task
+     * Treat each trajectory as an individual example, briefly describe the task and how they succeed or fail
+   - **Prefer skipping** if the error is not related to the planning phase or not easy to fix by revising the plan.
+   - **Prefer merging** over creating new types when the core issue is similar
+   - **Only create new types** when the planning failure mode is fundamentally different
+
+## OUTPUT FORMAT
+Return a valid JSON object with this structure:
+{
+    "updates": [
+        {
+            "action": "merge" or "new" or "skip,
+            "error_type": "error_type_name",
+            "description": "Generalizable description",
+            "success_examples": [
+                "Specific success example from this diagnosis (if applicable)"
+            ],
+            "failure_examples": [
+                "Specific failure example from this diagnosis (if applicable)"
+            ]
+        }
+    ]
+}
+\end{lstlisting}
+\end{SysPromptBox}
+
+\begin{UserPromptBox}{User Prompt: Aggregation}
+\begin{lstlisting}
+## Current Error Taxonomy
+
+{taxonomy_str}
+
+## Single Diagnosis
+
+{diagnosis_str}
+
+---
+**IMPORTANT:**
+- Always prioritize **quality over quantity**. Prioritize merging existing error types over creating new ones.
+- Return ONLY the JSON object, no other text.
+- Each item in "updates" has its own "action" field.
+- If **action is "skip"**, the error_type name MUST be empty.
+- If **action is "merge"**, the error_type name MUST match an existing type exactly.
+- If **action is "new"**, the error_type name MUST be different from all existing types.
+- **Examples**: ALWAYS include example(s) from this diagnosis.
+- If the diagnosis has "no_critical_error" or adds nothing new, return: {"updates": []}
+
+Generate the update now:
+
+
+
+
+\end{lstlisting}
+\end{UserPromptBox}

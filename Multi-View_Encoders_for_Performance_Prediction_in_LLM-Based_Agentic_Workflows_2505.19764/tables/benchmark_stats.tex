@@ -1,0 +1,41 @@
+% version 1: FLORA-Bench AF Only
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage{graphicx}
+\begin{wraptable}{r}{0.55\textwidth}
+\vspace*{-0.8cm}
+\caption{Summary of benchmark statistics.} \label{table:benchmarks}
+\resizebox{0.55\textwidth}{!}{%
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Domains} & \textbf{\begin{tabular}[c]{@{}c@{}}Code Generation\\ (GD/AF)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Math\\ (GD/AF)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Reasoning\\ (GD/AF)\end{tabular}} \\ \midrule \midrule
+\# workflows & 739 / 38 & 300 / 42 & 189 / 30 \\
+Avg. \# nodes & 5.96 / 6.11 & 6.06 / 5.49 & 5.97 / 6.58 \\
+\# tasks & 233 / 233 & 782 / 782 & 2,400 / 2,400 \\
+\# samples & 30,683 / 7,362 & 12,561 / 4,059 & 453,600 / 72,000 \\ 
+\bottomrule
+\end{tabular}%
+}
+\vspace*{-0.25cm}
+\end{wraptable}
+
+
+% version 2: FLORA-Bench AF + WorfBench
+% \begin{table}[t]
+% \centering
+% \caption{Summary of benchmark statistics.} \label{table:benchmarks}
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{c|ccc|cccc}
+% \toprule
+% \textbf{Benchmarks} & \multicolumn{3}{c|}{\textbf{FLORA-Bench}\citep{FLORA_Bench_25}} & \multicolumn{4}{c}{\textbf{WorfBench}\,\citep{WorFBench_ICLR_25}} \\
+% \textbf{Domains} & \textbf{Coding} & \textbf{Math} & \textbf{Reasoning} & \textbf{Function Call} & \textbf{Problem-Solving} & \textbf{Embodied} & \textbf{Open-Grounded} \\ \midrule
+% \# workflows & 38 & 42 & 30 & 4287 & 5489 & 5064 & 5262 \\
+% Avg. \# nodes & 6.11 & 5.49 & 6.58 & \multicolumn{4}{c}{4.17} \\
+% \# tasks & 233 & 782 & 2400 & \multicolumn{4}{c}{N/A} \\
+% \# samples & 7362 & 4059 & 72000 & 4287 & 5489 & 5064 & 5262 \\ \bottomrule
+% \end{tabular}%
+% }
+% \end{table}
+
+% version 3: Complete FLORA-Bench AF + GD (not open yet)

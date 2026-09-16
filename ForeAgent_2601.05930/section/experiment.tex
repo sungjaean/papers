@@ -1,0 +1,29 @@
+\section{Main Experiments}
+\label{sec:experiments}
+
+\input{tables/experiment_main}
+
+\subsection{Experimental Setup}
+\label{sec:setup}
+
+\paragraph{Models and Inference Configuration.}
+We evaluate two state-of-the-art models: \textbf{DeepSeek-V3.2-Thinking}~\cite{deepseekai2025deepseekv3technicalreport} and \textbf{GPT-5.1} (gpt-5.1-2025-11-13)~\cite{openai2025gpt5card} with reasoning instructions~\cite{wei2023chainofthoughtpromptingelicitsreasoning, kojima2023largelanguagemodelszeroshot}, adhering to the task in Section~\ref{sec:task_definition}.
+Following provider guidelines~\cite{deepseek2024apidocs}, we set the temperature $\tau = 1.0$ for both models as the recommended default for data analysis.
+
+\paragraph{Metrics and Baselines.}
+The primary metric is \textbf{Micro-Averaged Accuracy} across 18,438 pairwise comparisons.
+We benchmark against two baselines:
+(1) \textbf{Random Guess (50.0\%)};
+(2) \textbf{Complexity Heuristic (50.8\%)}: A rule-based baseline that assumes ``complex is better''.
+To operationalize this, we employed an LLM to score each solution (1-10) across three dimensions: \textit{Code Engineering}, \textit{Model Architecture}, and \textit{Data Pipeline} (see Appendix Figure~\ref{fig:appendix_complexity_prompt}).
+This baseline predicts the winner based on the aggregate complexity score.
+
+
+\subsection{Main Results: Feasibility of Run-Free Preference}
+\label{sec:main_results}
+
+The stratified pairwise accuracy results in Table~\ref{tab:final_compact_matrix_clean} validate the feasibility of our approach.
+
+\textbf{LLMs Exhibit Significant Predictive Capabilities.}
+Both models significantly outperform the random baseline and the complexity heuristic with statistical significance, with \textit{DeepSeek-V3.2-Thinking} achieving \textbf{61.5\%} and \textit{GPT-5.1} achieving \textbf{58.8\%}.
+This performance gap ($>10\%$) proves LLMs derive valid signals from static inputs through genuine reasoning rather than heuristics, despite the task remaining a challenging frontier.

@@ -1,0 +1,188 @@
+% \begin{table*}[t!]
+%     \centering
+%     \footnotesize
+    
+%     \begin{tabular}{
+%         >{\raggedright\arraybackslash\bfseries}p{0.23\linewidth} 
+%         >{\raggedright\arraybackslash}p{0.72\linewidth}
+%     }
+%     \toprule
+%     Task Name & Algorithm Composition (Count) \\
+%     \midrule
+
+%     % ================= Computer Vision =================
+%     \multicolumn{2}{l}{\cellcolor{gray!15}\textbf{\textit{Computer Vision Domain}}} \\
+%     \midrule
+%     APTOS 2019 Blindness & EfficientNet (10), ResNet (10), Swin Transformer (9), ConvNeXt (9), Vision Transformer (8), DeiT (3), CNN-LSTM (1) \\ \addlinespace
+    
+%     Dog Breed ID & ConvNeXt-Large (2), ResNet18 (1) \\ \addlinespace
+    
+%     Leaf Classification & LightGBM (13), Feedforward NN (2), HybridLeafClassifier (1), XGBoost (1) \\ \addlinespace
+    
+%     MLSP 2013 Birds & Ensemble (12), Dual-Stream Arch (5), Feedforward NN (5), Multi-Modal NN (5), Transformer Enc (5), CNN (5), Random Forest (4), XGBoost (4), Logistic Reg (4), LightGBM (1) \\ \addlinespace
+    
+%     Plant Pathology & EfficientNet (2), Swin Transformer (2), ResNet (1), Vision Transformer (1) \\ \addlinespace
+    
+%     Statoil Iceberg & Inverted Bottleneck (5), Vision Trans. (5), ResNet (5), Feedforward NN (5), XGBoost (5), CNN (5), Hybrid CNN-ViT (4), Swin Trans. (4), ConvNeXt (4), Random Forest (3), LightGBM (3), EfficientNet (1), SVM (1) \\ \addlinespace
+    
+%     ICML Whale Challenge & Wav2Vec2 Feature Extractor (10), CNN (6), XGBoost (4), Gradient Boosting (2), LightGBM (1), Mel Spectrogram (1) \\ \addlinespace
+    
+%     TGS Salt ID & Ensemble Segmentation (12), EfficientNet (10), U-Net (10), DeepLabV3Plus (4), Vision Transformer (4), Single Seg. Model (2), Swin Trans. (1), ConvNeXt (1) \\ \addlinespace
+    
+%     Denoising Dirty Docs & Residual Dense Network (10), U-Net (10), Conv Autoencoder (10), Restormer (8), Hybrid CNN-Transformer (6), Simple CNN (1) \\ \addlinespace
+    
+%     % ================= NLP =================
+%     \multicolumn{2}{l}{\cellcolor{gray!15}\textbf{\textit{Natural Language Processing Domain}}} \\
+%     \midrule
+%     Detecting Insults & DeBERTa (9), Multi-Task DeBERTa-V3 (6), RoBERTa (4), DistilBERT (3), BERT (3), Logistic Regression (2) \\ \addlinespace
+    
+%     Jigsaw Toxic Comment & RoBERTa (3), DistilBERT (1), DeBERTa (1) \\ \addlinespace
+    
+%     Spooky Author ID & Knowledge Distillation (4), DeBERTa (4), ELECTRA (4), BERT (4), LSTM (4), XGBoost (4), Ensemble (4), SVM (4), Logistic Reg (4), Random Forest (3), LightGBM (3), Naive Bayes (3), MLP (2), Transformer (2), Hierarchical Trans. (1) \\ \addlinespace
+    
+%     Random Acts of Pizza & Neural Network (6), SentenceTransformer (4), RoBERTa (4), Knowledge Distillation (4), Multimodal NN (4), BERT (4), DistilBERT (4), Random Forest (4), XGBoost (4), Logistic Reg (4), LightGBM (4), LMs Text Embeddings (4) \\ \addlinespace
+    
+%     US Patent Matching & Custom NN (5), RoBERTa (5), DeBERTa (5), XGBoost (5), BERT (5), Sentence Trans. (5), Similarity Model (5), Linear Reg (5), LightGBM (5), Stacking Ensemble (2), RandomForest (2), Cross-Attn Hybrid (1) \\ \addlinespace
+    
+%     Google QUEST & BERT (5), Multi-Task NN (5), MultiModal Trans. (5), Graph Attention (3), Hierarchical Attn (3), MLP (3), Cross-Attn (3), Sentence Trans. (3), DeBERTa (3), RoBERTa (3), XGBoost (3), LightGBM (3), Ridge Reg. (3), ELECTRA (2), Random Forest (2), LSTM (1) \\ \addlinespace
+    
+%     Tweet Sentiment & RoBERTa-BiLSTM (10), RoBERTa (10), Model Ensemble (1) \\ \addlinespace
+    
+%     LMSYS Chatbot Arena & RoBERTa (11), XGBoost (8), Logistic Reg. (8), LightGBM (8), MLP Classifier (7), DeBERTa (4), Dual Encoder NN (4) \\ \addlinespace
+    
+%     Automated Essay Score & Hybrid NN (9), MetaModel NN (5), Stacking Ensemble (3), LightGBM (3) \\ \addlinespace
+    
+%     % ================= Data Science =================
+%     \multicolumn{2}{l}{\cellcolor{gray!15}\textbf{\textit{Data Science Domain}}} \\
+%     \midrule
+%     NYC Taxi Fare & LightGBM (10), XGBoost (10), Feedforward NN (7), CatBoost (1), Dual-Branch NN (1), Residual NN (1) \\ \addlinespace
+    
+%     PetFinder Pawpularity & LightGBM (27), Vision Transformer (2), XGBoost (1) \\ \addlinespace
+    
+%     NOMAD Conductors & XGBoost (2), Random Forest (1) \\ \addlinespace
+    
+%     Stanford COVID Vac. & Hybrid Architectures (14), Model Ensemble (9), Transformer/GNN (6), Specialized RNA Models (6), Tree Boosters (6), General Baselines (7), LSTM (2) \\ \addlinespace
+    
+%     Tabular Playground & Multi-Branch NN (11), LightGBM (7), Custom NN (3), TabTransformer (2), Feedforward NN (1) \\ \addlinespace
+    
+%     Volcanic Eruptions & Tree Boosters (19), MLP/Dense Networks (16), Transformer Variants (6), CNN/Hybrid Architectures (6), Model Ensemble (2), TCN (1) \\ \addlinespace
+
+%     Ventilator Pressure & RNNs (LSTM/GRU) (17), Hybrid Deep Learning (CNN/TCN/Attn) (13), Tree Boosters (10), Transformers (9), Statistical Baseline (1) \\ \addlinespace
+
+%     TF Speech Recognition & Statistical ML (RF/SVM/LR) (21), CNN Architectures (13), Pre-trained Audio Models (Wav2Vec2/WavLM) (8), Transformer (2), MLP (1), Knowledge Distillation (1) \\
+    
+%     \bottomrule
+%     \end{tabular}
+
+%     \caption{Distribution of algorithms and architectures across the corpus. The parenthesized number denotes the count of unique solutions employing that specific method.} 
+%     \label{tab:appendix_algo_dist}
+    
+% \end{table*}
+
+
+\begin{table*}[t!]
+    \centering
+    \footnotesize
+    
+    \begin{tabular}{
+        >{\raggedright\arraybackslash\bfseries}p{0.23\linewidth} 
+        >{\raggedright\arraybackslash}p{0.72\linewidth}
+    }
+    \toprule
+    Task Name & Algorithm Composition (Count) \\
+    \midrule
+
+    % ================= Computer Vision =================
+    \multicolumn{2}{l}{\cellcolor{gray!15}\textbf{\textit{Computer Vision Domain}}} \\
+    \midrule
+    APTOS 2019 Blindness & EfficientNet (10), ResNet (10), Swin Transformer (9), ConvNeXt (9), Vision Transformer (8), DeiT (3), CNN-LSTM (1) \\ \addlinespace
+    
+    Dog Breed ID & ConvNeXt-Large (2), ResNet18 (1) \\ \addlinespace
+    
+    Leaf Classification & LightGBM (13), Feedforward NN (2), HybridLeafClassifier (1), XGBoost (1) \\ \addlinespace
+    
+    MLSP 2013 Birds & Ensemble (12), Dual-Stream Arch (5), Feedforward NN (5), Multi-Modal NN (5), Transformer Enc (5), CNN (5), Random Forest (4), XGBoost (4), Logistic Reg (4), LightGBM (1) \\ \addlinespace
+    
+    Plant Pathology & EfficientNet (2), Swin Transformer (2), ResNet (1), Vision Transformer (1) \\ \addlinespace
+    
+    Statoil Iceberg & Inverted Bottleneck (5), Vision Trans. (5), ResNet (5), Feedforward NN (5), XGBoost (5), CNN (5), Hybrid CNN-ViT (4), Swin Trans. (4), ConvNeXt (4), Random Forest (3), LightGBM (3), EfficientNet (1), SVM (1) \\ \addlinespace
+    
+    ICML Whale Challenge & Wav2Vec2 Feature Extractor (10), CNN (6), XGBoost (4), Gradient Boosting (2), LightGBM (1), Mel Spectrogram (1) \\ \addlinespace
+    
+    TGS Salt ID & Ensemble Segmentation (12), EfficientNet (10), U-Net (10), DeepLabV3Plus (4), Vision Transformer (4), Single Seg. Model (2), Swin Trans. (1), ConvNeXt (1) \\ \addlinespace
+    
+    Denoising Dirty Docs & Residual Dense Network (10), U-Net (10), Conv Autoencoder (10), Restormer (8), Hybrid CNN-Transformer (6), Simple CNN (1) \\ 
+    
+    \bottomrule
+    \multicolumn{2}{r}{\textit{Continued on next page}} \\
+    \end{tabular}
+
+    \caption{Distribution of algorithms and architectures across the corpus (Part 1 of 2). The table details the algorithm composition for Computer Vision tasks.} 
+    \label{tab:appendix_algo_dist_part1}
+    
+\end{table*}
+
+
+\begin{table*}[t!]
+    \centering
+    \footnotesize
+    
+    \begin{tabular}{
+        >{\raggedright\arraybackslash\bfseries}p{0.23\linewidth} 
+        >{\raggedright\arraybackslash}p{0.72\linewidth}
+    }
+    % --- 续页表头 ---
+    \multicolumn{2}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+    \toprule
+    Task Name & Algorithm Composition (Count) \\
+    \midrule
+
+    % ================= NLP =================
+    \multicolumn{2}{l}{\cellcolor{gray!15}\textbf{\textit{Natural Language Processing Domain}}} \\
+    \midrule
+    Detecting Insults & DeBERTa (9), Multi-Task DeBERTa-V3 (6), RoBERTa (4), DistilBERT (3), BERT (3), Logistic Regression (2) \\ \addlinespace
+    
+    Jigsaw Toxic Comment & RoBERTa (3), DistilBERT (1), DeBERTa (1) \\ \addlinespace
+    
+    Spooky Author ID & Knowledge Distillation (4), DeBERTa (4), ELECTRA (4), BERT (4), LSTM (4), XGBoost (4), Ensemble (4), SVM (4), Logistic Reg (4), Random Forest (3), LightGBM (3), Naive Bayes (3), MLP (2), Transformer (2), Hierarchical Trans. (1) \\ \addlinespace
+    
+    Random Acts of Pizza & Neural Network (6), SentenceTransformer (4), RoBERTa (4), Knowledge Distillation (4), Multimodal NN (4), BERT (4), DistilBERT (4), Random Forest (4), XGBoost (4), Logistic Reg (4), LightGBM (4), LMs Text Embeddings (4) \\ \addlinespace
+    
+    US Patent Matching & Custom NN (5), RoBERTa (5), DeBERTa (5), XGBoost (5), BERT (5), Sentence Trans. (5), Similarity Model (5), Linear Reg (5), LightGBM (5), Stacking Ensemble (2), RandomForest (2), Cross-Attn Hybrid (1) \\ \addlinespace
+    
+    Google QUEST & BERT (5), Multi-Task NN (5), MultiModal Trans. (5), Graph Attention (3), Hierarchical Attn (3), MLP (3), Cross-Attn (3), Sentence Trans. (3), DeBERTa (3), RoBERTa (3), XGBoost (3), LightGBM (3), Ridge Reg. (3), ELECTRA (2), Random Forest (2), LSTM (1) \\ \addlinespace
+    
+    Tweet Sentiment & RoBERTa-BiLSTM (10), RoBERTa (10), Model Ensemble (1) \\ \addlinespace
+    
+    LMSYS Chatbot Arena & RoBERTa (11), XGBoost (8), Logistic Reg. (8), LightGBM (8), MLP Classifier (7), DeBERTa (4), Dual Encoder NN (4) \\ \addlinespace
+    
+    Automated Essay Score & Hybrid NN (9), MetaModel NN (5), Stacking Ensemble (3), LightGBM (3) \\ \addlinespace
+    
+    % ================= Data Science =================
+    \multicolumn{2}{l}{\cellcolor{gray!15}\textbf{\textit{Data Science Domain}}} \\
+    \midrule
+    NYC Taxi Fare & LightGBM (10), XGBoost (10), Feedforward NN (7), CatBoost (1), Dual-Branch NN (1), Residual NN (1) \\ \addlinespace
+    
+    PetFinder Pawpularity & LightGBM (27), Vision Transformer (2), XGBoost (1) \\ \addlinespace
+    
+    NOMAD Conductors & XGBoost (2), Random Forest (1) \\ \addlinespace
+    
+    Stanford COVID Vac. & Hybrid Architectures (14), Model Ensemble (9), Transformer/GNN (6), Specialized RNA Models (6), Tree Boosters (6), General Baselines (7), LSTM (2) \\ \addlinespace
+    
+    Tabular Playground & Multi-Branch NN (11), LightGBM (7), Custom NN (3), TabTransformer (2), Feedforward NN (1) \\ \addlinespace
+    
+    Volcanic Eruptions & Tree Boosters (19), MLP/Dense Networks (16), Transformer Variants (6), CNN/Hybrid Architectures (6), Model Ensemble (2), TCN (1) \\ \addlinespace
+
+    Ventilator Pressure & RNNs (LSTM/GRU) (17), Hybrid Deep Learning (CNN/TCN/Attn) (13), Tree Boosters (10), Transformers (9), Statistical Baseline (1) \\ \addlinespace
+
+    TF Speech Recognition & Statistical ML (RF/SVM/LR) (21), CNN Architectures (13), Pre-trained Audio Models (Wav2Vec2/WavLM) (8), Transformer (2), MLP (1), Knowledge Distillation (1) \\
+    
+    \bottomrule
+    \end{tabular}
+
+    % 编号回退，保持与 Part 1 相同的 Table 编号
+    \addtocounter{table}{-1}
+    \caption{Distribution of algorithms and architectures across the corpus (Part 2 of 2). Continued from previous page (NLP and Data Science domains).} 
+    \label{tab:appendix_algo_dist_part2}
+    
+\end{table*}

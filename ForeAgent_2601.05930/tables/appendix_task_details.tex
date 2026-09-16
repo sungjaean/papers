@@ -1,0 +1,219 @@
+% \begin{longtable}{
+%     >{\raggedright\arraybackslash}p{0.18\linewidth} 
+%     >{\raggedright\arraybackslash}p{0.36\linewidth} 
+%     >{\raggedright\arraybackslash}p{0.15\linewidth} 
+%     r r r
+% }
+% % --- 第一页表头 ---
+%     \toprule
+%     \textbf{Task Name} & \textbf{Task Description} & \textbf{ML Paradigm} & \textbf{Size} & \textbf{Sol} & \textbf{Pair} \\
+%     \midrule
+%     \endfirsthead
+    
+%     % --- 续页表头 ---
+%     \multicolumn{6}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+%     \toprule
+%     \textbf{Task Name} & \textbf{Task Description} & \textbf{ML Paradigm} & \textbf{Size} & \textbf{Sol} & \textbf{Pair} \\
+%     \midrule
+%     \endhead
+    
+%     % --- 页脚 (非最后一页) ---
+%     \bottomrule
+%     \multicolumn{6}{r}{{Continued on next page}} \\
+%     \endfoot
+    
+%     % --- 最后一页页脚 (包含 Caption 和间距) ---
+%     \bottomrule
+%     \addlinespace[1em] % 增加垂直间距
+%     \caption{Detailed metadata for all 26 tasks in the Prediction Corpus. The table details the problem definition, ML paradigm, data size, and evaluation scale.} 
+%     \label{tab:appendix_task_details} \\
+%     \endlastfoot
+
+%     % ================= Computer Vision =================
+%     \multicolumn{6}{l}{\cellcolor{gray!15}\textbf{\textit{Computer Vision Domain}}} \\
+%     \midrule
+%     APTOS 2019 Blindness & Detect diabetic retinopathy severity from retinal fundus images. & Img Class. (Multi-class) & 8.1G & 50 & 1,225 \\ \addlinespace
+    
+%     Dog Breed Identification & Identify dog breed from photos (120 categories). & Img Class. (Multi-class) & 369M & 3 & 3 \\ \addlinespace
+    
+%     Leaf Classification & Classify 99 plant species based on leaf shape features. & Img Class. (Multi-class) & 30M & 17 & 136 \\ \addlinespace
+    
+%     MLSP 2013 Birds & Identify bird species from audio spectrograms. & Img Class. (Multi-label) & 634M & 50 & 1,221 \\ \addlinespace
+    
+%     Plant Pathology 2020 & Distinguish healthy vs. diseased apple leaves. & Img Class. (Multi-class) & 387M & 6 & 15 \\ \addlinespace
+    
+%     Statoil Iceberg Classifier & Distinguish icebergs from ships in radar imagery. & Img Class. (Binary) & 205M & 50 & 1,223 \\ \addlinespace
+    
+%     ICML 2013 Whale & Identify individual Right Whales by callosity patterns. & Img Class. (Multi-class) & 377M & 24 & 275 \\ \addlinespace
+    
+%     TGS Salt Identification & Segment salt deposits from seismic images. & Segmentation (Pixel-level) & 59M & 44 & 880 \\ \addlinespace
+    
+%     Denoising Dirty Docs & Restore clean text from noisy scanned documents. & Img Restoration (Reg.) & 97M & 45 & 974 \\ \addlinespace
+    
+%     % ================= NLP =================
+%     \multicolumn{6}{l}{\cellcolor{gray!15}\textbf{\textit{Natural Language Processing Domain}}} \\
+%     \midrule
+%     Detecting Insults & Detect insulting language in social commentary. & Text Class. (Binary) & 2M & 27 & 350 \\ \addlinespace
+    
+%     Jigsaw Toxic Comment & Classify comments into 6 toxicity types (toxic, severe, etc.). & Text Class. (Multi-label) & 129M & 5 & 10 \\ \addlinespace
+    
+%     Spooky Author ID & Identify author (Poe, Shelley, Lovecraft) of excerpts. & Text Class. (Multi-class) & 3.2M & 50 & 1,220 \\ \addlinespace
+    
+%     Random Acts of Pizza & Predict success of free pizza requests on Reddit. & Text Class. (Binary) & 21M & 50 & 1,225 \\ \addlinespace
+    
+%     US Patent Matching & Determine semantic similarity between patent phrases. & Matching (Class.) & 316M & 50 & 1,223 \\ \addlinespace
+    
+%     Google QUEST & Predict 30 subjective attributes (e.g., helpfulness) for Q\&A. & Multi-output (Reg.) & 14M & 50 & 1,224 \\ \addlinespace
+    
+%     Tweet Sentiment Extract & Extract substring supporting the sentiment label. & Seq. Labeling (Extract) & 3.3M & 21 & 210 \\ \addlinespace
+    
+%     LMSYS Chatbot Arena & Predict human preference between two LLM responses. & Ranking (Preference) & 176M & 50 & 1,220 \\ \addlinespace
+    
+%     Automated Essay Scoring & Automatically grade student essays on a numeric scale. & Regression (Ordinal) & 35M & 20 & 190 \\ \addlinespace
+    
+%     % ================= Data Science Domain =================
+%     \multicolumn{6}{l}{\cellcolor{gray!15}\textbf{\textit{Data Science Domain}}} \\
+%     \midrule
+%     NYC Taxi Fare & Predict taxi fare from coordinates and time. & Tabular (Regression) & 5.3G & 30 & 429 \\ \addlinespace
+    
+%     PetFinder Pawpularity & Predict popularity score of pet profile photos. & Regression (Hybrid) & 1.0G & 30 & 239 \\ \addlinespace
+    
+%     NOMAD Conductors & Predict formation energy of aluminum-gallium oxides. & Regression (Scientific) & 25M & 3 & 3 \\ \addlinespace
+    
+%     Stanford COVID Vaccine & Predict degradation rates of mRNA vaccine sequences. & Regression (Bio) & 14M & 50 & 1,222 \\ \addlinespace
+    
+%     Tabular Playground & Predict forest cover type from cartographic variables. & Tabular (Multi-class) & 526M & 24 & 275 \\ \addlinespace
+    
+%     Volcanic Eruptions & Predict time to next eruption from seismic sensors. & Time-Series (Reg.) & 15G & 50 & 1,213 \\ \addlinespace
+    
+%     Ventilator Pressure & Predict airway pressure from control inputs. & Time-Series (Reg.) & 291M & 50 & 1,222 \\ \addlinespace
+    
+%     TF Speech Recognition & Identify spoken commands from audio clips. & Audio (Multi-class) & 2G & 46 & 1,011 \\ 
+    
+% \end{longtable}
+
+
+\begin{table*}
+    \centering
+    \footnotesize
+    
+    \begin{tabular}{
+        >{\raggedright\arraybackslash}p{0.18\linewidth} 
+        >{\raggedright\arraybackslash}p{0.36\linewidth} 
+        >{\raggedright\arraybackslash}p{0.15\linewidth} 
+        r r r
+    }
+    \toprule
+    \textbf{Task Name} & \textbf{Task Description} & \textbf{ML Paradigm} & \textbf{Size} & \textbf{Sol} & \textbf{Pair} \\
+    \midrule
+
+    % ================= Computer Vision =================
+    \multicolumn{6}{l}{\cellcolor{gray!15}\textbf{\textit{Computer Vision Domain}}} \\
+    \midrule
+    APTOS 2019 Blindness & Detect diabetic retinopathy severity from retinal fundus images. & Img Class. (Multi-class) & 8.1G & 50 & 1,225 \\ \addlinespace
+    
+    Dog Breed Identification & Identify dog breed from photos (120 categories). & Img Class. (Multi-class) & 369M & 3 & 3 \\ \addlinespace
+    
+    Leaf Classification & Classify 99 plant species based on leaf shape features. & Img Class. (Multi-class) & 30M & 17 & 136 \\ \addlinespace
+    
+    MLSP 2013 Birds & Identify bird species from audio spectrograms. & Img Class. (Multi-label) & 634M & 50 & 1,221 \\ \addlinespace
+    
+    Plant Pathology 2020 & Distinguish healthy vs. diseased apple leaves. & Img Class. (Multi-class) & 387M & 6 & 15 \\ \addlinespace
+    
+    Statoil Iceberg Classifier & Distinguish icebergs from ships in radar imagery. & Img Class. (Binary) & 205M & 50 & 1,223 \\ \addlinespace
+    
+    ICML 2013 Whale & Identify individual Right Whales by callosity patterns. & Img Class. (Multi-class) & 377M & 24 & 275 \\ \addlinespace
+    
+    TGS Salt Identification & Segment salt deposits from seismic images. & Segmentation (Pixel-level) & 59M & 44 & 880 \\ \addlinespace
+    
+    % ================= NLP =================
+    \multicolumn{6}{l}{\cellcolor{gray!15}\textbf{\textit{Natural Language Processing Domain}}} \\
+    \midrule
+    Detecting Insults & Detect insulting language in social commentary. & Text Class. (Binary) & 2M & 27 & 350 \\ \addlinespace
+
+    Jigsaw Toxic Comment & Classify comments into 6 toxicity types (toxic, severe, etc.). & Text Class. (Multi-label) & 129M & 5 & 10 \\ \addlinespace
+
+    Spooky Author ID & Identify author (Poe, Shelley, Lovecraft) of excerpts. & Text Class. (Multi-class) & 3.2M & 50 & 1,220 \\ \addlinespace
+    
+    Random Acts of Pizza & Predict success of free pizza requests on Reddit. & Text Class. (Binary) & 21M & 50 & 1,225 \\ \addlinespace
+
+    US Patent Matching & Determine semantic similarity between patent phrases. & Matching (Class.) & 316M & 50 & 1,223 \\ \addlinespace
+
+    Denoising Dirty Docs & Restore clean text from noisy scanned documents. & Img Restoration (Reg.) & 97M & 45 & 974 \\ \addlinespace
+    
+    Google QUEST & Predict 30 subjective attributes (e.g., helpfulness) for Q\&A. & Multi-output (Reg.) & 14M & 50 & 1,224 \\ \addlinespace
+    
+    Tweet Sentiment Extract & Extract substring supporting the sentiment label. & Seq. Labeling (Extract) & 3.3M & 21 & 210 \\ \addlinespace
+    
+    LMSYS Chatbot Arena & Predict human preference between two LLM responses. & Ranking (Preference) & 176M & 50 & 1,220 \\ \addlinespace
+    
+    Automated Essay Scoring & Automatically grade student essays on a numeric scale. & Regression (Ordinal) & 35M & 20 & 190 \\ \addlinespace
+    
+    % --- 模仿 longtable 的页脚 ---
+    \bottomrule
+    \multicolumn{6}{r}{\textit{Continued on next page}} \\ % 手动添加这一行
+    \end{tabular}
+
+    \caption{Detailed metadata for all 26 tasks in the Prediction Corpus (Part 1 of 2). The table details the problem definition, ML paradigm, data size, and evaluation scale.}
+    \label{tab:appendix_task_details_part1}
+    
+\end{table*}
+
+
+\begin{table*}[t!]
+    \centering
+    \footnotesize
+    
+    \begin{tabular}{
+        >{\raggedright\arraybackslash}p{0.18\linewidth} 
+        >{\raggedright\arraybackslash}p{0.36\linewidth} 
+        >{\raggedright\arraybackslash}p{0.15\linewidth} 
+        r r r
+    }
+    % --- 模仿 longtable 的续页表头 ---
+    \multicolumn{6}{c}{{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
+    \toprule
+    \textbf{Task Name} & \textbf{Task Description} & \textbf{ML Paradigm} & \textbf{Size} & \textbf{Sol} & \textbf{Pair} \\
+    \midrule
+
+    % ================= NLP (Continued) =================
+    % 这里是从 Part 1 移过来的 NLP 任务
+
+    % Denoising Dirty Docs & Restore clean text from noisy scanned documents. & Img Restoration (Reg.) & 97M & 45 & 974 \\ \addlinespace
+    
+    % Google QUEST & Predict 30 subjective attributes (e.g., helpfulness) for Q\&A. & Multi-output (Reg.) & 14M & 50 & 1,224 \\ \addlinespace
+    
+    % Tweet Sentiment Extract & Extract substring supporting the sentiment label. & Seq. Labeling (Extract) & 3.3M & 21 & 210 \\ \addlinespace
+    
+    % LMSYS Chatbot Arena & Predict human preference between two LLM responses. & Ranking (Preference) & 176M & 50 & 1,220 \\ \addlinespace
+    
+    % Automated Essay Scoring & Automatically grade student essays on a numeric scale. & Regression (Ordinal) & 35M & 20 & 190 \\ \addlinespace
+
+    % ================= Data Science Domain =================
+    \multicolumn{6}{l}{\cellcolor{gray!15}\textbf{\textit{Data Science Domain}}} \\
+    \midrule
+    NYC Taxi Fare & Predict taxi fare from coordinates and time. & Tabular (Regression) & 5.3G & 30 & 429 \\ \addlinespace
+    
+    PetFinder Pawpularity & Predict popularity score of pet profile photos. & Regression (Hybrid) & 1.0G & 30 & 239 \\ \addlinespace
+    
+    NOMAD Conductors & Predict formation energy of aluminum-gallium oxides. & Regression (Scientific) & 25M & 3 & 3 \\ \addlinespace
+    
+    Stanford COVID Vaccine & Predict degradation rates of mRNA vaccine sequences. & Regression (Bio) & 14M & 50 & 1,222 \\ \addlinespace
+    
+    Tabular Playground & Predict forest cover type from cartographic variables. & Tabular (Multi-class) & 526M & 24 & 275 \\ \addlinespace
+    
+    Volcanic Eruptions & Predict time to next eruption from seismic sensors. & Time-Series (Reg.) & 15G & 50 & 1,213 \\ \addlinespace
+    
+    Ventilator Pressure & Predict airway pressure from control inputs. & Time-Series (Reg.) & 291M & 50 & 1,222 \\ \addlinespace
+    
+    TF Speech Recognition & Identify spoken commands from audio clips. & Audio (Multi-class) & 2G & 46 & 1,011 \\ 
+    \bottomrule
+    \end{tabular}
+    
+    % 【关键步骤】让表格编号倒退 1
+    \addtocounter{table}{-1}
+    
+    \caption{Detailed metadata for all 26 tasks (Part 2 of 2). Continued from previous page.}
+    \label{tab:appendix_task_details_part2}
+    
+\end{table*}

@@ -1,0 +1,24 @@
+
+\subsection{Agent Framework}
+We build \method based upon Smolagents \citep{smolagents} framework. Specifically, we add the prospective reflection mechanism and dynamic re-planning to the \texttt{CodeAgent} class. Therefore, the agent that executes all the tool calls and reasonings is a single agent. Due to resource limitations, we set the maximum action steps to 20. For re-planning, we enforce at least 2 extra planning steps to ensure there's room for the agent to perform periodic summarization and planning. Therefore, except for the initial planning stage, if there is not at least one updated planning step between the 1st to 6th steps, and 7th to 12th steps, we enforce the agent to update the plan at the 6th and 12th steps. The prompt for planning follows the default prompt in Smolagents for the \texttt{CodeAgent} class.
+
+\subsection{Tools}
+We use the minimum necessary tools for both GAIA and SimpleQA, and all the experiments except Table~\ref{tab:comp_frame} are done with the same tool set.
+\begin{itemize}
+    \item Web Search: Due to resource limitations, we use the default web search tool in Smolagents and use the DuckDuckGoSearch as the search engine.
+    \item Visit Webpage: Similarly, we use the default visit webpage tool in Smolagents, which is powered by `requests' and `markdownify' libraries.
+    \item Text Inspector: This tool enables the agent to parse diverse document types (e.g., .pdf, .docx, .pptx, .xlsx, .html) into Markdown text via a MarkdownConverter. It supports both raw content retrieval and query-based analysis, returning structured responses with brief answers, detailed analysis, and document context. This tool can also be found in Smolagent's example of using the ODR agent to run GAIA tasks.
+    \item Visual Inspector: Designed for image processing (.jpg, .png, .gif, .bmp), this tool utilizes a Vision-Language Model to interpret visual data. It automatically generates detailed captions or performs targeted visual question-answering by encoding images into Base64 for API-based inference.
+    \item Audio Inspector: This tool facilitates auditory analysis by transcribing files (.mp3, .m4a, .wav) using the OpenAI Whisper-1 model \citep{radford2023robust}. It provides either a direct transcription or a structured three-part response (brief, detailed, and contextual) to specific natural language questions regarding the audio content.
+\end{itemize}
+
+For the LLM-powered tools, we uniformly adopt Gemini-3-flash-preview (i.e., \texttt{gemini-3-flash-preview}) for all the experiments in order to ensure the most advanced multi-modal processing ability.
+
+\subsection{Reflection}
+
+We utilize a separate agent (i.e., the reflector) to handle prospective reflection in order to achieve maximum lightweight and clear context. Specifically, whenever a plan is generated, we call an agent powered by the same backbone LLM to execute a multi-turn conversation where both plan reflection and revision are completed. The system prompt specifies the planning errors and instructions, and assigns the role of a reflector to the agent. In the first turn of conversation, we input the task, plan, available tools, and a summarization of past actions, and expect to obtain an analytical diagnosis of the plan. If any critical error is detected, we enter the second turn to revise the plan, utilizing the success and failure patterns in the planning errors as a reference. All the prompts are provided in Appendix~\ref{appendix:prompt}.
+
+\subsection{LLM Settings}
+We call OpenAI API to use GPT-4.1 model (i.e., \texttt{gpt-4.1-2025-04-14}) and use the \texttt {OpenAIModel} class in Smolagents to load the model, with exactly the default parameters across all the experiments. Similarly, we utilize the \texttt{LiteLLMModel} class to load Gemini models, such as Gemini-2.5-pro (i.e., \texttt{gemini-2.5-pro}), and also follow the default parameters.
+
+As for the SimpleQA evaluation pipeline, which adopts an LLM-as-a-judge fashion, we utilize GPT-4o (i.e., \texttt{gpt-4o-2024-08-06}) to determine whether the agent's answer is correct, incorrect, or not attempted.

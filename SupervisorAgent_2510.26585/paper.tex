@@ -1,0 +1,59 @@
+
+\documentclass{article} %
+\usepackage{configuration/iclr2026_conference,times}
+
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{enumitem}
+
+\usepackage{booktabs}
+\usepackage{xcolor} %
+\usepackage{graphicx} %
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{makecell}
+
+\input{resources/preamble.tex}
+\title{Stop Wasting Your Tokens: Towards Efficient Runtime Multi-Agent Systems}
+
+
+\author{%
+    Fulin Lin$^{1,}$\thanks{Work was done during Fulin's visit to Westlake University.} \quad Shaowen Chen$^{1}$ \quad Ruishan Fang$^{2,1}$ \quad Hongwei Wang$^{1,3,\dag}$  \quad Tao Lin$^{2,}$\thanks{Corresponding authors.}\\
+  $^1$Zhejiang University \quad
+  $^2$Westlake University \\
+  $^3$State Key Laboratory of CAD\&CG, Zhejiang University \\
+  \texttt{\{fulin1.24, hongweiwang\}@intl.zju.edu.cn} \quad \texttt{swenchen@zju.edu.cn} \\ \texttt{\{fangruishan, lintao\}@westlake.edu.cn}
+}
+
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\iclrfinalcopy %
+\begin{document}
+
+
+\maketitle
+
+\input{resources/main.tex}
+
+\newpage
+\section*{Acknowledgements}
+This work was supported in part by the National Key Research and Development Program of China (2024YFF0907803), Research Fund for International Scientists of National Natural Science Foundation of China (72350710798), National Natural Science Foundation of China (NSFC) under No.\ 62576285, 62276230, Research Center for Industries of the Future (RCIF) at Westlake University, and Westlake Education Foundation.
+
+\section*{Ethics Statement}
+Our work aims to improve the reliability and efficiency of Multi-Agent Systems, a crucial step for developing practical and beneficial autonomous technologies. We believe that by introducing a mechanism for real-time supervision, our framework provides a paradigm not only for performance optimization but also for enhancing the safety and predictability of future agentic systems. Our research was conducted on publicly available benchmarks, did not involve private user data, and adheres to the ICLR Code of Ethics.
+
+
+\section*{Reproducibility Statement}
+We are committed to ensuring our work is reproducible. The core architecture and logic of \method{} are detailed in Section~\ref{sec:methodology}, with theoretical formalisms in Section~\ref{sec:preliminary}. For direct replication, we provide all implementation details and final prompts in Appendix~\ref{implementation_details},~\ref{appendix:prompt}, and our code is available at \url{https://github.com/LINs-lab/SupervisorAgent}. The datasets and metrics used in our extensive experiments (Section~\ref{sec:experiments}) are all based on publicly available benchmarks, allowing for direct comparison and validation of our results.
+
+
+\bibliography{resources/reference}
+\bibliographystyle{configuration/iclr2026_conference}
+
+\clearpage
+\appendix
+\input{resources/appendix.tex}
+\end{document}

@@ -1,0 +1,103 @@
+\begin{table*}[!ht]
+    \centering
+    \footnotesize 
+    \renewcommand{\arraystretch}{1.2} 
+    \setlength{\tabcolsep}{1.1pt} 
+    
+    \newcommand{\sres}[2]{{\scriptsize $#1_{\pm #2}$}}
+    \newcommand{\res}[2]{$#1_{\pm #2}$}
+    \newcommand{\bsres}[2]{{\scriptsize $\bm{#1}_{\pm \bm{#2}}$}}
+    \newcommand{\bres}[2]{$\bm{#1}_{\pm \bm{#2}}$}
+    
+    \begin{tabular}{ll | ccc | ccc | ccc | c}
+        \toprule
+        % ================= Header Row 1 =================
+        \multicolumn{2}{r|}{\hfill \textit{\textbf{(Acc. \%)}} \textbf{Task Dims.} $\rightarrow$\hspace{0.5em}} & \multicolumn{3}{c|}{\textit{Domain}} & \multicolumn{3}{c|}{\textit{Difficulty}} & \multicolumn{3}{c|}{\textit{Task Paradigm}} & \textbf{Sols.} \\
+        
+        \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11}
+        
+        % ================= Header Row 2 =================
+        \multicolumn{2}{l|}{\hspace{0.2em}$\downarrow$ \textbf{Sols. Attrs.} \hfill } & CV & NLP & Data Sci. & Easy & Med. & Hard & Class. & Regres. & Others & \textbf{Avg Acc} \\ % 【修改点 3】Perf. 改为 Avg. Acc.
+        \midrule
+
+        % ================= DeepSeek Block =================
+        \rowcolor{myblue!8} 
+        \multicolumn{12}{c}{\textbf{\raisebox{-0.15em}{\includegraphics[height=0.9em]{figures/deepseek_logo.png}} DeepSeek-V3.2 (Thinking mode)}} \\ 
+        \midrule
+        
+        % --- Algo Era (PRESERVED) ---
+        \rowcolor{myblue!4}
+          & Traditional & \sres{60.2}{0.9} & \sres{70.6}{0.6} & \sres{59.3}{0.5} & \sres{59.8}{1.1} & \sres{69.1}{0.2} & \sres{61.1}{0.7} & \sres{61.5}{0.5} & \sres{61.2}{0.7} & \sres{76.2}{0.5} & \cellcolor{myblue!10}\bres{64.5}{0.6} \\
+        
+        \rowcolor{myblue!4}
+        \multirow{-2}{*}{\textit{Algo Era}} 
+          & Modern      & \sres{59.1}{0.5} & \sres{65.0}{0.1} & \sres{56.3}{0.5} & \sres{60.7}{0.3} & \sres{61.7}{0.3} & \sres{55.1}{0.6} & \sres{57.8}{0.2} & \sres{62.5}{0.4} & \sres{62.3}{0.5} & \cellcolor{myblue!10}\res{60.4}{0.2} \\
+        \cmidrule(l){1-12}
+        
+        % --- Granularity (PRESERVED) ---
+        \rowcolor{myblue!4}
+          & Cross-Algo  & \sres{56.6}{0.3} & \sres{68.9}{0.7} & \sres{58.4}{0.9} & \sres{57.6}{1.0} & \sres{68.2}{0.4} & \sres{57.7}{1.5} & \sres{59.8}{0.7} & \sres{60.6}{0.7} & \sres{74.1}{0.9} & \cellcolor{myblue!10}\bres{62.8}{0.6} \\
+        
+        \rowcolor{myblue!4}
+        \multirow{-2}{*}{\textit{Granularity}} 
+          & Self-Comp.  & \sres{60.1}{0.6} & \sres{65.1}{0.2} & \sres{56.3}{0.8} & \sres{61.6}{0.3} & \sres{60.9}{0.4} & \sres{56.5}{1.0} & \sres{58.2}{0.1} & \sres{62.9}{0.4} & \sres{62.1}{0.5} & \cellcolor{myblue!10}\res{60.7}{0.1} \\
+        \cmidrule(l){1-12}
+        
+        % --- Complexity (PRESERVED) ---
+        \rowcolor{myblue!4}
+          & Low         & \sres{57.6}{0.4} & \sres{69.8}{0.5} & \sres{57.2}{0.3} & \sres{58.9}{0.6} & \sres{66.2}{0.2} & \sres{58.9}{0.7} & \sres{58.6}{0.2} & \sres{61.6}{0.2} & \sres{73.3}{0.9} & \cellcolor{myblue!10}\bres{62.1}{0.3} \\
+        
+        \rowcolor{myblue!4}
+          & Medium      & \sres{59.6}{0.3} & \sres{65.1}{0.1} & \sres{58.1}{0.2} & \sres{60.5}{0.2} & \sres{63.3}{0.1} & \sres{56.6}{0.2} & \sres{58.1}{0.2} & \sres{63.4}{0.3} & \sres{64.6}{0.6} & \cellcolor{myblue!10}\res{61.3}{0.1} \\
+          
+        \rowcolor{myblue!4}
+        \multirow{-3}{*}{\textit{Complexity}} 
+          & High        & \sres{61.2}{2.0} & \sres{80.1}{0.7} & \sres{50.0}{1.1} & \sres{76.8}{2.8} & \sres{58.4}{1.6} & \sres{52.7}{0.9} & \sres{60.3}{2.5} & \sres{58.4}{1.4} & \sres{61.3}{1.7} & \cellcolor{myblue!10}\res{59.6}{1.4} \\
+        
+        \midrule 
+        % --- Overall Performance (FILLED) ---
+        \rowcolor{myblue!10}
+        \multicolumn{2}{l|}{\textbf{Tasks Avg Acc}} 
+        & \res{59.3}{0.5} & \bres{66.9}{0.2} & \res{57.4}{0.2} & \res{60.4}{0.5} & \bres{63.9}{0.2} & \res{57.0}{0.3} & \res{58.9}{0.3} & \res{62.1}{0.1} & \bres{66.8}{0.5} & \cellcolor{myblue!20}\textbf{\bres{61.5}{0.2}} \\ 
+
+        \midrule
+        \addlinespace[0.5em]
+
+        % ================= GPT-5 Block =================
+        \multicolumn{12}{c}{\textbf{\raisebox{-0.1em}{\includegraphics[height=0.9em]{figures/openai_logo.png}} GPT-5.1}} \\ 
+        \midrule
+        
+        % --- Algo Era (PRESERVED) ---
+        \multirow{2}{*}{\textit{Algo Era}} 
+          & Traditional & \sres{60.1}{0.4} & \sres{64.7}{0.2} & \sres{59.5}{0.2} & \sres{56.6}{0.4} & \sres{65.5}{0.2} & \sres{63.4}{0.3} & \sres{59.3}{0.6} & \sres{62.2}{0.2} & \sres{67.2}{0.3} & \cellcolor{gray!10}\bres{62.0}{0.2} \\
+          & Modern      & \sres{54.5}{0.2} & \sres{62.2}{0.8} & \sres{56.3}{0.1} & \sres{55.1}{0.4} & \sres{59.9}{0.4} & \sres{57.9}{0.0} & \sres{56.4}{0.5} & \sres{58.2}{0.5} & \sres{59.8}{0.6} & \cellcolor{gray!10}\res{57.7}{0.3} \\
+        \cmidrule(l){1-12}
+        
+        % --- Granularity (PRESERVED) ---
+        \multirow{2}{*}{\textit{Granularity}} 
+          & Cross-Algo  & \sres{58.0}{1.1} & \sres{61.2}{0.3} & \sres{56.7}{0.1} & \sres{55.3}{0.7} & \sres{61.3}{0.2} & \sres{59.8}{0.1} & \sres{55.7}{0.8} & \sres{61.7}{0.3} & \sres{62.0}{0.5} & \cellcolor{gray!10}\bres{59.0}{0.3} \\
+          & Self-Comp.  & \sres{54.8}{0.0} & \sres{64.2}{1.0} & \sres{57.7}{0.1} & \sres{55.3}{0.4} & \sres{61.6}{0.4} & \sres{59.2}{0.2} & \sres{58.0}{0.7} & \sres{57.6}{0.5} & \sres{62.2}{0.7} & \cellcolor{gray!10}\res{58.7}{0.3} \\
+        \cmidrule(l){1-12}
+        
+        % --- Complexity (PRESERVED) ---
+        \multirow{3}{*}{\textit{Complexity}} 
+          & Low         & \sres{56.4}{0.2} & \sres{66.6}{0.5} & \sres{56.2}{0.2} & \sres{56.8}{0.5} & \sres{64.2}{0.2} & \sres{57.6}{0.2} & \sres{57.9}{0.7} & \sres{59.3}{0.2} & \sres{68.7}{0.3} & \cellcolor{gray!10}\bres{60.1}{0.3} \\
+          & Medium      & \sres{55.8}{0.2} & \sres{60.6}{0.6} & \sres{59.3}{0.2} & \sres{54.6}{0.4} & \sres{61.2}{0.3} & \sres{61.1}{0.2} & \sres{56.5}{0.5} & \sres{60.0}{0.5} & \sres{60.5}{0.6} & \cellcolor{gray!10}\res{58.6}{0.3} \\
+          & High        & \sres{50.8}{0.3} & \sres{79.0}{0.8} & \sres{57.2}{1.5} & \sres{44.2}{2.7} & \sres{56.2}{0.4} & \sres{59.7}{1.6} & \sres{56.0}{0.7} & \sres{54.5}{0.7} & \sres{56.2}{1.1} & \cellcolor{gray!10}\res{55.3}{0.3} \\
+        
+        \midrule
+        % --- Overall Performance (FILLED) ---
+        \rowcolor{gray!10}
+        \multicolumn{2}{l|}{\textbf{Tasks Avg Acc}} 
+        & \res{55.4}{0.2} & \bres{63.0}{0.6} & \res{57.4}{0.1} & \res{55.5}{0.4} & \bres{61.6}{0.3} & \res{59.7}{0.1} & \res{57.2}{0.5} & \res{59.2}{0.3} & \bres{62.2}{0.5} & \cellcolor{gray!20}\textbf{\res{58.8}{0.3}} \\
+        
+        \bottomrule
+    \end{tabular}
+
+    \caption{\textbf{Main Results: Predictive Capability and Boundary Analysis.} 
+    This table presents the Pairwise Preference Accuracy (\%) of the evaluated LLMs averaged over three runs, stratified by Task Dimensions and Solution Attributes. Results are reported as Mean $_{\pm \text{Stdev}}$. 
+    \textbf{DeepSeek-V3.2 (Thinking Mode)} and \textbf{GPT-5.1} achieve global averages of \textbf{61.5\%} and \textbf{58.8\%} respectively, significantly outperforming the random baseline of \textbf{50\%} and the complexity-based heuristic baseline of \textbf{50.8\%}.} 
+    
+    \label{tab:final_compact_matrix_clean}
+    
+\end{table*}

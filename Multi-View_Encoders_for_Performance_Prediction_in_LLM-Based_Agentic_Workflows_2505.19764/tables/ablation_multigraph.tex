@@ -1,0 +1,32 @@
+% \begin{table}[t]
+% \caption{Results of ablation study on different input graph variations.}
+% \label{table:ablation_multigraph}
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{@{}cc|cc|cc|cc|cc@{}}
+% \toprule
+% \multicolumn{2}{c}{\textbf{Graph Variations}}    & \multicolumn{2}{|c}{\textbf{Code Generation}} & \multicolumn{2}{|c}{\textbf{Math Problem}} & \multicolumn{2}{|c}{\textbf{Reasoning Task}} & \multicolumn{2}{|c}{\textbf{Average}} \\ \midrule
+% \textbf{Single Graph} & \textbf{Multi Graph} & \textbf{Accuracy}  & \textbf{Utility}  & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy}  & \textbf{Utility}  & \textbf{Accuracy} & \textbf{Utility} \\ \midrule
+% $\checkmark$                    &                     & 82.58±0.54         & 78.52±2.91        & 78.57±0.73        & 67.51±2.11       & 86.95±0.13         & 90.14±3.10        & 82.70±0.47        & 78.72±2.71       \\
+%                      & $\checkmark$                   & 84.44±0.31         & 77.22±3.46        & 79.14±0.28        & 67.99±3.36       & 87.00±0.21         & 91.03±1.23        & 83.53±0.27        & 78.75±2.68       \\ \bottomrule
+% \end{tabular}%
+% }
+% \vspace*{-0.2cm}
+% \end{table}
+
+
+
+\begin{table}[t]
+\centering
+\caption{Results of ablation study on different input graph variations.}
+\label{table:ablation_multigraph}
+\resizebox{0.8\textwidth}{!}{%
+\begin{tabular}{@{}cc|cc|cc|cc|cc@{}}
+\toprule
+\multicolumn{2}{c}{\textbf{Variations}} & \multicolumn{2}{|c}{\textbf{Code Generation}} & \multicolumn{2}{|c}{\textbf{Math Problem}} & \multicolumn{2}{|c}{\textbf{Commong Reasoning}} & \multicolumn{2}{|c}{\textbf{Average}} \\ \midrule 
+\textbf{Single View} & \textbf{Multi View} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} & \textbf{Accuracy} & \textbf{Utility} \\ \midrule \midrule
+$\checkmark$ &  & 82.58 & \textbf{78.52} & 78.57 & 67.51 & 86.95 & 90.14 & 82.70 & 78.72 \\
+ & $\checkmark$ & \textbf{84.44} & 77.22 & \textbf{79.14} & \textbf{67.99} & \textbf{87.00} & \textbf{91.03} & \textbf{83.53} & \textbf{78.75} \\ \bottomrule
+\end{tabular}%
+}
+\vspace*{-0.3cm}
+\end{table}

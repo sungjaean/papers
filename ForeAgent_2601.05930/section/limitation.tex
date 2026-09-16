@@ -1,0 +1,17 @@
+\section*{Limitations}
+\label{sec:limitation}
+
+\paragraph{Corpus Imbalance and Domain Coverage.}
+Although our corpus encompasses 18,438 pairs across 26 tasks, the distribution remains inherently skewed.
+Mainstream paradigms like Classification and Regression dominate the dataset, whereas niche scientific tasks (e.g., Audio Classification, Tabular Grading) are represented by significantly smaller sample sizes.
+Consequently, while the model demonstrates strong general capabilities, its reliability in extremely low-resource or highly specialized scientific domains may vary, and the current evaluation may not fully reflect the challenges of these long-tail scenarios.
+Furthermore, the Verified Data Report currently relies on metadata for unstructured domains like CV and NLP, leaving the integration of multimodal data analysis agents for deeper semantic profiling to future work.
+
+
+\paragraph{Agent Framework Implementation.}
+To validate the model's utility, we prioritized stability, instantiating \ours with a conservative \textit{Predict-then-Verify} loop.
+This design alternates strictly between singular prediction and execution, barely scratching the surface of potential inference-time strategies.
+Specifically, we have not exhaustively explored advanced architectural variants or hyperparameter configurations within this paradigm, implying that the current implementation has not yet been pushed to its optimal limit.
+Therefore, the reported performance likely represents a lower bound of the framework's capability.
+Beyond this specific instantiation, we identify the framework's broader potential as a scalable \textit{Reward Model}.
+By providing dense, execution-free feedback, it paves the way for accelerating Reinforcement Learning rollouts and serves as a plug-and-play optimization module adaptable to diverse agent frameworks.

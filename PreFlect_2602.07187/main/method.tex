@@ -1,0 +1,109 @@
+
+
+We organize this section as follows: Section~\ref{subsec:overview} provides an overview of our proposed method. In Section~\ref{subsec:reflect}, we expand on the core concept of prospective reflection, with Section~\ref{subsubsec:plan_error} introducing planning errors and Section~\ref {subsubsec:ref_rev} explaining how \method reflects on and revises the plan. Finally, in Section~\ref{subsec:arp}, we show how dynamic re-planning and prospective reflection complement each other.
+
+\subsection{Overview of \method}
+\label{subsec:overview}
+
+Figure~\ref{fig:main} provides an overview of \method by contrasting it with a standard agent workflow and illustrating how prospective reflection and execution-time dynamic re-planning are integrated into a unified loop.
+The top of the figure shows the \emph{basic agent workflow}. Given a task input, the agent first generates a plan that decomposes the task into a sequence of steps based on the currently known conditions. The agent then executes the plan through an iterative \textit{think--act--observe} loop, during which it reasons about the next step, takes an action, and observes the environment. This execution loop repeats until the task is completed, at which point the final output is produced.
+The bottom of the figure depicts the workflow of \method. The left part highlights the \emph{planning and prospective reflection module}. After an initial plan is generated, a reflector examines the plan \emph{before execution} by leveraging a set of distilled planning errors, which summarize common failure and success patterns observed from historical agent trajectories. The reflector detects potential planning errors and revises the plan accordingly. This process iterates until a validated plan is produced, which is then passed to the execution stage.
+The right part of the figure shows how execution proceeds under \method and how \emph{execution-time dynamic re-planning} is handled. Similar to the basic workflow, the agent executes the validated plan using the \textit{think--act--observe} loop. During execution, the agent continuously monitors the trajectory. When the current trajectory becomes infeasible or deviates from the validated plan, a re-planning trigger is activated. Importantly, dynamic re-planning does not rewind or discard the past trajectory; instead, it \emph{appends a new planning and prospective reflection phase} that is conditioned on the execution history so far. As illustrated inside the dynamic re-planning workflow, this re-planning step reuses the same planning and prospective reflection module shown on the left, ensuring that all newly generated plans, whether initial or re-generated during execution, are validated prospectively before further actions are taken.
+
+Overall, \method forms a single closed-loop system in which prospective reflection is applied both prior to initial execution and whenever re-planning is required, enabling the agent to anticipate and mitigate planning errors before they manifest as irreversible execution failures. In the following, we will step into the design details of each component.
+
+
+
+
+
+
+
+
+\subsection{Prospective Reflection}
+\label{subsec:reflect}
+
+The core component of our proposed \method is a \textit{prospective reflection} mechanism where the agent reflects on the plan based on distilled error patterns, identifies critical errors, and replaces the original plan with a revised one to avoid future failures.
+
+\subsubsection{Planning Errors}
+\label{subsubsec:plan_error}
+Unlike retrospective reflection, which corrects errors through post-execution trajectory review, prospective reflection must reason about potential failures before they occur, and is therefore subject to greater uncertainty. Without grounded guidance, such forward-looking critique can become unreliable or overly speculative. To address this challenge, we adopt an \emph{offline} distillation process that extracts common error modes and success/failure patterns from an agent’s past experience, providing experiential priors that enable more accurate prospective reflection.
+
+
+
+
+
+\noindent\textbf{Trajectory Collection.} 
+Constructing Planning Errors requires leveraging the agent’s own experience across diverse tasks. For each task, we sample three trajectories and identify cases with \textit{mixed outcomes}, where the agent produces both successful and failed attempts. This contrastive setting highlights the key differences between effective and ineffective strategies, facilitating the extraction of recurring planning-level failure patterns. To promote generalization and avoid overfitting, the data used for Planning Error construction is disjoint from all evaluation benchmarks.
+
+\noindent\textbf{Diagnosis.} 
+Given these mixed trajectories, we prompt an LLM to conduct a comparative diagnostic analysis. The diagnosis focuses on identifying critical errors in failed trajectories that arise from planning deficiencies and could be avoided through improved planning. In parallel, it analyzes how successful trajectories circumvent or resolve these pitfalls. Each diagnostic result produces one or more error types, along with corresponding descriptions, impacts, and supporting evidence. This process allows us to isolate the exact planning failures that differentiate success from failure.
+
+
+
+\vspace{-5pt}
+\begin{tcolorbox}[
+    colback=gray!5,
+    colframe=gray!50!black,
+    title=\textbf{An Example in Planning Errors},
+    fonttitle=\bfseries,
+    breakable
+]
+
+\textbf{Error Type:} \texttt{\textcolor{red!70!black}{insufficient constraint verification}}
+
+\tcbline
+\vspace{-8pt}
+\begin{description}[
+    leftmargin=0.0em,      
+    font=\bfseries\itshape, 
+    itemsep=-0.5em    
+]
+    
+    \resultitem{Description:}{The plan identifies a potential answer but fails to rigorously verify it against all specific constraints or conditions in the prompt \dots It relies on \dots without including steps to explicitly confirm that the candidate satisfies every requirement \dots}
+    
+    \resultitem{Success Example:}{In a task identifying an actor \dots the agent identified Michael Gambon and correctly verified that \dots ensuring he met the specific constraint.}
+    
+    \resultitem{Failure Example:}{In a task identifying an actor \dots the agent identified Richard Griffiths because \dots However, the plan failed to verify \dots leading to an incorrect answer.}
+
+\end{description}
+
+\end{tcolorbox}
+
+\noindent\textbf{Aggregation.} The final stage of our framework synthesizes individual diagnoses into a unified taxonomy of planning errors. We employ an LLM-based aggregator to construct this taxonomy by iteratively comparing each new diagnostic entry against the existing error set. For each entry, the aggregator determines whether to instantiate a new error category, merge it into an existing profile, or discard it as redundant. This process distills generalizable planning-level failure modes that transcend specific task instances, ensuring broad applicability. In parallel, the LLM summarizes empirical evidence and trajectory impacts into concrete success and failure patterns. The resulting Planning Errors therefore connect high-level reasoning deficiencies with recurring behavioral signatures, providing informative priors for downstream reflection. After the initial LLM-driven synthesis, we perform a final manual refinement step to remove categories that are overly narrow or task-dependent (e.g., errors specific to a particular query formulation). This yields a finalized set of three core error types:
+\begin{enumerate*}[label=\arabic*)]
+    \item insufficient constraint verification
+    \item ineffective tool selection
+    \item shallow content verification,
+\end{enumerate*}
+capturing failures in constraint maintenance, tool usage, and content understanding. Notably, these errors are designed to be domain-agnostic, maximizing their utility across diverse agentic tasks. For more details, please refer to Appendix~\ref{appendix:error}.
+
+% \texttt{insufficient constraint verification}, \texttt{ineffective tool selection}, and \texttt{shallow content verification}
+
+\subsubsection{Reflection \& Revision}
+\label{subsubsec:ref_rev}
+\noindent\textbf{Error Identification.} After a plan is generated, a reflector agent evaluates it to identify potential critical errors before execution. To improve accuracy and reduce false positives, the reflector leverages the distilled Planning Errors as grounded reference priors. By conditioning reflection directly on these domain-agnostic failure modes, the agent can perform more structured and reliable prospective critique.
+
+
+
+
+
+Particularly, the agent summarizes its previous actions to have a comprehensive understanding of the task and current states. Meanwhile, the agent analyzes available tools and learns how and why some tools fail or succeed in the environment of the current task.
+This self-awareness helps foster more accurate and fact-based prospective reflection, enabling foresight into future scenarios, such as knowing whether a tool should be avoided under a certain circumstance before even attempting it. After gathering enough information about the current states, the reflector critiques the proposed plan by checking whether it exhibits patterns aligned with any known Planning Errors. If a flaw is detected, the agent revises the plan accordingly, producing a higher-quality strategy prior to action execution.
+
+
+
+\noindent\textbf{Plan Revision.} Given the identified errors in the previous step, the agent now switches its attention to how to comprehensively develop an updated plan to impact the future positively. Notably, the planning errors collection contains contrastive examples of short trajectory segments where positive examples demonstrate how the agent avoids such an error, while negative ones expand on how the agent is misled to failure. Combining the high-level error description with these concrete cases, the agent is enabled to match its current state with the error information and find out the optimal path toward success.
+
+
+ 
+\subsection{Dynamic Re-Planning}
+\label{subsec:arp}
+Although Planning Errors provide grounded experiential priors for prospective reflection, reasoning about future failures remains inherently uncertain, and the agent may still overlook critical risks during execution. To complement planning-phase reflection, we introduce a dynamic re-planning mechanism that enables the agent to adapt its strategy online when the environment reveals unexpected obstacles. Notably, whenever re-planning is triggered, prospective reflection is invoked again to assess potential risks in the updated plan.
+
+
+
+\noindent\textbf{Dynamic Plan Updating.} 
+During execution, the agent continuously gathers new observations through interaction with the environment. Such feedback may invalidate earlier assumptions, causing the original plan to become suboptimal or infeasible. Since many execution-time constraints are only revealed at runtime (e.g., unavailable tool outputs or missing external information), proactive reflection alone cannot guarantee optimal trajectories under evolving states.
+To address this, we equip the agent with a \texttt{re-plan} operation that can be triggered whenever progress stalls or feasibility conditions are violated. Following the ReAct paradigm, the agent explicitly reasons about the current execution state and identifies why the existing plan is no longer effective before invoking re-planning. The agent then generates an updated strategy and immediately resumes execution under the revised plan. Implementation details are provided in Appendix~\ref{appendix:imp}.
+
+

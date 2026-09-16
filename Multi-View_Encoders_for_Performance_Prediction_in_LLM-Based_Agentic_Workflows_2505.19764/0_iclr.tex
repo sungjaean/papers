@@ -1,0 +1,125 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2026_conference,times}
+
+% Optional math commands from https://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage[colorlinks, urlcolor=Violet, linkcolor=RubineRed, citecolor=Blue, backref=page]{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage[dvipsnames, table]{xcolor}         % colors
+
+
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\usepackage{enumitem}
+\usepackage[many]{tcolorbox}    	% for COLORED BOXES (tikz and xcolor included)
+\usepackage{listings}
+
+\usepackage{amssymb}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage[caption=false]{subfig}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage{array}
+
+\usepackage[many]{tcolorbox}    	% for COLORED BOXES (tikz and xcolor included)
+\tcbuselibrary{listings, breakable}
+\lstset{
+basicstyle=\scriptsize\ttfamily,
+columns=flexible,
+breaklines=true,
+showstringspaces=false
+}
+\newtcolorbox{promptBox}[1]{
+    title=\textbf{#1},
+    breakable,
+    fonttitle=\bfseries,
+    % sharpish corners, % better drop shadow
+    boxrule = 1pt,
+    toprule = 3pt, % top rule weight
+    colframe = RoyalBlue,
+    enhanced,
+    rounded corners,
+    arc = 2pt,   % corners roundness
+    top=1mm,bottom=1mm,left=1mm,right=1mm    % fuzzy shadow = {0pt}{-2pt}{-0.5pt}{0.5pt}{black!35} % {xshift}{yshift}{offset}{step}{options} 
+}
+
+\newcommand{\ours}{Agentic\,Predictor}
+\newcommand{\algorithmautorefname}{Algorithm}
+
+
+\title{Multi-View Encoders for Performance Prediction in LLM-Based Agentic Workflows}
+
+% Authors must not appear in the submitted version. They should be hidden
+% as long as the \iclrfinalcopy macro remains commented out below.
+% Non-anonymous submissions will be rejected without review.
+
+
+\author{Patara Trirat\textsuperscript{1}, Wonyong Jeong\textsuperscript{1}, Sung Ju Hwang\textsuperscript{1\,2} \\
+\textsuperscript{1}DeepAuto.ai, \textsuperscript{2}KAIST \\
+\texttt{\{patara, young, sjhwang\}@deepauto.ai}
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+Large language models\,(LLMs) have demonstrated remarkable capabilities across diverse tasks, but optimizing LLM-based agentic systems remains challenging due to the vast search space of agent configurations, prompting strategies, and communication patterns. Existing approaches often rely on heuristic-based tuning or exhaustive evaluation, which can be computationally expensive and suboptimal. This paper proposes \textbf{\ours{}}, a lightweight predictor for efficient agentic workflow evaluation. \ours{} is equipped with a \emph{multi-view workflow encoding} technique that leverages multi-view representation learning of agentic systems by incorporating code architecture, textual prompts, and interaction graph features. To achieve high predictive accuracy while significantly reducing the number of required workflow evaluations for training a predictor, \ours{} employs \emph{cross-domain unsupervised pretraining}. By learning to approximate task success rates, \ours{} enables fast and accurate selection of optimal agentic workflow configurations for a given task, significantly reducing the need for expensive trial-and-error evaluations. Experiments on a carefully curated benchmark spanning three domains show that our predictor outperforms several strong graph-based baselines in both predictive accuracy and workflow utility, highlighting the potential of performance predictors in streamlining the design of LLM-based agentic workflows.
+\end{abstract}
+
+
+
+% BEGIN MAIN TEXT
+\input{1_Introduction}
+\input{2_RelatedWork}
+\input{3_Method}
+\input{4_Experiments}
+\input{5_Conclusions}
+% END MAIN TEXT
+
+
+% \subsubsection*{Author Contributions}
+% If you'd like to, you may include  a section for author contributions as is done
+% in many journals. This is optional and at the discretion of the authors.
+
+\subsubsection*{Acknowledgments}
+This work was conducted as part of the research activities at DeepAuto.ai. This work was supported by Institute for Information \& communications Technology Planning \& Evaluation\,(IITP) grant funded by the Korea government\,(MSIT) (RS-2019-II190075, Artificial Intelligence Graduate School Program\,(KAIST)), IITP grant funded by MSIT (No.RS-2022-II220713, Meta-learning Applicable to Real-world Problems), Center for Applied Research in Artificial Intelligence\,(CARAI) grant funded by DAPA and ADD (UD190031RD), and National Research Foundation of Korea\,(NRF) grant funded by the Korea government\,(MSIT) (No. RS-2023-00256259).
+
+
+
+
+\section*{Reproducibility Statement}
+We facilitate reproducibility by providing an anonymous repository with all source code at \url{https://github.com/DeepAuto-AI/agentic-predictor}. \autoref{alg:pseudo_code} provides the complete pseudocode of the proposed framework. For experimental consistency, the random seed for each run is $2^r$, where $r$ is the running index starting from 0.
+
+\bibliography{6_References}
+\bibliographystyle{iclr2026_conference}
+
+\appendix
+\input{7_Appendix}
+
+
+\end{document}
